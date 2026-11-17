@@ -1,91 +1,97 @@
-ALLOWED 10.0.10.1 -> 10.0.40.10: OK (replies=2)
+ALLOWED 10.0.10.1 -> 10.0.40.10: OK (replies=3)
 PING 10.0.40.10 (10.0.40.10) 56(84) bytes of data.
-64 bytes from 10.0.40.10: icmp_seq=2 ttl=64 time=16.5 ms
-64 bytes from 10.0.40.10: icmp_seq=3 ttl=64 time=9.02 ms
+64 bytes from 10.0.40.10: icmp_seq=1 ttl=64 time=30.4 ms
+64 bytes from 10.0.40.10: icmp_seq=2 ttl=64 time=9.39 ms
+64 bytes from 10.0.40.10: icmp_seq=3 ttl=64 time=9.04 ms
 
 --- 10.0.40.10 ping statistics ---
-3 packets transmitted, 2 received, 33.3333% packet loss, time 2004ms
-rtt min/avg/max/mdev = 9.024/12.770/16.516/3.746 ms
+3 packets transmitted, 3 received, 0% packet loss, time 2001ms
+rtt min/avg/max/mdev = 9.039/16.260/30.355/9.967 ms
 
-ALLOWED 10.0.20.1 -> 10.0.40.20: OK (replies=2)
+ALLOWED 10.0.20.1 -> 10.0.40.20: OK (replies=3)
 PING 10.0.40.20 (10.0.40.20) 56(84) bytes of data.
-64 bytes from 10.0.40.20: icmp_seq=2 ttl=64 time=16.2 ms
-64 bytes from 10.0.40.20: icmp_seq=3 ttl=64 time=9.20 ms
+64 bytes from 10.0.40.20: icmp_seq=1 ttl=64 time=28.5 ms
+64 bytes from 10.0.40.20: icmp_seq=2 ttl=64 time=9.90 ms
+64 bytes from 10.0.40.20: icmp_seq=3 ttl=64 time=9.13 ms
 
 --- 10.0.40.20 ping statistics ---
-3 packets transmitted, 2 received, 33.3333% packet loss, time 2034ms
-rtt min/avg/max/mdev = 9.199/12.675/16.151/3.476 ms
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 9.134/15.828/28.455/8.933 ms
 
-ALLOWED 10.0.30.1 -> 10.0.40.30: OK (replies=2)
+ALLOWED 10.0.30.1 -> 10.0.40.30: OK (replies=3)
 PING 10.0.40.30 (10.0.40.30) 56(84) bytes of data.
-64 bytes from 10.0.40.30: icmp_seq=2 ttl=64 time=16.2 ms
-64 bytes from 10.0.40.30: icmp_seq=3 ttl=64 time=9.14 ms
+64 bytes from 10.0.40.30: icmp_seq=1 ttl=64 time=30.2 ms
+64 bytes from 10.0.40.30: icmp_seq=2 ttl=64 time=9.23 ms
+64 bytes from 10.0.40.30: icmp_seq=3 ttl=64 time=8.96 ms
 
 --- 10.0.40.30 ping statistics ---
-3 packets transmitted, 2 received, 33.3333% packet loss, time 2006ms
-rtt min/avg/max/mdev = 9.142/12.692/16.242/3.550 ms
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 8.960/16.137/30.224/9.961 ms
 
-ALLOWED 10.0.20.1 -> 10.0.40.30: OK (replies=2)
+ALLOWED 10.0.20.1 -> 10.0.40.30: OK (replies=3)
 PING 10.0.40.30 (10.0.40.30) 56(84) bytes of data.
-64 bytes from 10.0.40.30: icmp_seq=2 ttl=64 time=9.78 ms
-64 bytes from 10.0.40.30: icmp_seq=3 ttl=64 time=9.05 ms
+64 bytes from 10.0.40.30: icmp_seq=1 ttl=64 time=19.2 ms
+64 bytes from 10.0.40.30: icmp_seq=2 ttl=64 time=9.41 ms
+64 bytes from 10.0.40.30: icmp_seq=3 ttl=64 time=8.92 ms
 
 --- 10.0.40.30 ping statistics ---
-3 packets transmitted, 2 received, 33.3333% packet loss, time 2003ms
-rtt min/avg/max/mdev = 9.054/9.415/9.776/0.361 ms
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 8.924/12.502/19.172/4.720 ms
 
 DENIED 10.0.10.1 -> 10.0.40.20: OK (replies=0, expected drop)
 PING 10.0.40.20 (10.0.40.20) 56(84) bytes of data.
 
 --- 10.0.40.20 ping statistics ---
-2 packets transmitted, 0 received, 100% packet loss, time 1002ms
+2 packets transmitted, 0 received, 100% packet loss, time 1003ms
 
 
 DENIED 10.0.10.1 -> 10.0.40.30: OK (replies=0, expected drop)
 PING 10.0.40.30 (10.0.40.30) 56(84) bytes of data.
 
 --- 10.0.40.30 ping statistics ---
-2 packets transmitted, 0 received, 100% packet loss, time 1010ms
+2 packets transmitted, 0 received, 100% packet loss, time 1009ms
 
 
 
 === flows s1 ===
 OFPST_FLOW reply (OF1.3) (xid=0x2):
- cookie=0x0, duration=16.082s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=1,nw_dst=10.0.40.10 actions=set_field:00:00:00:00:28:0a->eth_dst,output:4
- cookie=0x0, duration=16.082s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=4,nw_dst=10.0.10.1 actions=set_field:00:00:00:00:0a:01->eth_dst,output:1
- cookie=0x0, duration=13.072s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=2,nw_dst=10.0.40.20 actions=set_field:00:00:00:00:28:14->eth_dst,output:4
- cookie=0x0, duration=10.042s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=3,nw_dst=10.0.40.30 actions=set_field:00:00:00:00:28:1e->eth_dst,output:4
- cookie=0x0, duration=10.042s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=4,nw_dst=10.0.30.1 actions=set_field:00:00:00:00:1e:01->eth_dst,output:3
- cookie=0x0, duration=7.037s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=2,nw_dst=10.0.40.30 actions=set_field:00:00:00:00:28:1e->eth_dst,output:4
- cookie=0x0, duration=7.037s, table=0, n_packets=4, n_bytes=392, send_flow_rem priority=200,ip,in_port=4,nw_dst=10.0.20.1 actions=set_field:00:00:00:00:14:01->eth_dst,output:2
- cookie=0x0, duration=4.027s, table=0, n_packets=1, n_bytes=98, send_flow_rem priority=300,ip,in_port=1,nw_dst=10.0.40.20 actions=drop
- cookie=0x0, duration=2.018s, table=0, n_packets=1, n_bytes=98, send_flow_rem priority=300,ip,in_port=1,nw_dst=10.0.40.30 actions=drop
- cookie=0x0, duration=22.247s, table=0, n_packets=68, n_bytes=7362, send_flow_rem priority=0 actions=CONTROLLER:65535
+ cookie=0x200, duration=12.141s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.10 actions=set_field:00:00:00:00:28:0a->eth_dst,output:4
+ cookie=0x200, duration=12.141s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=4,nw_src=10.0.40.10,nw_dst=10.0.10.1 actions=set_field:00:00:00:00:0a:01->eth_dst,output:1
+ cookie=0x200, duration=10.126s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=2,nw_src=10.0.20.1,nw_dst=10.0.40.20 actions=set_field:00:00:00:00:28:14->eth_dst,output:4
+ cookie=0x200, duration=10.126s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=4,nw_src=10.0.40.20,nw_dst=10.0.20.1 actions=set_field:00:00:00:00:14:01->eth_dst,output:2
+ cookie=0x200, duration=8.109s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=3,nw_src=10.0.30.1,nw_dst=10.0.40.30 actions=set_field:00:00:00:00:28:1e->eth_dst,output:4
+ cookie=0x200, duration=8.108s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=4,nw_src=10.0.40.30,nw_dst=10.0.30.1 actions=set_field:00:00:00:00:1e:01->eth_dst,output:3
+ cookie=0x200, duration=6.095s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=2,nw_src=10.0.20.1,nw_dst=10.0.40.30 actions=set_field:00:00:00:00:28:1e->eth_dst,output:4
+ cookie=0x200, duration=6.095s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=4,nw_src=10.0.40.30,nw_dst=10.0.20.1 actions=set_field:00:00:00:00:14:01->eth_dst,output:2
+ cookie=0x0, duration=4.083s, table=0, n_packets=1, n_bytes=98, send_flow_rem priority=300,ip,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.20 actions=drop
+ cookie=0x0, duration=2.074s, table=0, n_packets=1, n_bytes=98, send_flow_rem priority=300,ip,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.30 actions=drop
+ cookie=0x0, duration=18.329s, table=0, n_packets=70, n_bytes=7558, send_flow_rem priority=0 actions=CONTROLLER:65535
 
 
 === flows s2 ===
 OFPST_FLOW reply (OF1.3) (xid=0x2):
- cookie=0x0, duration=16.095s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,dl_dst=00:00:00:00:28:0a actions=output:2
- cookie=0x0, duration=16.095s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,dl_dst=00:00:00:00:0a:01 actions=output:1
- cookie=0x0, duration=13.085s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,dl_dst=00:00:00:00:28:14 actions=output:2
- cookie=0x0, duration=10.055s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,dl_dst=00:00:00:00:1e:01 actions=output:1
- cookie=0x0, duration=7.049s, table=0, n_packets=4, n_bytes=392, send_flow_rem priority=200,dl_dst=00:00:00:00:28:1e actions=output:2
- cookie=0x0, duration=7.049s, table=0, n_packets=4, n_bytes=392, send_flow_rem priority=200,dl_dst=00:00:00:00:14:01 actions=output:1
- cookie=0x0, duration=22.258s, table=0, n_packets=38, n_bytes=4914, send_flow_rem priority=0 actions=CONTROLLER:65535
+ cookie=0x200, duration=12.166s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,dl_dst=00:00:00:00:28:0a actions=output:2
+ cookie=0x200, duration=12.166s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,dl_dst=00:00:00:00:0a:01 actions=output:1
+ cookie=0x200, duration=10.151s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,dl_dst=00:00:00:00:28:14 actions=output:2
+ cookie=0x200, duration=8.133s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,dl_dst=00:00:00:00:1e:01 actions=output:1
+ cookie=0x200, duration=6.121s, table=0, n_packets=6, n_bytes=588, send_flow_rem priority=200,ip,dl_dst=00:00:00:00:28:1e actions=output:2
+ cookie=0x200, duration=6.121s, table=0, n_packets=6, n_bytes=588, send_flow_rem priority=200,ip,dl_dst=00:00:00:00:14:01 actions=output:1
+ cookie=0x0, duration=18.352s, table=0, n_packets=39, n_bytes=5000, send_flow_rem priority=0 actions=CONTROLLER:65535
 
 
 === flows s3 ===
 OFPST_FLOW reply (OF1.3) (xid=0x2):
- cookie=0x0, duration=22.271s, table=0, n_packets=38, n_bytes=4910, send_flow_rem priority=0 actions=CONTROLLER:65535
+ cookie=0x0, duration=18.365s, table=0, n_packets=39, n_bytes=5000, send_flow_rem priority=0 actions=CONTROLLER:65535
 
 
 === flows s4 ===
 OFPST_FLOW reply (OF1.3) (xid=0x2):
- cookie=0x0, duration=16.118s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=4,nw_dst=10.0.40.10 actions=set_field:00:00:00:00:28:0a->eth_dst,output:1
- cookie=0x0, duration=16.116s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=1,nw_dst=10.0.10.1 actions=set_field:00:00:00:00:0a:01->eth_dst,output:4
- cookie=0x0, duration=13.108s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=4,nw_dst=10.0.40.20 actions=set_field:00:00:00:00:28:14->eth_dst,output:2
- cookie=0x0, duration=13.108s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=2,nw_dst=10.0.20.1 actions=set_field:00:00:00:00:14:01->eth_dst,output:4
- cookie=0x0, duration=10.078s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=3,nw_dst=10.0.30.1 actions=set_field:00:00:00:00:1e:01->eth_dst,output:4
- cookie=0x0, duration=7.073s, table=0, n_packets=4, n_bytes=392, send_flow_rem priority=200,ip,in_port=4,nw_dst=10.0.40.30 actions=set_field:00:00:00:00:28:1e->eth_dst,output:3
- cookie=0x0, duration=7.073s, table=0, n_packets=2, n_bytes=196, send_flow_rem priority=200,ip,in_port=3,nw_dst=10.0.20.1 actions=set_field:00:00:00:00:14:01->eth_dst,output:4
- cookie=0x0, duration=22.282s, table=0, n_packets=61, n_bytes=6688, send_flow_rem priority=0 actions=CONTROLLER:65535
+ cookie=0x200, duration=12.191s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=4,nw_src=10.0.10.1,nw_dst=10.0.40.10 actions=set_field:00:00:00:00:28:0a->eth_dst,output:1
+ cookie=0x200, duration=12.191s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=1,nw_src=10.0.40.10,nw_dst=10.0.10.1 actions=set_field:00:00:00:00:0a:01->eth_dst,output:4
+ cookie=0x200, duration=10.175s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=4,nw_src=10.0.20.1,nw_dst=10.0.40.20 actions=set_field:00:00:00:00:28:14->eth_dst,output:2
+ cookie=0x200, duration=10.175s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=2,nw_src=10.0.40.20,nw_dst=10.0.20.1 actions=set_field:00:00:00:00:14:01->eth_dst,output:4
+ cookie=0x200, duration=8.159s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=4,nw_src=10.0.30.1,nw_dst=10.0.40.30 actions=set_field:00:00:00:00:28:1e->eth_dst,output:3
+ cookie=0x200, duration=8.159s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=3,nw_src=10.0.40.30,nw_dst=10.0.30.1 actions=set_field:00:00:00:00:1e:01->eth_dst,output:4
+ cookie=0x200, duration=6.146s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=4,nw_src=10.0.20.1,nw_dst=10.0.40.30 actions=set_field:00:00:00:00:28:1e->eth_dst,output:3
+ cookie=0x200, duration=6.146s, table=0, n_packets=3, n_bytes=294, send_flow_rem priority=200,ip,in_port=3,nw_src=10.0.40.30,nw_dst=10.0.20.1 actions=set_field:00:00:00:00:14:01->eth_dst,output:4
+ cookie=0x0, duration=18.378s, table=0, n_packets=60, n_bytes=6554, send_flow_rem priority=0 actions=CONTROLLER:65535

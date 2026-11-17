@@ -1,0 +1,45 @@
+{
+  "has_cycle": true,
+  "cycle": [
+    [
+      "s1",
+      "s2"
+    ],
+    [
+      "s2",
+      "s4"
+    ],
+    [
+      "s4",
+      "s3"
+    ],
+    [
+      "s3",
+      "s1"
+    ]
+  ],
+  "edge_disjoint_paths": [
+    [
+      "s1",
+      "s2",
+      "s4"
+    ],
+    [
+      "s1",
+      "s3",
+      "s4"
+    ]
+  ],
+  "path_count": 2,
+  "path_A": [
+    "s1",
+    "s2",
+    "s4"
+  ],
+  "path_B": [
+    "s1",
+    "s3",
+    "s4"
+  ],
+  "A_B_edge_disjoint": true
+}

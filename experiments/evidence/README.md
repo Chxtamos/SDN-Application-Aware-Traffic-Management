@@ -1,20 +1,31 @@
-# Controller Evidence (issues #6-#10)
+# Controller Evidence (issues #7, #8, #10 follow-up)
 
-Raw logs captured on the mininet box (`mininet@100.68.254.36`), Mininet 2.3.1b4 +
-OVS 2.13.8 + Ryu 4.34.
+Raw logs captured on mininet@100.68.254.36 (Mininet 2.3.1b4, OVS 2.13.8, Ryu 4.34)
+after all review fixes (incl. _packet_out OFPP_CONTROLLER root cause).
 
-| File | Source | Proves |
-|------|--------|--------|
-| `connectivity_evidence.txt` | `verify_connectivity.py` ping results | #6, #7 |
-| `controller_run.log` | Ryu controller stdout | #6 ARP proxy, #7 ACL/classify, #8 stats |
-| `stats.log` | /tmp/sdn_stats.log | #8 port stats + link utilisation |
+## Connectivity / ACL (issue #7)
+- connectivity_evidence.txt: ALLOWED 4 pairs OK (3/3 replies - first-packet forward
+  works, no cold-start loss), DENIED 2 pairs dropped (0 replies).
+- adaptive/acl_test.txt: ALL pairs PASS -
+  student->web:80/443 ALLOW PASS, web:22/8080 DENY PASS, staff->iot:5000 ALLOW PASS,
+  student->iot:5000 DENY PASS.
+- adaptive/flows_acl_s1.txt: priority-300 L4 drop flows with tp_dst match.
 
-## Result summary
-- **#6 Connectivity:** all 4 ALLOWED pairs replied (2/3, first ICMP = flow-install cold
-  start); both DENIED pairs got 0 replies (dropped).
-- **#7 ACL/classify:** 4 ROUTE messages + 4 ACL-DENY messages in the run log.
-- **#8 Stats:** port rates/util logged on every sample (2 s interval) across s1-s4.
-- **#9 Baseline:** L3 forward+return flow rules installed with edge MAC rewrite,
-  loop-free.
-- **#10 Adaptive:** hysteresis + cooldown logic present; enable `adaptive_enabled`
-  for a congestion-driven run.
+## Stats (issue #8)
+- adaptive/stats.csv: per-port raw counters (rx/tx bytes, packets) + utilisation +
+  active path, 1 s samples. adaptive/flows.csv: flow-stats with cookie + match.
+
+## Adaptive routing (issue #10)
+- adaptive/controller_adaptive.txt:
+  [..] ADAPTIVE: switch A -> B (util A=96% B=0%)
+  [..] ADAPTIVE: now on path B, re-installed 1 active flow(s) (cooldown 10.0s)
+  [..] ADAPTIVE: switch B -> A (util A=0% B=96%)     <- hysteresis both directions
+  [..] ADAPTIVE: now on path A, re-installed 1 active flow(s)
+- stats.csv s2 max 96.2%, s3 max 96.9% (traffic moves to Path B then back).
+- ACL DENY ... on s4 count = 0 (race fixed).
+- iperf_client.txt: sustained throughput, "iperf Done" (not stuck at 0).
+
+## Topology graph analysis (NetworkX)
+- topology_graph.json/.graphml: diamond is a cycle (has_cycle=true), s1->s4 has
+  2 edge-disjoint paths, Path A (s1-s2-s4) and Path B (s1-s3-s4) share no edges
+  (A_B_edge_disjoint=true) - the property adaptive routing depends on.

@@ -1,0 +1,35 @@
+*** Creating network
+*** Adding controller
+*** Adding hosts:
+file1 iot1 mgmt1 staff1 student1 web1 
+*** Adding switches:
+s1 s2 s3 s4 
+*** Adding links:
+(100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, mgmt1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, s2) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, s3) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, staff1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, student1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s2, s4) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s3, s4) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s4, file1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s4, iot1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s4, web1) 
+*** Configuring hosts
+file1 iot1 mgmt1 staff1 student1 web1 
+*** Starting controller
+c0 
+*** Starting 4 switches
+s1 s2 s3 s4 ...(100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) 
+*** Stopping 1 controllers
+c0 
+*** Stopping 10 links
+..........
+*** Stopping 4 switches
+s1 s2 s3 s4 
+*** Stopping 6 hosts
+file1 iot1 mgmt1 staff1 student1 web1 
+*** Done
+=== L4 TCP ACL: student -> web ===
+student->web:80   ALLOW : PASS
+student->web:443  ALLOW : PASS
+student->web:22   DENY : PASS
+student->web:8080 DENY : PASS
+=== L4 UDP ACL: staff vs student -> iot:5000 ===
+staff->iot:5000  ALLOW : PASS
+student->iot:5000 DENY : PASS
+--- s1 priority-300 (drop) flows ---
+ cookie=0x0, duration=4.879s, table=0, n_packets=1, n_bytes=74, send_flow_rem priority=300,tcp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.10,tp_dst=22 actions=drop
+ cookie=0x0, duration=2.720s, table=0, n_packets=1, n_bytes=74, send_flow_rem priority=300,tcp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.10,tp_dst=8080 actions=drop
+ cookie=0x0, duration=1.218s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=300,udp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.30,tp_dst=5000 actions=drop
