@@ -71,10 +71,23 @@ A class meets its SLA if, in a repeated, identical baseline-vs-adaptive test:
    while Bulk saturates a path.
 2. **Periodic**: ≥ 5 Mbps sustained and loss ≤ 1 % throughout the run.
 3. **Bulk**: keeps utilising remaining capacity and never starves Interactive/Periodic.
+   > In the "competing bulk transfers" scenario, the Bulk load is driven **from `staff1`
+   > and `mgmt1`** (both ALLOWED to `file1`), **not** from `student1` — because
+   > `student1 → file1` is DENY per `docs/security-policy.md`. Any experiment that uses
+   > `student1` as a bulk source would be dropped by the ACL and would not measure the
+   > intended competition.
 4. **Access policy**: no Student/Staff/Management ACL violation occurs on any reroute
    (verify both Path A and Path B and at controller-reload boundaries).
 5. **Repeatability**: running the same scenario twice yields results within a defined
    tolerance (loss/threshold/utilisation within ±5 % or documented).
+
+## 4.1 Link-capacity sanity check (Performance note)
+- The frozen link capacity is **100 Mbps** (see `docs/topology.md`). Before finalising
+  the SLA thresholds, run a short real test on the target VM/WSL: confirm that with the
+  periodic class at ≥ 5 Mbps and a competing 100 Mbps bulk flow, latency/jitter stay
+  within SLA. If CPU/TC overhead makes latency oscillate under a saturated 100 Mbps,
+  lower the link capacity to 10–20 Mbps, which is fine for our emulated lab and still
+  shows the QoS/adaptive effect clearly.
 
 ## 5. Out of scope (non-goals)
 

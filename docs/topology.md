@@ -76,6 +76,29 @@ All switches are **OVS**, running **OpenFlow 1.3**.
 > Access-Control Lists (Issue #4) are expressed on source subnet, keeping ACL flow
 > rules simple and auditable.
 
+### 3.1 Decision A — cross-subnet reachability (ARP proxy + L3 rewrite)
+
+Hosts live in four `/24` subnets and use gateway `.254` on each. Because this is a
+Layer-2 OVS fabric, the **controller acts as the gateway** for every subnet:
+
+- **ARP Proxy Responder** — the controller answers ARP requests for each gateway
+  address `10.0.10.254 / 10.0.20.254 / 10.0.30.254 / 10.0.40.254` with the edge
+  switch's own MAC (e.g. s1 for the source subnets, s4 for the service subnets).
+- **Edge MAC Rewrite (`set_field(eth_dst=…)` / `eth_src`)** — when routing between
+  subnets, the controller rewrites the L2 header at the ingress edge (s1) to the
+  destination host/service MAC and at the egress edge (s4), instead of flooding ARP
+  across the diamond.
+- **Loop-free install** — flow rules are installed along a single chosen path
+  (Path A or Path B), never flooding broadcast across `s1-s2-s4-s3-s1`, so the
+  physical L2 loop is never used for unknown/broadcast frames.
+
+Consequences already reflected elsewhere in this repo:
+- Every host sets `defaultRoute="via 10.0.<x>.254"` (done in `network/topology.py`)
+  so cross-subnet packets leave the host OS stack toward the controller-gateway.
+- Do **not** run `ryu.app.simple_switch_13` on this diamond: it only does L2 flooding
+  (cannot route across `/24` and would cause an ARP/broadcast storm on the loop).
+- The team's baseline / ARP-proxy controller (Issue #6+) implements this behaviour.
+
 ---
 
 ## 4. OVS port mapping
@@ -97,14 +120,14 @@ traffic steering and monitoring refer to a stable, repeatable port map.
 |------|-------------|
 | 1 | s1 (Path A in) |
 | 2 | s4 (Path A out) |
-| 99 | local/controller (flow-stats path) |
+| LOCAL | internal bridge port (OVS `LOCAL` = 4294967294), used for flow-stats/controller traffic |
 
 ### s3 (transit — Path B)
 | Port | Connects to |
 |------|-------------|
 | 1 | s1 (Path B in) |
 | 2 | s4 (Path B out) |
-| 99 | local/controller |
+| LOCAL | internal bridge port (OVS `LOCAL` = 4294967294) |
 
 ### s4 (egress)
 | Port | Connects to | Attached host / link |
@@ -118,7 +141,13 @@ traffic steering and monitoring refer to a stable, repeatable port map.
 > **Port stability note.** Port numbers above are **notification-order-independent**.
 > In the MiniEdit/Mininet launch the controllers are started **before** hosts, so
 > switch attachment order is deterministic and port numbers stay constant across
-> repeated runs (required by Issue #5).
+> repeated runs (required by Issue #5). In `network/topology.py` the ports are also
+> **pinned explicitly** (`port1=`/`port2=`) to this table so Mininet can never
+> reassign them.
+>
+> **Note on the OVS internal bridge port:** ports `s2`/`s3` connect two switches only;
+> their internal bridge port is OVS `LOCAL` (number `4294967294`), not a numbered
+> OpenFlow port. Don't reference an imaginary port `99` for these transit bridges.
 
 ---
 

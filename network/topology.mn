@@ -1,46 +1,274 @@
 {
-  "class": "Topo",
-  "name": "sdn-diamond-100",
-  "hosts": {
-    "student1": { "ip": "10.0.10.1/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "student1" } },
-    "staff1":   { "ip": "10.0.20.1/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "staff1" } },
-    "mgmt1":    { "ip": "10.0.30.1/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "mgmt1" } },
-    "web1":     { "ip": "10.0.40.10/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "web1" } },
-    "file1":    { "ip": "10.0.40.20/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "file1" } },
-    "iot1":     { "ip": "10.0.40.30/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "iot1" } }
+  "version": "2",
+  "application": {
+    "ipBase": "10.0.0.0/8",
+    "startCLI": "0",
+    "terminalType": "xterm",
+    "switchType": "ovs",
+    "dpctl": "",
+    "sflow": {
+      "sflowTarget": "",
+      "sflowSampling": "400",
+      "sflowHeader": "128",
+      "sflowPolling": "30"
+    },
+    "netflow": {
+      "nflowTarget": "",
+      "nflowTimeout": "600",
+      "nflowAddId": "0"
+    },
+    "openFlowVersions": {
+      "ovsOf10": "0",
+      "ovsOf11": "0",
+      "ovsOf12": "0",
+      "ovsOf13": "1"
+    }
   },
-  "switches": {
-    "s1": { "wireshark": false, "deferred_start": false, "node": { "class": "OVSSwitch", "name": "s1", "protocols": "OpenFlow13", "dpid": "0000000000000001" } },
-    "s2": { "wireshark": false, "deferred_start": false, "node": { "class": "OVSSwitch", "name": "s2", "protocols": "OpenFlow13", "dpid": "0000000000000002" } },
-    "s3": { "wireshark": false, "deferred_start": false, "node": { "class": "OVSSwitch", "name": "s3", "protocols": "OpenFlow13", "dpid": "0000000000000003" } },
-    "s4": { "wireshark": false, "deferred_start": false, "node": { "class": "OVSSwitch", "name": "s4", "protocols": "OpenFlow13", "dpid": "0000000000000004" } }
-  },
-  "controllers": {
-    "c0": { "wireshark": false, "node": { "class": "DefaultController", "name": "c0", "hostname": "127.0.0.1", "port": 6653 } }
-  },
-  "links": [
-    ["student1", "s1"],
-    ["staff1", "s1"],
-    ["mgmt1", "s1"],
-    ["web1", "s4"],
-    ["file1", "s4"],
-    ["iot1", "s4"],
-    ["s1", "s2"],
-    ["s2", "s4"],
-    ["s1", "s3"],
-    ["s3", "s4"]
+  "controllers": [
+    {
+      "x": "700",
+      "y": "80",
+      "opts": {
+        "hostname": "c0",
+        "nodeNum": "0",
+        "controllerType": "remote",
+        "remoteIP": "127.0.0.1",
+        "port": "6653",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    }
   ],
-  "location": {
-    "student1": { "x": 80, "y": 200 },
-    "staff1":   { "x": 80, "y": 300 },
-    "mgmt1":    { "x": 80, "y": 400 },
-    "s1":       { "x": 320, "y": 300 },
-    "s2":       { "x": 560, "y": 150 },
-    "s3":       { "x": 560, "y": 450 },
-    "s4":       { "x": 800, "y": 300 },
-    "web1":     { "x": 1040, "y": 200 },
-    "file1":    { "x": 1040, "y": 300 },
-    "iot1":     { "x": 1040, "y": 400 },
-    "c0":       { "x": 560, "y": 40 }
-  }
+  "hosts": [
+    {
+      "number": "1",
+      "x": "120",
+      "y": "180",
+      "opts": {
+        "hostname": "student1",
+        "nodeNum": "1",
+        "ip": "10.0.10.1/24",
+        "defaultRoute": "via 10.0.10.254",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    },
+    {
+      "number": "2",
+      "x": "120",
+      "y": "320",
+      "opts": {
+        "hostname": "staff1",
+        "nodeNum": "2",
+        "ip": "10.0.20.1/24",
+        "defaultRoute": "via 10.0.20.254",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    },
+    {
+      "number": "3",
+      "x": "120",
+      "y": "460",
+      "opts": {
+        "hostname": "mgmt1",
+        "nodeNum": "3",
+        "ip": "10.0.30.1/24",
+        "defaultRoute": "via 10.0.30.254",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    },
+    {
+      "number": "4",
+      "x": "1280",
+      "y": "180",
+      "opts": {
+        "hostname": "web1",
+        "nodeNum": "4",
+        "ip": "10.0.40.10/24",
+        "defaultRoute": "via 10.0.40.254",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    },
+    {
+      "number": "5",
+      "x": "1280",
+      "y": "320",
+      "opts": {
+        "hostname": "file1",
+        "nodeNum": "5",
+        "ip": "10.0.40.20/24",
+        "defaultRoute": "via 10.0.40.254",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    },
+    {
+      "number": "6",
+      "x": "1280",
+      "y": "460",
+      "opts": {
+        "hostname": "iot1",
+        "nodeNum": "6",
+        "ip": "10.0.40.30/24",
+        "defaultRoute": "via 10.0.40.254",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    }
+  ],
+  "switches": [
+    {
+      "number": "1",
+      "x": "360",
+      "y": "320",
+      "opts": {
+        "hostname": "s1",
+        "nodeNum": "1",
+        "switchType": "default",
+        "controllers": [
+          "c0"
+        ],
+        "protocols": "OpenFlow13",
+        "dpid": "0000000000000001",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    },
+    {
+      "number": "2",
+      "x": "700",
+      "y": "150",
+      "opts": {
+        "hostname": "s2",
+        "nodeNum": "2",
+        "switchType": "default",
+        "controllers": [
+          "c0"
+        ],
+        "protocols": "OpenFlow13",
+        "dpid": "0000000000000002",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    },
+    {
+      "number": "3",
+      "x": "700",
+      "y": "490",
+      "opts": {
+        "hostname": "s3",
+        "nodeNum": "3",
+        "switchType": "default",
+        "controllers": [
+          "c0"
+        ],
+        "protocols": "OpenFlow13",
+        "dpid": "0000000000000003",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    },
+    {
+      "number": "4",
+      "x": "1040",
+      "y": "320",
+      "opts": {
+        "hostname": "s4",
+        "nodeNum": "4",
+        "switchType": "default",
+        "controllers": [
+          "c0"
+        ],
+        "protocols": "OpenFlow13",
+        "dpid": "0000000000000004",
+        "wireshark": false,
+        "deferred_start": false
+      }
+    }
+  ],
+  "links": [
+    {
+      "src": "student1",
+      "dest": "s1",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    },
+    {
+      "src": "staff1",
+      "dest": "s1",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    },
+    {
+      "src": "mgmt1",
+      "dest": "s1",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    },
+    {
+      "src": "web1",
+      "dest": "s4",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    },
+    {
+      "src": "file1",
+      "dest": "s4",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    },
+    {
+      "src": "iot1",
+      "dest": "s4",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    },
+    {
+      "src": "s1",
+      "dest": "s2",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    },
+    {
+      "src": "s2",
+      "dest": "s4",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    },
+    {
+      "src": "s1",
+      "dest": "s3",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    },
+    {
+      "src": "s3",
+      "dest": "s4",
+      "opts": {
+        "bw": 100,
+        "delay": "1ms"
+      }
+    }
+  ]
 }

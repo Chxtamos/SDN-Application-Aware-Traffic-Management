@@ -55,6 +55,29 @@ Adaptive-routing action → controller installs/removes flow rules
 
 ---
 
+## 2.1 L3 reachability (ARP proxy + edge MAC rewrite)
+
+This is a Layer-2 OVS fabric with four `/24` subnets and a gateway `.254` per subnet
+(decision A in `docs/topology.md §3.1`). The controller is the **gateway** for every
+subnet:
+
+- **ARP Proxy Responder** — answers ARP for `10.0.10/20/30/40.254` with the edge
+  switch's own MAC (s1 for sources, s4 for services). ARP is never flooded across the
+  diamond loop.
+- **Edge MAC rewrite** — when a packet crosses subnets, the controller rewrites
+  `eth_src`/`eth_dst` at the ingress edge (s1) to the destination MAC and installs
+  `set_field` actions, so hosts see their gateway MAC and services see the sender MAC
+  without L2 flooding.
+- **Loop-free install** — flow rules follow a single chosen path (A or B); no broadcast
+  frame crosses `s1-s2-s4-s3-s1`, so the physical loop is never used as a forwarding
+  loop.
+
+Consequence: **do not run `ryu.app.simple_switch_13`** on this diamond (pure-L2
+flooding cannot route across `/24` and would cause an ARP/broadcast storm). The team's
+baseline / ARP-proxy controller implements this behaviour (Issue #6).
+
+---
+
 ## 3. Data flow — policy decision & enforcement
 
 ```

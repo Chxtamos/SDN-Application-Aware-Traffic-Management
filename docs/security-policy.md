@@ -60,7 +60,43 @@ Access is **default-deny** for anything not listed.
    ACL classification happens first and is path-independent. Verified in Issue #4 by
    pinging allowed pairs (success) and denied pairs (timeout) on both Path A and Path B.
 
-## 5. Example flow (enforcement intent)
+## 5. Control-plane traffic policy (ARP, ICMP, return traffic)
+
+The controller acts as the gateway for each subnet (see `docs/topology.md §3.1`), so
+forwarding policy also covers control-plane frames:
+
+### ARP
+- The controller is the **ARP Proxy Responder** for the four gateway addresses
+  (`10.0.10.254 / .20.254 / .30.254 / .40.254`). It answers any ARP request for a
+  gateway from a host on that subnet with the edge switch's own MAC.
+- ARP requests **between** subnets are never flooded across the diamond. They are
+  answered locally (proxy) or dropped, so ARP is not a broadcast vector on the L2 loop.
+- Policy: **allow** ARP only between a host and its own subnet gateway; **drop** ARP
+  replies/cross-subnet ARP that would traverse the transit segment.
+
+### ICMP (ping / measurement)
+Used for reachability and RTT/continuity checks.
+- **ALLOW** ping between an allowed source role and an allowed service, in **both**
+  directions (echo request `s1→s4` and echo reply `s4→s1`), consistent with the matrix
+  below.
+- **DENY** ping from any role to a service they are not allowed to reach (e.g.
+  `student1 → file1`), and any ping between peer hosts in the same edge unless already
+  allowed.
+- When using ping to measure latency, only fire it at **allowed** pairs so the results
+  are not polluted by ACL drops.
+
+### Return traffic rules (`s4 → s1`)
+Every ALLOWED forward flow must have a matching **return flow** installed (reverse
+5-tuple), so replies from a service reach the source host. Keyed on the SAME matrix:
+- Return for `Student→web1` (TCP 443): allow `web1→student1` on the reverse path.
+- Return for `Staff→file1/sftp` and `Staff→iot1`: allow reverse as well.
+- No return rule exists for DENY pairs (student1↔file1 etc.) — both directions dropped.
+- Adaptive rerouting must steer forward and return flows on the **same** Path (A or B)
+  so the reverse direction is never left without a rule.
+
+---
+
+## 7. Example flow (enforcement intent)
 
 - Student → web1 (TCP 443): ALLOW → class Interactive → high QoS queue → egress to Path A
   (or Path B if congested). Policy preserved on both paths.
@@ -69,6 +105,6 @@ Access is **default-deny** for anything not listed.
 
 ---
 
-## 6. Cross-references
+## 8. Cross-references
 - Topology/subnets: `docs/topology.md` (Issue #3)
 - Classification/QoS: `docs/requirements-slacls.md` (Issue #1), `docs/architecture.md` (Issue #2)
