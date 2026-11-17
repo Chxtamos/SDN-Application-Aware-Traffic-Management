@@ -30,6 +30,10 @@ so all parts agree.
 
 All switches are **OVS**, running **OpenFlow 1.3**.
 
+![Topology diagram — diamond with Path A/B and role subnets](topology-diagram.png)
+
+*Figure 1: Frozen diamond topology. Sources on s1 (Student/Staff/Management), services on s4, transit Path A (s1-s2-s4) and Path B (s1-s3-s4), all links 100 Mbps.*
+
 ---
 
 ## 2. Switches and link map (all links 100 Mbps)
