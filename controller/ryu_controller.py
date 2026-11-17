@@ -161,10 +161,12 @@ class RyuController(app_manager.RyuApp):
             cookie=0x200, cookie_mask=0xffffffffffffffff)
         dp.send_msg(mod)
 
-    def _packet_out(self, dp, port, data, actions):
+    def _packet_out(self, dp, in_port, data, actions):
+        """Send a packet out. in_port is the port that received it (or the real
+        ingress port), so re-injecting via OFPP_TABLE can match on it."""
         dp.send_msg(dp.ofproto_parser.OFPPacketOut(
             datapath=dp, buffer_id=dp.ofproto.OFP_NO_BUFFER,
-            in_port=dp.ofproto.OFPP_CONTROLLER, data=data, actions=actions))
+            in_port=in_port, data=data, actions=actions))
 
     # ---------------- events ----------------
     @set_ev_cls(ofp_event.EventOFPStateChange, MAIN_DISPATCHER)
@@ -290,12 +292,14 @@ class RyuController(app_manager.RyuApp):
             sip, dip, proto, dport, classify(proto, dport), self.current_path))
         self._install_l3_flows(sip, dip, proto, dport, p4.src, p4.dst)
         self.installed.add(key)
-        # Forward the packet that triggered this PacketIn into the freshly
-        # installed flows. Without this, the FIRST packet of a UDP flow (no
-        # TCP-style retransmit) is silently dropped, breaking e.g. IoT probes.
-        # OFPP_TABLE re-enters the pipeline so the new rules apply.
-        if dp.ofproto.OFPP_TABLE is not None:
-            self._packet_out(dp, dp.ofproto.OFPP_TABLE, pkt_data, [])
+        # Forward the FIRST packet that triggered this PacketIn along the just-
+        # installed path (reviewer's direct approach). Without this, the first
+        # UDP packet (no retransmit) is dropped, breaking IoT probes.
+        if dp.id == HOST[sip][0] and dip in HOST:
+            s1_out = 4 if self.current_path == 'A' else 5
+            self._packet_out(dp, in_port, pkt_data, [
+                dp.ofproto_parser.OFPActionSetField(eth_dst=HOST[dip][2]),
+                dp.ofproto_parser.OFPActionOutput(s1_out)])
 
     # ---------------- #9 L3 route install ----------------
     def _install_l3_flows(self, sip, dip, proto, dport, smac, dmac):
@@ -311,13 +315,15 @@ class RyuController(app_manager.RyuApp):
             l4['ip_proto'] = 6; l4['tcp_dst'] = dport
         elif proto == 'udp':
             l4['ip_proto'] = 17; l4['udp_dst'] = dport
-        # forward
-        self._l3_fwd(self._sw(src_e), in_port=src_p, src_ip=sip, dst_ip=dip,
-                     dst_mac=dst_mac, next_port=s1_out, l4=l4)
+        # forward: install the downstream hops (transit + egress) BEFORE the
+        # ingress rule, so the first packet re-injected via OFPP_TABLE on s1
+        # finds its path fully built on s2/s3 and s4.
         self._l3_fwd(self._sw(trans), match_eth=dst_mac, l4=l4,
                      out_port=self._edge_port(trans, dst_e, 'fwd'))
         self._l3_fwd(self._sw(dst_e), in_port=s4_in, src_ip=sip, dst_ip=dip,
                      dst_mac=dst_mac, out_port=dst_p, l4=l4)
+        self._l3_fwd(self._sw(src_e), in_port=src_p, src_ip=sip, dst_ip=dip,
+                     dst_mac=dst_mac, next_port=s1_out, l4=l4)
         # reverse (5-tuple reversed)
         rl4 = {}
         if proto == 'tcp':
