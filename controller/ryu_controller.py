@@ -161,12 +161,12 @@ class RyuController(app_manager.RyuApp):
             cookie=0x200, cookie_mask=0xffffffffffffffff)
         dp.send_msg(mod)
 
-    def _packet_out(self, dp, in_port, data, actions):
-        """Send a packet out. in_port is the port that received it (or the real
-        ingress port), so re-injecting via OFPP_TABLE can match on it."""
+    def _packet_out(self, dp, port, data, actions):
+        """Send a packet out. in_port is OFPP_CONTROLLER so OVS never sees
+        out_port == in_port (that combination is dropped by OpenFlow 1.3)."""
         dp.send_msg(dp.ofproto_parser.OFPPacketOut(
             datapath=dp, buffer_id=dp.ofproto.OFP_NO_BUFFER,
-            in_port=in_port, data=data, actions=actions))
+            in_port=dp.ofproto.OFPP_CONTROLLER, data=data, actions=actions))
 
     # ---------------- events ----------------
     @set_ev_cls(ofp_event.EventOFPStateChange, MAIN_DISPATCHER)
@@ -215,6 +215,8 @@ class RyuController(app_manager.RyuApp):
             rep.serialize()
             self._packet_out(dp, in_port, rep.data,
                              [dp.ofproto_parser.OFPActionOutput(in_port)])
+            self._log('ARP proxy: %s -> gw %s on %s' % (
+                a.src_ip, a.dst_ip, SWITCH.get(dp.id)))
             return
         if a.dst_ip in HOST and dp.id in (1, 4):
             hdpid, hport, _ = HOST[a.dst_ip]
