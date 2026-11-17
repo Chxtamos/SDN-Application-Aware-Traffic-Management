@@ -22,14 +22,14 @@ s1 s2 s3 s4
 file1 iot1 mgmt1 staff1 student1 web1 
 *** Done
 === L4 TCP ACL: student -> web ===
-student->web:80   ALLOW : checked
-student->web:443  ALLOW : checked
-student->web:22   DENY : checked
-student->web:8080 DENY : checked
+student->web:80   ALLOW : PASS
+student->web:443  ALLOW : PASS
+student->web:22   DENY : PASS
+student->web:8080 DENY : PASS
 === L4 UDP ACL: staff vs student -> iot:5000 ===
-staff->iot:5000  ALLOW : False
-student->iot:5000 DENY : False
+staff->iot:5000  ALLOW : FAIL
+student->iot:5000 DENY : PASS
 --- s1 priority-300 (drop) flows ---
- cookie=0x0, duration=5.993s, table=0, n_packets=1, n_bytes=74, send_flow_rem priority=300,tcp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.10,tp_dst=22 actions=drop
- cookie=0x0, duration=4.242s, table=0, n_packets=1, n_bytes=74, send_flow_rem priority=300,tcp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.10,tp_dst=8080 actions=drop
- cookie=0x0, duration=1.233s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=300,udp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.30,tp_dst=5000 actions=drop
+ cookie=0x0, duration=5.390s, table=0, n_packets=1, n_bytes=74, send_flow_rem priority=300,tcp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.10,tp_dst=22 actions=drop
+ cookie=0x0, duration=3.934s, table=0, n_packets=1, n_bytes=74, send_flow_rem priority=300,tcp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.10,tp_dst=8080 actions=drop
+ cookie=0x0, duration=1.227s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=300,udp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.30,tp_dst=5000 actions=drop

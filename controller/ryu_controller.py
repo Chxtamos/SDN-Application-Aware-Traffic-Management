@@ -90,7 +90,7 @@ def classify(proto, dport):
         return 'bulk'   # iperf3 bulk benchmark
     if proto == 'tcp' and 8000 <= dport <= 9000:
         return 'bulk'
-    return 'interactive'   # web-like default; ACL still gates by port
+    return 'other'   # unknown; NOT tagged as high-priority interactive
 
 
 class RyuController(app_manager.RyuApp):
@@ -254,13 +254,25 @@ class RyuController(app_manager.RyuApp):
         sip, dip = p4.src, p4.dst
         flow = pkt.get_protocol(tcp.tcp) or pkt.get_protocol(udp.udp)
         dport = flow.dst_port if flow else 0
+        sport = flow.src_port if flow else 0
         proto = ('tcp' if pkt.get_protocol(tcp.tcp)
                  else 'udp' if pkt.get_protocol(udp.udp) else 'icmp')
-        # ACL (#7): default-deny, port-limited
+        # --- ACL (#7). Default-deny for client-initiated (ingress s1). For
+        # traffic that appears on s4 from the SERVICE side, it is return traffic
+        # of an already-approved flow (e.g. ACKs from file1 during a reroute);
+        # we must NOT install a priority-300 DROP that would shadow the L3 flows.
+        is_return = (dp.id == 4 and
+                     '.'.join(sip.split('.')[:3]) + '.0' == SERVICE_SUB)
         if not self._flow_allowed(sip, dip, proto, dport):
+            if is_return:
+                # return of an allowed flow: let PacketIn forward it, do not drop
+                self._log('RETURN %s[%s:%s] -> %s (fwd to controller, no drop)' % (
+                    sip, proto, sport, dip))
+                return
             self._log('ACL DENY %s[%s:%s] -> %s on %s' % (
                 sip, proto, dport, dip, SWITCH.get(dp.id)))
-            if dp.id in (1, 4):
+            # install DROP only on the client ingress switch (s1)
+            if dp.id == 1:
                 kw = {'in_port': in_port, 'eth_type': 0x0800, 'ipv4_src': sip,
                       'ipv4_dst': dip}
                 if proto == 'tcp':
@@ -420,12 +432,18 @@ class RyuController(app_manager.RyuApp):
             return
         self._log('ADAPTIVE: switch %s -> %s (util A=%.0f%% B=%.0f%%)' % (
             self.current_path, new, self.path_util['A'], self.path_util['B']))
-        # remove old L3 flows + clear installed so flows re-install on new path
+        # snapshot the active flows so we can re-install them on the new path
+        # immediately -- avoids the PacketIn gap that drops TCP ACKs on s4.
+        active = list(self.installed)
         for dp in self.datapaths.values():
             self._del_l3_flows(dp)
         self.current_path = new
-        self.installed = set()
+        # re-install active flows on the new path right now (no PacketIn wait)
+        for (sip, dip, proto, dport) in active:
+            if sip in HOST and dip in HOST:
+                self._install_l3_flows(sip, dip, proto, dport,
+                                       HOST[sip][2], HOST[dip][2])
         self.congest_count = 0
         self.cooldown_until = time.time() + self.cool_down
-        self._log('ADAPTIVE: now on path %s (cooldown %ss)' % (
-            new, self.cool_down))
+        self._log('ADAPTIVE: now on path %s, re-installed %d active flow(s) '\
+                  '(cooldown %ss)' % (new, len(active), self.cool_down))
