@@ -10,7 +10,7 @@ Single self-contained OpenFlow 1.3 app: `controller/ryu_controller.py`.
 | #6 | ARP proxy for the four gateways (.254) + routed connectivity | `_handle_arp` |
 | #7 | Traffic classification (Interactive/Periodic/Bulk) + high-priority ACL (default-deny) | `classify`, `_acl_allowed`, `_route_ip` |
 | #8 | Port/flow stats + link utilisation (logged to /tmp/sdn_stats.log) | `_port_stats`, `_monitor_loop` |
-| #9 | Fixed baseline: L3 flow rules on Path A (loop-free, bidirectional, edge MAC rewrite) | `_install_baseline`, `_install_l3_flows` |
+| #9 | Fixed baseline: L3 flow rules on Path A (loop-free, bidirectional, edge MAC rewrite) | `_install_l3_flows`, `_l3_fwd` |
 | #10 | Adaptive rerouting Path A<->B with hysteresis + cooldown | `_decide_reroute`, `_switch_path` |
 
 ## Design (Decision A)
@@ -23,17 +23,17 @@ Hosts sit in four /24 subnets behind gateway .254. The controller is the gateway
 
 > Matching IPv4 requires `eth_type=0x0800` in the OFPMatch — OVS drops ipv4 rules without it.
 
-## Run (on the mininet box, as the mininet user)
+## Run (on the mininet box, as the mininet user; from the repo root)
 ```bash
 PATH=$PATH:$HOME/.local/bin \
 ryu-manager --ofp-tcp-listen-port 6653 controller/ryu_controller.py
+# in another terminal, after the controller is up:
+sudo python3 network/topology.py
 ```
-Then boot the topology: `sudo python3 network/topology.py`.
 
-## Verify (issues #6-#9 evidence)
+## Verify (issues #6+#9 evidence; from the repo root)
 ```bash
-cd /home/mininet/sdn-network
-sudo python3 verify_connectivity.py
+sudo python3 network/verify_connectivity.py
 ```
 Expected: ALLOWED pairs reply, DENIED pairs dropped; flows + port stats recorded in
 `/tmp/sdn_evid/*`. Evidence is stored under `experiments/evidence/`.

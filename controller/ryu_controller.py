@@ -188,10 +188,12 @@ class RyuController(app_manager.RyuApp):
 
     # ---------------- #7 ACL ----------------
     def _acl_allowed(self, sip, dip):
+        """Default-deny: only source-role subnets may reach the service subnet."""
         ssub = '.'.join(sip.split('.')[:3]) + '.0'
         role = ROLE.get(ssub)
         if role is None:
-            return True
+            return False   # non-role source (incl. 10.0.40.x) -> deny (return traffic
+                           # is handled by the reverse L3 flows, not via _acl_allowed)
         if (ssub, dip) in DENY_DST:
             return False
         dsub = '.'.join(dip.split('.')[:3]) + '.0'
@@ -203,6 +205,12 @@ class RyuController(app_manager.RyuApp):
         # ACL drop (default-deny) (#7)
         if not self._acl_allowed(sip, dip):
             self._log('ACL DENY %s -> %s on %s' % (sip, dip, SWITCH.get(dp.id)))
+            # install a high-priority DROP rule so denied pairs stop hitting
+            # PacketIn (docs/security-policy.md 3): drop locally, don't flood
+            if dp.id in (1, 4):
+                dm = dp.ofproto_parser.OFPMatch(in_port=in_port, eth_type=0x0800,
+                                                ipv4_dst=dip)
+                self._add_flow(dp, 300, dm, [])   # empty actions = drop
             return
         if dip not in HOST:
             self._log('unknown dst %s -> drop' % dip)
