@@ -33,8 +33,9 @@ def tcp_srv(host, port):
 def udp_srv(host, port):
     code = ("nohup python3 -c \"import socket;\n"
             "s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);\n"
+            "s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);\n"
             "s.bind(('0.0.0.0',%d));\n"
-            "data,a=s.recvfrom(64);s.sendto(b'reply',a)\" >/tmp/usrv_%d.log 2>&1 &") % (port, port)
+            "while True:\n  data,a=s.recvfrom(64);s.sendto(b'reply',a)\" >/tmp/usrv_%d.log 2>&1 &") % (port, port)
     host.cmd(code)
 
 def tcp_probe(host, ip, port, timeout=1.2):

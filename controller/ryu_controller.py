@@ -197,7 +197,7 @@ class RyuController(app_manager.RyuApp):
             return
         p4 = pkt.get_protocol(ipv4.ipv4)
         if p4:
-            self._route_ip(dp, in_port, eth, p4, pkt)
+            self._route_ip(dp, in_port, eth, p4, pkt, ev.msg.data)
 
     # ---------------- #6 ARP proxy ----------------
     def _handle_arp(self, dp, in_port, eth, a, pkt):
@@ -250,7 +250,7 @@ class RyuController(app_manager.RyuApp):
                 return True
         return False
 
-    def _route_ip(self, dp, in_port, eth, p4, pkt):
+    def _route_ip(self, dp, in_port, eth, p4, pkt, pkt_data):
         sip, dip = p4.src, p4.dst
         flow = pkt.get_protocol(tcp.tcp) or pkt.get_protocol(udp.udp)
         dport = flow.dst_port if flow else 0
@@ -290,6 +290,12 @@ class RyuController(app_manager.RyuApp):
             sip, dip, proto, dport, classify(proto, dport), self.current_path))
         self._install_l3_flows(sip, dip, proto, dport, p4.src, p4.dst)
         self.installed.add(key)
+        # Forward the packet that triggered this PacketIn into the freshly
+        # installed flows. Without this, the FIRST packet of a UDP flow (no
+        # TCP-style retransmit) is silently dropped, breaking e.g. IoT probes.
+        # OFPP_TABLE re-enters the pipeline so the new rules apply.
+        if dp.ofproto.OFPP_TABLE is not None:
+            self._packet_out(dp, dp.ofproto.OFPP_TABLE, pkt_data, [])
 
     # ---------------- #9 L3 route install ----------------
     def _install_l3_flows(self, sip, dip, proto, dport, smac, dmac):
