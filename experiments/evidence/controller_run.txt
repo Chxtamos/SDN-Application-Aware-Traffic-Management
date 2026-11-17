@@ -1,0 +1,201 @@
+loading app /home/mininet/sdn-controller/ryu_controller.py
+loading app ryu.controller.ofp_handler
+instantiating app /home/mininet/sdn-controller/ryu_controller.py of RyuController
+[17:21:06] controller started: gateway=Decision-A, path=A, adaptive=False
+instantiating app ryu.controller.ofp_handler of OFPHandler
+[17:21:18] switch connected: s1 (dpid=1)
+[17:21:18] switch connected: s4 (dpid=4)
+[17:21:18] switch connected: s3 (dpid=3)
+[17:21:18] switch connected: s2 (dpid=2)
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=1971 tx=1971 rate=3325 util=0.00%
+PORT s1 p1 dt=2.0 rx=646 tx=2061 rate=999 util=0.00%
+PORT s1 p2 dt=2.0 rx=736 tx=2061 rate=999 util=0.00%
+PORT s1 p5 dt=2.0 rx=1971 tx=1971 rate=3685 util=0.00%
+PORT s1 p3 dt=2.0 rx=822 tx=2258 rate=360 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=1971 tx=1971 rate=2032 util=0.00%
+PORT s3 p2 dt=2.0 rx=1971 tx=1971 rate=4531 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=1971 tx=1971 rate=2828 util=0.00%
+PORT s4 p1 dt=2.0 rx=646 tx=2061 rate=359 util=0.00%
+PORT s4 p2 dt=2.0 rx=732 tx=2061 rate=359 util=0.00%
+PORT s4 p5 dt=2.0 rx=1971 tx=1971 rate=2390 util=0.00%
+PORT s4 p3 dt=2.0 rx=646 tx=2061 rate=359 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=1971 tx=1971 rate=2028 util=0.00%
+PORT s2 p2 dt=2.0 rx=1971 tx=1971 rate=2028 util=0.00%
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=2349 tx=2349 rate=1511 util=0.00%
+PORT s1 p1 dt=2.0 rx=646 tx=2439 rate=0 util=0.00%
+PORT s1 p2 dt=2.0 rx=736 tx=2439 rate=0 util=0.00%
+PORT s1 p5 dt=2.0 rx=2349 tx=2349 rate=1511 util=0.00%
+PORT s1 p3 dt=2.0 rx=892 tx=2529 rate=280 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=2349 tx=2349 rate=1513 util=0.00%
+PORT s2 p2 dt=2.0 rx=2349 tx=2349 rate=1513 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=2349 tx=2349 rate=1510 util=0.00%
+PORT s3 p2 dt=2.0 rx=2349 tx=2349 rate=1510 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=2349 tx=2349 rate=1510 util=0.00%
+PORT s4 p1 dt=2.0 rx=716 tx=2439 rate=280 util=0.00%
+PORT s4 p2 dt=2.0 rx=802 tx=2369 rate=280 util=0.00%
+PORT s4 p5 dt=2.0 rx=2349 tx=2349 rate=1510 util=0.00%
+PORT s4 p3 dt=2.0 rx=716 tx=2369 rate=280 util=0.00%
+[17:21:24] ARP proxy: 10.0.10.1 -> gw 10.0.10.254 on s1
+[17:21:24] ROUTE 10.0.10.1->10.0.40.10 (icmp:0) class=interactive path=A
+[17:21:25] ARP proxy: 10.0.40.10 -> gw 10.0.40.254 on s4
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=2447 tx=2447 rate=392 util=0.00%
+PORT s1 p1 dt=2.0 rx=954 tx=2597 rate=1231 util=0.00%
+PORT s1 p2 dt=2.0 rx=806 tx=2439 rate=280 util=0.00%
+PORT s1 p5 dt=2.0 rx=2349 tx=2349 rate=0 util=0.00%
+PORT s1 p3 dt=2.0 rx=892 tx=2636 rate=0 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=2447 tx=2447 rate=392 util=0.00%
+PORT s2 p2 dt=2.0 rx=2447 tx=2447 rate=392 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=2447 tx=2447 rate=392 util=0.00%
+PORT s4 p1 dt=2.0 rx=856 tx=2597 rate=560 util=0.00%
+PORT s4 p2 dt=2.0 rx=802 tx=2439 rate=0 util=0.00%
+PORT s4 p5 dt=2.0 rx=2349 tx=2349 rate=0 util=0.00%
+PORT s4 p3 dt=2.0 rx=716 tx=2439 rate=0 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=2349 tx=2349 rate=0 util=0.00%
+PORT s3 p2 dt=2.0 rx=2349 tx=2349 rate=0 util=0.00%
+[17:21:27] ARP proxy: 10.0.20.1 -> gw 10.0.20.254 on s1
+[17:21:27] ROUTE 10.0.20.1->10.0.40.20 (icmp:0) class=interactive path=A
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=2652 tx=2652 rate=820 util=0.00%
+PORT s1 p1 dt=2.0 rx=1052 tx=2802 rate=392 util=0.00%
+PORT s1 p2 dt=2.0 rx=946 tx=2606 rate=560 util=0.00%
+PORT s1 p5 dt=2.0 rx=2456 tx=2456 rate=428 util=0.00%
+PORT s1 p3 dt=2.0 rx=892 tx=2636 rate=0 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=2456 tx=2456 rate=428 util=0.00%
+PORT s3 p2 dt=2.0 rx=2456 tx=2456 rate=428 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=2652 tx=2652 rate=819 util=0.00%
+PORT s2 p2 dt=2.0 rx=2652 tx=2652 rate=819 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=2652 tx=2652 rate=819 util=0.00%
+PORT s4 p1 dt=2.0 rx=954 tx=2802 rate=392 util=0.00%
+PORT s4 p2 dt=2.0 rx=802 tx=2546 rate=0 util=0.00%
+PORT s4 p5 dt=2.0 rx=2456 tx=2456 rate=428 util=0.00%
+PORT s4 p3 dt=2.0 rx=716 tx=2546 rate=0 util=0.00%
+[17:21:28] ARP proxy: 10.0.40.20 -> gw 10.0.40.254 on s4
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=2848 tx=2848 rate=783 util=0.00%
+PORT s1 p1 dt=2.0 rx=1052 tx=2802 rate=0 util=0.00%
+PORT s1 p2 dt=2.0 rx=1142 tx=2802 rate=783 util=0.00%
+PORT s1 p5 dt=2.0 rx=2456 tx=2456 rate=0 util=0.00%
+PORT s1 p3 dt=2.0 rx=892 tx=2636 rate=0 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=2848 tx=2848 rate=784 util=0.00%
+PORT s4 p1 dt=2.0 rx=954 tx=2802 rate=0 util=0.00%
+PORT s4 p2 dt=2.0 rx=1040 tx=2802 rate=952 util=0.00%
+PORT s4 p5 dt=2.0 rx=2456 tx=2456 rate=0 util=0.00%
+PORT s4 p3 dt=2.0 rx=716 tx=2546 rate=0 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=2456 tx=2456 rate=0 util=0.00%
+PORT s3 p2 dt=2.0 rx=2456 tx=2456 rate=0 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=2848 tx=2848 rate=783 util=0.00%
+PORT s2 p2 dt=2.0 rx=2848 tx=2848 rate=783 util=0.00%
+[17:21:30] ARP proxy: 10.0.30.1 -> gw 10.0.30.254 on s1
+[17:21:30] ROUTE 10.0.30.1->10.0.40.30 (icmp:0) class=interactive path=A
+[17:21:31] ARP proxy: 10.0.40.30 -> gw 10.0.40.254 on s4
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=2946 tx=2946 rate=392 util=0.00%
+PORT s1 p1 dt=2.0 rx=1052 tx=2872 rate=0 util=0.00%
+PORT s1 p2 dt=2.0 rx=1142 tx=2802 rate=0 util=0.00%
+PORT s1 p5 dt=2.0 rx=2526 tx=2456 rate=280 util=0.00%
+PORT s1 p3 dt=2.0 rx=1130 tx=2864 rate=951 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=2946 tx=3016 rate=392 util=0.00%
+PORT s4 p1 dt=2.0 rx=1024 tx=2872 rate=280 util=0.00%
+PORT s4 p2 dt=2.0 rx=1040 tx=2802 rate=0 util=0.00%
+PORT s4 p5 dt=2.0 rx=2456 tx=2526 rate=0 util=0.00%
+PORT s4 p3 dt=2.0 rx=926 tx=2704 rate=839 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=2946 tx=2946 rate=392 util=0.00%
+PORT s2 p2 dt=2.0 rx=3016 tx=2946 rate=672 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=2456 tx=2526 rate=0 util=0.00%
+PORT s3 p2 dt=2.0 rx=2526 tx=2456 rate=280 util=0.00%
+[17:21:33] ROUTE 10.0.20.1->10.0.40.30 (icmp:0) class=interactive path=A
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=3114 tx=3114 rate=672 util=0.00%
+PORT s1 p1 dt=2.0 rx=1122 tx=2872 rate=280 util=0.00%
+PORT s1 p2 dt=2.0 rx=1310 tx=2872 rate=672 util=0.00%
+PORT s1 p5 dt=2.0 rx=2526 tx=2526 rate=0 util=0.00%
+PORT s1 p3 dt=2.0 rx=1298 tx=3069 rate=672 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=2526 tx=2526 rate=280 util=0.00%
+PORT s3 p2 dt=2.0 rx=2526 tx=2526 rate=0 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=3114 tx=3114 rate=671 util=0.00%
+PORT s4 p1 dt=2.0 rx=1024 tx=2872 rate=0 util=0.00%
+PORT s4 p2 dt=2.0 rx=1110 tx=2872 rate=280 util=0.00%
+PORT s4 p5 dt=2.0 rx=2526 tx=2526 rate=280 util=0.00%
+PORT s4 p3 dt=2.0 rx=1024 tx=2872 rate=392 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=3114 tx=3114 rate=671 util=0.00%
+PORT s2 p2 dt=2.0 rx=3114 tx=3114 rate=392 util=0.00%
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=3417 tx=3417 rate=1211 util=0.00%
+PORT s1 p1 dt=2.0 rx=1122 tx=2979 rate=0 util=0.00%
+PORT s1 p2 dt=2.0 rx=1506 tx=3175 rate=783 util=0.00%
+PORT s1 p5 dt=2.0 rx=2633 tx=2633 rate=428 util=0.00%
+PORT s1 p3 dt=2.0 rx=1298 tx=3069 rate=0 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=2633 tx=2633 rate=428 util=0.00%
+PORT s3 p2 dt=2.0 rx=2633 tx=2633 rate=428 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=3417 tx=3417 rate=1212 util=0.00%
+PORT s2 p2 dt=2.0 rx=3417 tx=3417 rate=1212 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=3417 tx=3417 rate=1211 util=0.00%
+PORT s4 p1 dt=2.0 rx=1024 tx=2979 rate=0 util=0.00%
+PORT s4 p2 dt=2.0 rx=1110 tx=2979 rate=0 util=0.00%
+PORT s4 p5 dt=2.0 rx=2633 tx=2633 rate=427 util=0.00%
+PORT s4 p3 dt=2.0 rx=1220 tx=3175 rate=783 util=0.00%
+[17:21:36] ACL DENY 10.0.10.1 -> 10.0.40.20 on s1
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=3417 tx=3417 rate=0 util=0.00%
+PORT s1 p1 dt=2.0 rx=1318 tx=2979 rate=784 util=0.00%
+PORT s1 p2 dt=2.0 rx=1506 tx=3175 rate=0 util=0.00%
+PORT s1 p5 dt=2.0 rx=2633 tx=2633 rate=0 util=0.00%
+PORT s1 p3 dt=2.0 rx=1298 tx=3069 rate=0 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=3417 tx=3417 rate=0 util=0.00%
+PORT s2 p2 dt=2.0 rx=3417 tx=3417 rate=0 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=2633 tx=2633 rate=0 util=0.00%
+PORT s3 p2 dt=2.0 rx=2633 tx=2633 rate=0 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=3417 tx=3417 rate=0 util=0.00%
+PORT s4 p1 dt=2.0 rx=1024 tx=2979 rate=0 util=0.00%
+PORT s4 p2 dt=2.0 rx=1110 tx=2979 rate=0 util=0.00%
+PORT s4 p5 dt=2.0 rx=2633 tx=2633 rate=0 util=0.00%
+PORT s4 p3 dt=2.0 rx=1220 tx=3175 rate=0 util=0.00%
+[17:21:38] ACL DENY 10.0.10.1 -> 10.0.40.30 on s1
+PORT s1 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s1 p4 dt=2.0 rx=3417 tx=3417 rate=0 util=0.00%
+PORT s1 p1 dt=2.0 rx=1514 tx=2979 rate=784 util=0.00%
+PORT s1 p2 dt=2.0 rx=1506 tx=3175 rate=0 util=0.00%
+PORT s1 p5 dt=2.0 rx=2633 tx=2633 rate=0 util=0.00%
+PORT s1 p3 dt=2.0 rx=1298 tx=3069 rate=0 util=0.00%
+PORT s4 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s4 p4 dt=2.0 rx=3417 tx=3417 rate=0 util=0.00%
+PORT s4 p1 dt=2.0 rx=1024 tx=2979 rate=0 util=0.00%
+PORT s4 p2 dt=2.0 rx=1110 tx=2979 rate=0 util=0.00%
+PORT s4 p5 dt=2.0 rx=2633 tx=2633 rate=0 util=0.00%
+PORT s4 p3 dt=2.0 rx=1220 tx=3175 rate=0 util=0.00%
+PORT s3 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s3 p1 dt=2.0 rx=2633 tx=2633 rate=0 util=0.00%
+PORT s3 p2 dt=2.0 rx=2633 tx=2633 rate=0 util=0.00%
+PORT s2 p4294967294 dt=2.0 rx=0 tx=0 rate=0 util=0.00%
+PORT s2 p1 dt=2.0 rx=3417 tx=3417 rate=0 util=0.00%
+PORT s2 p2 dt=2.0 rx=3417 tx=3417 rate=0 util=0.00%

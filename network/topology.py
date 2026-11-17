@@ -56,18 +56,24 @@ class SDNDiamondTopo(Topo):
         # --- hosts on s1: the three roles (sources) ---------------------
         # defaultRoute so traffic crossing /24 uses the controller-as-gateway .254
         student1 = self.addHost("student1", ip="10.0.10.1/24",
+                                mac="00:00:00:00:0a:01",
                                 defaultRoute="via 10.0.10.254")
         staff1 = self.addHost("staff1", ip="10.0.20.1/24",
+                              mac="00:00:00:00:14:01",
                               defaultRoute="via 10.0.20.254")
         mgmt1 = self.addHost("mgmt1", ip="10.0.30.1/24",
+                             mac="00:00:00:00:1e:01",
                              defaultRoute="via 10.0.30.254")
 
         # --- hosts on s4: the three services (endpoints) ----------------
         web1 = self.addHost("web1", ip="10.0.40.10/24",
+                            mac="00:00:00:00:28:0a",
                             defaultRoute="via 10.0.40.254")
         file1 = self.addHost("file1", ip="10.0.40.20/24",
+                             mac="00:00:00:00:28:14",
                              defaultRoute="via 10.0.40.254")
         iot1 = self.addHost("iot1", ip="10.0.40.30/24",
+                            mac="00:00:00:00:28:1e",
                             defaultRoute="via 10.0.40.254")
 
         # --- inter-switch links: both paths, pinned ports ---------------
