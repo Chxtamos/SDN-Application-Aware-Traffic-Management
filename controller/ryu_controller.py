@@ -26,7 +26,8 @@ from ryu.lib import hub
 
 LOG = logging.getLogger('sdn')
 STATS_CSV = '/tmp/sdn_stats.csv'      # raw port stats lines
-FLOW_CSV = '/tmp/sdn_flows.csv'       # raw flow stats lines
+FLOW_CSV = '/tmp/sdn_flows.csv'
+FLOW_HEADER = 'ts,dpid,table,priority,cookie,packets,bytes,match'       # raw flow stats lines
 CSV_HEADER = 'ts,dpid,port,rx_bytes,tx_bytes,rx_packets,util_pct,path'
 
 # ------------------------- frozen topology (docs/topology.md) --------------
@@ -57,6 +58,7 @@ ACL = {
         ('10.0.40.20', (20, 22), 'tcp'),
         ('10.0.40.20', (5201, 5201), 'tcp'),   # iperf3 bulk benchmark
         ('10.0.40.30', (161, 162), 'udp'),
+        ('10.0.40.30', (5000, 5100), 'udp'),
     ],
     'mgmt': [
         ('10.0.40.10', (80, 80), 'tcp'), ('10.0.40.10', (443, 443), 'tcp'),
@@ -84,6 +86,8 @@ def classify(proto, dport):
         return 'periodic'
     if proto == 'tcp' and dport in (20, 21, 22):
         return 'bulk'
+    if proto == 'tcp' and dport == 5201:
+        return 'bulk'   # iperf3 bulk benchmark
     if proto == 'tcp' and 8000 <= dport <= 9000:
         return 'bulk'
     return 'interactive'   # web-like default; ACL still gates by port
@@ -119,8 +123,7 @@ class RyuController(app_manager.RyuApp):
         LOG.info('[%s] %s' % (time.strftime('%H:%M:%S'), msg))
 
     def _init_logs(self):
-        for path, header in ((STATS_CSV, CSV_HEADER), (FLOW_CSV,
-                             'ts,dpid,table,priority,packets,bytes')):
+        for path, header in ((STATS_CSV, CSV_HEADER), (FLOW_CSV, FLOW_HEADER)):
             if not os.path.exists(path):
                 try:
                     with open(path, 'w') as f:
@@ -136,28 +139,26 @@ class RyuController(app_manager.RyuApp):
             pass
 
     # ---------------- helpers ----------------
-    def _add_flow(self, dp, priority, match, actions, idle=0):
+    def _add_flow(self, dp, priority, match, actions, idle=0, cookie=0):
         inst = [dp.ofproto_parser.OFPInstructionActions(
             dp.ofproto.OFPIT_APPLY_ACTIONS, actions)]
         mod = dp.ofproto_parser.OFPFlowMod(
             datapath=dp, priority=priority, match=match, instructions=inst,
             buffer_id=dp.ofproto.OFP_NO_BUFFER, idle_timeout=idle,
-            flags=dp.ofproto.OFPFF_SEND_FLOW_REM)
+            cookie=cookie, flags=dp.ofproto.OFPFF_SEND_FLOW_REM)
         dp.send_msg(mod)
 
-    def _del_flows(self, dp, priority=None):
-        """Delete our installed L3/ACL flows on a switch (OFPFC_DELETE)."""
+    def _del_l3_flows(self, dp):
+        """Delete ONLY the L3 routing flows (cookie 0x200). OFPFC_DELETE with a
+        wildcard match deletes EVERYTHING, so we scope by cookie to leave the
+        table-miss (priority 0) and ACL DROP (priority 300) rules untouched."""
         ofp = dp.ofproto
-        parser = dp.ofproto_parser
-        match = parser.OFPMatch() if priority is None else None
-        kwargs = {'out_port': ofp.OFPP_ANY, 'out_group': ofp.OFPG_ANY,
-                  'cookie': 0, 'cookie_mask': 0}
-        if priority is not None:
-            kwargs['priority'] = priority
-        mod = parser.OFPFlowMod(datapath=dp, command=ofp.OFPFC_DELETE,
-                                match=parser.OFPMatch(),
-                                table_id=ofp.OFPTT_ALL,
-                                **kwargs)
+        mod = dp.ofproto_parser.OFPFlowMod(
+            datapath=dp, command=ofp.OFPFC_DELETE,
+            match=dp.ofproto_parser.OFPMatch(),
+            table_id=ofp.OFPTT_ALL,
+            out_port=ofp.OFPP_ANY, out_group=ofp.OFPG_ANY,
+            cookie=0x200, cookie_mask=0xffffffffffffffff)
         dp.send_msg(mod)
 
     def _packet_out(self, dp, port, data, actions):
@@ -336,17 +337,24 @@ class RyuController(app_manager.RyuApp):
         out = next_port if next_port is not None else out_port
         if out is not None:
             acts.append(dp.ofproto_parser.OFPActionOutput(out))
-        self._add_flow(dp, 200, match, acts)
+        self._add_flow(dp, 200, match, acts, cookie=0x200)
 
     # ---------------- #8 stats ----------------
     def _monitor_loop(self):
         while True:
             hub.sleep(self.sample_dt)
-            self._poll_stats()
+            # decide on the PREVIOUS cycle's accumulated path_util (before the
+            # next poll resets it), otherwise util reads 0 right after reset.
             if self.adaptive_enabled:
                 self._decide_reroute()
+            self._poll_stats()
 
     def _poll_stats(self):
+        # reset per-path utilisation once per sampling round (#10 fix:
+        # _port_stats fires per-switch, so resetting there would wipe
+        # contributions from switches that reply later)
+        self.path_util = {'A': 0.0, 'B': 0.0}
+        self.path_seen = False
         for dp in self.datapaths.values():
             dp.send_msg(dp.ofproto_parser.OFPPortStatsRequest(
                 dp, 0, dp.ofproto.OFPP_ANY))
@@ -358,8 +366,6 @@ class RyuController(app_manager.RyuApp):
     def _port_stats(self, ev):
         dp = ev.msg.datapath
         now = time.time()
-        # reset per-path utilisation each sample (#10 fix)
-        self.path_util = {'A': 0.0, 'B': 0.0}
         for st in ev.msg.body:
             key = (dp.id, st.port_no)
             rx_b, tx_b, rx_pkt = st.rx_bytes, st.tx_bytes, st.rx_packets
@@ -386,21 +392,22 @@ class RyuController(app_manager.RyuApp):
         now = int(time.time())
         for st in ev.msg.body:
             if st.priority in (200, 300):
+                m = st.match.to_jsondict() if hasattr(st.match, 'to_jsondict') else str(st.match)
                 self._csv(FLOW_CSV, [now, dp.id, st.table_id, st.priority,
-                                     st.packet_count, st.byte_count])
+                                     hex(st.cookie or 0), st.packet_count,
+                                     st.byte_count, m])
 
     # ---------------- #10 adaptive ----------------
     def _decide_reroute(self):
+        """Hysteresis with back-off: only reroute to a less-congested path, and
+        only back after congestion clears."""
         now = time.time()
         util = self.path_util.get(self.current_path, 0.0)
         other = 'B' if self.current_path == 'A' else 'A'
         util_other = self.path_util.get(other, 0.0)
         if now < self.cooldown_until:
-            # during cooldown, allow recovery but stay
-            if util < self.congest_lo:
-                self.congest_count = 0
             return
-        if util >= self.congest_hi and self.congest_hi > self.congest_lo:
+        if util >= self.congest_hi and util_other < util:
             self.congest_count += 1
             if self.congest_count >= self.busy_persist:
                 self._switch_path(other)
@@ -415,7 +422,7 @@ class RyuController(app_manager.RyuApp):
             self.current_path, new, self.path_util['A'], self.path_util['B']))
         # remove old L3 flows + clear installed so flows re-install on new path
         for dp in self.datapaths.values():
-            self._del_flows(dp, priority=200)
+            self._del_l3_flows(dp)
         self.current_path = new
         self.installed = set()
         self.congest_count = 0

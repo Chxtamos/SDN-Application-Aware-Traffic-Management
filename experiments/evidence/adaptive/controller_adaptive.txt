@@ -1,0 +1,15 @@
+loading app /home/mininet/sdn-controller/ryu_controller.py
+loading app ryu.controller.ofp_handler
+instantiating app /home/mininet/sdn-controller/ryu_controller.py of RyuController
+[18:00:46] controller started: adaptive=True path=A
+instantiating app ryu.controller.ofp_handler of OFPHandler
+[18:00:57] switch connected: s1 (dpid=1)
+[18:00:57] switch connected: s3 (dpid=3)
+[18:00:57] switch connected: s4 (dpid=4)
+[18:00:57] switch connected: s2 (dpid=2)
+[18:01:04] ROUTE 10.0.20.1->10.0.40.20 (tcp:5201) class=bulk path=A
+[18:01:09] ADAPTIVE: switch A -> B (util A=95% B=0%)
+[18:01:09] ADAPTIVE: now on path B (cooldown 10.0s)
+[18:01:09] ROUTE 10.0.20.1->10.0.40.20 (tcp:5201) class=bulk path=B
+[18:01:09] ACL DENY 10.0.40.20[tcp:51788] -> 10.0.20.1 on s4
+[18:01:09] ACL DENY 10.0.40.20[tcp:51788] -> 10.0.20.1 on s4
