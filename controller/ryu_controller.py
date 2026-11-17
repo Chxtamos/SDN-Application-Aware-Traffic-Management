@@ -265,8 +265,10 @@ class RyuController(app_manager.RyuApp):
         # traffic that appears on s4 from the SERVICE side, it is return traffic
         # of an already-approved flow (e.g. ACKs from file1 during a reroute);
         # we must NOT install a priority-300 DROP that would shadow the L3 flows.
-        is_return = (dp.id == 4 and
-                     '.'.join(sip.split('.')[:3]) + '.0' == SERVICE_SUB)
+        # return traffic: any packet whose source is the service subnet
+        # (10.0.40.x) is NOT a client ingress - never ACL-DROP it, and never
+        # shadow the L3 return flows with a priority-300 DROP.
+        is_return = ('.'.join(sip.split('.')[:3]) + '.0' == SERVICE_SUB)
         if not self._flow_allowed(sip, dip, proto, dport):
             if is_return:
                 # return of an allowed flow: let PacketIn forward it, do not drop
@@ -275,8 +277,10 @@ class RyuController(app_manager.RyuApp):
                 return
             self._log('ACL DENY %s[%s:%s] -> %s on %s' % (
                 sip, proto, dport, dip, SWITCH.get(dp.id)))
-            # install DROP only on the client ingress switch (s1)
-            if dp.id == 1:
+            # install DROP only on the client ingress switch (s1) AND only on
+            # the client-facing ports (1,2,3); never on the transit ports (4,5)
+            # or a return ACK could be dropped during a path switch.
+            if dp.id == 1 and in_port in (1, 2, 3):
                 kw = {'in_port': in_port, 'eth_type': 0x0800, 'ipv4_src': sip,
                       'ipv4_dst': dip}
                 if proto == 'tcp':
@@ -425,21 +429,36 @@ class RyuController(app_manager.RyuApp):
 
     # ---------------- #10 adaptive ----------------
     def _decide_reroute(self):
-        """Hysteresis with back-off: only reroute to a less-congested path, and
-        only back after congestion clears."""
+        """Stable adaptation (Path A is Primary). Move to the offload path B only
+        when A is congested AND B is genuinely less loaded; once on B, STAY there
+        while the load persists - switch back to A only when B's utilisation
+        actually drops below congest_lo (load cleared). Prevents A<->B ping-pong
+        when a sustained flow saturates either path."""
         now = time.time()
+        if now < self.cooldown_until:
+            return
         util = self.path_util.get(self.current_path, 0.0)
         other = 'B' if self.current_path == 'A' else 'A'
         util_other = self.path_util.get(other, 0.0)
-        if now < self.cooldown_until:
-            return
-        if util >= self.congest_hi and util_other < util:
-            self.congest_count += 1
-            if self.congest_count >= self.busy_persist:
-                self._switch_path(other)
+        if self.current_path == 'A':
+            # offload to B only if A is congested and B is actually lighter
+            if util >= self.congest_hi and util_other < util:
+                self.congest_count += 1
+                if self.congest_count >= self.busy_persist:
+                    self._switch_path('B')
+                    self.congest_count = 0
+            elif util < self.congest_lo:
                 self.congest_count = 0
-        elif util < self.congest_lo:
-            self.congest_count = 0
+        else:  # currently on B (offload path)
+            # stay on B while the load is still heavy (util B >= congest_lo);
+            # return to Primary A only once B has recovered below congest_lo
+            if util < self.congest_lo and util_other < self.congest_hi:
+                self.congest_count += 1
+                if self.congest_count >= self.busy_persist:
+                    self._switch_path('A')
+                    self.congest_count = 0
+            else:
+                self.congest_count = 0
 
     def _switch_path(self, new):
         if new == self.current_path:
