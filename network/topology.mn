@@ -2,7 +2,7 @@
   "version": "2",
   "application": {
     "ipBase": "10.0.0.0/8",
-    "startCLI": "0",
+    "startCLI": "1",
     "terminalType": "xterm",
     "switchType": "ovs",
     "dpctl": "",
@@ -33,7 +33,7 @@
         "nodeNum": "0",
         "controllerType": "remote",
         "remoteIP": "127.0.0.1",
-        "port": "6653",
+        "remotePort": 6653,
         "wireshark": false,
         "deferred_start": false
       }
@@ -48,7 +48,7 @@
         "hostname": "student1",
         "nodeNum": "1",
         "ip": "10.0.10.1/24",
-        "defaultRoute": "via 10.0.10.254",
+        "defaultRoute": "10.0.10.254",
         "wireshark": false,
         "deferred_start": false
       }
@@ -61,7 +61,7 @@
         "hostname": "staff1",
         "nodeNum": "2",
         "ip": "10.0.20.1/24",
-        "defaultRoute": "via 10.0.20.254",
+        "defaultRoute": "10.0.20.254",
         "wireshark": false,
         "deferred_start": false
       }
@@ -74,7 +74,7 @@
         "hostname": "mgmt1",
         "nodeNum": "3",
         "ip": "10.0.30.1/24",
-        "defaultRoute": "via 10.0.30.254",
+        "defaultRoute": "10.0.30.254",
         "wireshark": false,
         "deferred_start": false
       }
@@ -87,7 +87,7 @@
         "hostname": "web1",
         "nodeNum": "4",
         "ip": "10.0.40.10/24",
-        "defaultRoute": "via 10.0.40.254",
+        "defaultRoute": "10.0.40.254",
         "wireshark": false,
         "deferred_start": false
       }
@@ -100,7 +100,7 @@
         "hostname": "file1",
         "nodeNum": "5",
         "ip": "10.0.40.20/24",
-        "defaultRoute": "via 10.0.40.254",
+        "defaultRoute": "10.0.40.254",
         "wireshark": false,
         "deferred_start": false
       }
@@ -113,7 +113,7 @@
         "hostname": "iot1",
         "nodeNum": "6",
         "ip": "10.0.40.30/24",
-        "defaultRoute": "via 10.0.40.254",
+        "defaultRoute": "10.0.40.254",
         "wireshark": false,
         "deferred_start": false
       }
