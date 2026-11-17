@@ -1,0 +1,28 @@
+*** Creating network
+*** Adding controller
+*** Adding hosts:
+file1 iot1 mgmt1 staff1 student1 web1 
+*** Adding switches:
+s1 s2 s3 s4 
+*** Adding links:
+(100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, mgmt1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, s2) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, s3) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, staff1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s1, student1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s2, s4) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s3, s4) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s4, file1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s4, iot1) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (s4, web1) 
+*** Configuring hosts
+file1 iot1 mgmt1 staff1 student1 web1 
+*** Starting controller
+c0 
+*** Starting 4 switches
+s1 s2 s3 s4 ...(100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) (100.00Mbit 1ms delay) 
+*** Stopping 1 controllers
+c0 
+*** Stopping 10 links
+..........
+*** Stopping 4 switches
+s1 s2 s3 s4 
+*** Stopping 6 hosts
+file1 iot1 mgmt1 staff1 student1 web1 
+*** Done
+=== starting iperf3 bulk (staff1 -> file1) on Path A ===
+>>> ADAPTIVE switch detected on iter 2
+switch_seen = True
+=== iperf client (tail) ===
+

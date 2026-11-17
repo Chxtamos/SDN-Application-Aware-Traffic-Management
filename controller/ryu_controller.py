@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
-"""Ryu controller for the SDN diamond topology (issues #6, #7, #8, #9, #10).
+"""Ryu controller for the SDN diamond topology (issues #6-#10).
 
-Single self-contained OpenFlow 1.3 app implementing Decision A
-(docs/architecture.md, docs/topology.md sec. 3.1): hosts sit in four /24
-subnets behind gateway .254, and the controller acts as that gateway:
+Single OpenFlow 1.3 app:
+  #6  ARP proxy + per-flow L3 routing (connectivity)
+  #7  L4-aware ACL/classification (default-deny, port-limited) + drop flows
+  #8  port/flow stats collector + link utilisation (raw .csv / .json out)
+  #9  fixed baseline L3 rules (loop-free, bidirectional, edge MAC rewrite)
+  #10 adaptive rerouting A<->B with hysteresis + cooldown + real OVS flow swap
 
-  #6  ARP proxy for .254 gateways + per-flow L3 routing for connectivity
-  #7  packet classification (Interactive/Periodic/Bulk) + high-priority ACL
-  #8  port/flow stats collector + link-utilisation (logged to /tmp/sdn_stats.log)
-  #9  fixed baseline: static single-path (Path A) L3 flow rules, loop-free,
-      forward + return, with edge MAC rewrite
-  #10 adaptive rerouting between Path A and B with hysteresis + cooldown
-
-Run on the mininet box (as the mininet user):
+Run (mininet box, repo root):
     PATH=$PATH:$HOME/.local/bin ryu-manager --ofp-tcp-listen-port 6653 \
         controller/ryu_controller.py
 """
+import json
 import logging
 import os
 import time
@@ -28,12 +25,13 @@ from ryu.lib.packet import packet, ethernet, arp, ipv4, tcp, udp
 from ryu.lib import hub
 
 LOG = logging.getLogger('sdn')
-STATS_FILE = '/tmp/sdn_stats.log'
+STATS_CSV = '/tmp/sdn_stats.csv'      # raw port stats lines
+FLOW_CSV = '/tmp/sdn_flows.csv'       # raw flow stats lines
+CSV_HEADER = 'ts,dpid,port,rx_bytes,tx_bytes,rx_packets,util_pct,path'
 
 # ------------------------- frozen topology (docs/topology.md) --------------
 SWITCH = {1: 's1', 2: 's2', 3: 's3', 4: 's4'}
-# host ip -> (edge dpid, edge port, mac)
-HOST = {
+HOST = {  # ip -> (edge dpid, edge port, mac)
     '10.0.10.1': (1, 1, '00:00:00:00:0a:01'),
     '10.0.20.1': (1, 2, '00:00:00:00:14:01'),
     '10.0.30.1': (1, 3, '00:00:00:00:1e:01'),
@@ -43,9 +41,31 @@ HOST = {
 }
 GATEWAYS = {'10.0.10.254', '10.0.20.254', '10.0.30.254', '10.0.40.254'}
 EDGE_MAC = {1: 'aa:00:00:00:00:01', 4: 'aa:00:00:00:00:04'}
-ROLE = {'10.0.10.0': 'student', '10.0.20.0': 'staff', '10.0.30.0': 'mgmt'}
 SERVICE_SUB = '10.0.40.0'
+# source subnet -> role
+ROLE = {'10.0.10.0': 'student', '10.0.20.0': 'staff', '10.0.30.0': 'mgmt'}
+# fine-grained deny pairs (student cannot reach file/iot service)
 DENY_DST = {('10.0.10.0', '10.0.40.20'), ('10.0.10.0', '10.0.40.30')}
+
+# ACL matrix (docs/security-policy.md). role -> list of (dst ip, (lo,hi) ports, proto)
+ACL = {
+    'student': [
+        ('10.0.40.10', (80, 80), 'tcp'), ('10.0.40.10', (443, 443), 'tcp'),
+    ],
+    'staff': [
+        ('10.0.40.10', (80, 80), 'tcp'), ('10.0.40.10', (443, 443), 'tcp'),
+        ('10.0.40.20', (20, 22), 'tcp'),
+        ('10.0.40.20', (5201, 5201), 'tcp'),   # iperf3 bulk benchmark
+        ('10.0.40.30', (161, 162), 'udp'),
+    ],
+    'mgmt': [
+        ('10.0.40.10', (80, 80), 'tcp'), ('10.0.40.10', (443, 443), 'tcp'),
+        ('10.0.40.20', (20, 22), 'tcp'),
+        ('10.0.40.20', (5201, 5201), 'tcp'),   # iperf3 bulk benchmark
+        ('10.0.40.30', (161, 162), 'udp'),
+        ('10.0.40.30', (5000, 5100), 'udp'),
+    ],
+}
 
 CAPACITY = {  # dpid -> {port: bps}
     1: {1: 100e6, 2: 100e6, 3: 100e6, 4: 100e6, 5: 100e6},
@@ -53,7 +73,6 @@ CAPACITY = {  # dpid -> {port: bps}
     3: {1: 100e6, 2: 100e6},
     4: {1: 100e6, 2: 100e6, 3: 100e6, 4: 100e6, 5: 100e6},
 }
-# Path A transit ports: (dpid, port) pairs that carry Path A / Path B traffic
 PATH_A_PORTS = {(1, 4), (2, 1), (2, 2), (4, 4)}
 PATH_B_PORTS = {(1, 5), (3, 1), (3, 2), (4, 5)}
 
@@ -67,7 +86,7 @@ def classify(proto, dport):
         return 'bulk'
     if proto == 'tcp' and 8000 <= dport <= 9000:
         return 'bulk'
-    return 'interactive'
+    return 'interactive'   # web-like default; ACL still gates by port
 
 
 class RyuController(app_manager.RyuApp):
@@ -77,12 +96,12 @@ class RyuController(app_manager.RyuApp):
         super(RyuController, self).__init__(*args, **kwargs)
         self.datapaths = {}
         self.current_path = 'A'
-        self.installed = set()          # (src,dst) flow pairs already installed
+        self.installed = set()              # (sip,dip,proto,dport)
         # stats (#8)
-        self.raw = {}
+        self.raw = {}                       # (dpid,port)->(ts,rx_b,tx_b,rx_pkt)
         self.link_util = {}
         self.path_util = {'A': 0.0, 'B': 0.0}
-        self.sample_dt = 2.0
+        self.sample_dt = 1.0
         # adaptive (#10)
         self.congest_hi = 80.0
         self.congest_lo = 45.0
@@ -90,27 +109,29 @@ class RyuController(app_manager.RyuApp):
         self.busy_persist = 3
         self.congest_count = 0
         self.cooldown_until = 0.0
-        self.adaptive_enabled = False
-        self._ensure_log()
-        self._log('controller started: gateway=Decision-A, path=%s, adaptive=%s' % (
-            self.current_path, self.adaptive_enabled))
+        self.adaptive_enabled = True
+        self._init_logs()
+        self._log('controller started: adaptive=%s path=%s' % (
+            self.adaptive_enabled, self.current_path))
         hub.spawn(self._monitor_loop)
 
     def _log(self, msg):
         LOG.info('[%s] %s' % (time.strftime('%H:%M:%S'), msg))
 
-    def _ensure_log(self):
-        if STATS_FILE and not os.path.exists(STATS_FILE):
-            try:
-                open(STATS_FILE, 'w').close()
-            except OSError:
-                pass
+    def _init_logs(self):
+        for path, header in ((STATS_CSV, CSV_HEADER), (FLOW_CSV,
+                             'ts,dpid,table,priority,packets,bytes')):
+            if not os.path.exists(path):
+                try:
+                    with open(path, 'w') as f:
+                        f.write(header + '\n')
+                except OSError:
+                    pass
 
-    def _log_raw(self, line):
-        LOG.info(line)
+    def _csv(self, path, row):
         try:
-            with open(STATS_FILE, 'a') as f:
-                f.write(line + '\n')
+            with open(path, 'a') as f:
+                f.write(','.join(str(x) for x in row) + '\n')
         except OSError:
             pass
 
@@ -122,6 +143,21 @@ class RyuController(app_manager.RyuApp):
             datapath=dp, priority=priority, match=match, instructions=inst,
             buffer_id=dp.ofproto.OFP_NO_BUFFER, idle_timeout=idle,
             flags=dp.ofproto.OFPFF_SEND_FLOW_REM)
+        dp.send_msg(mod)
+
+    def _del_flows(self, dp, priority=None):
+        """Delete our installed L3/ACL flows on a switch (OFPFC_DELETE)."""
+        ofp = dp.ofproto
+        parser = dp.ofproto_parser
+        match = parser.OFPMatch() if priority is None else None
+        kwargs = {'out_port': ofp.OFPP_ANY, 'out_group': ofp.OFPG_ANY,
+                  'cookie': 0, 'cookie_mask': 0}
+        if priority is not None:
+            kwargs['priority'] = priority
+        mod = parser.OFPFlowMod(datapath=dp, command=ofp.OFPFC_DELETE,
+                                match=parser.OFPMatch(),
+                                table_id=ofp.OFPTT_ALL,
+                                **kwargs)
         dp.send_msg(mod)
 
     def _packet_out(self, dp, port, data, actions):
@@ -176,109 +212,123 @@ class RyuController(app_manager.RyuApp):
             rep.serialize()
             self._packet_out(dp, in_port, rep.data,
                              [dp.ofproto_parser.OFPActionOutput(in_port)])
-            self._log('ARP proxy: %s -> gw %s on %s' % (
-                a.src_ip, a.dst_ip, SWITCH.get(dp.id)))
             return
-        # route ARP to a real destination host on the same edge
         if a.dst_ip in HOST and dp.id in (1, 4):
             hdpid, hport, _ = HOST[a.dst_ip]
             if dp.id == hdpid:
                 self._packet_out(dp, in_port, pkt.data,
                                  [dp.ofproto_parser.OFPActionOutput(hport)])
 
-    # ---------------- #7 ACL ----------------
-    def _acl_allowed(self, sip, dip):
-        """Default-deny: only source-role subnets may reach the service subnet."""
+    # ---------------- #7 L4-aware ACL ----------------
+    def _ip_pair_allowed(self, sip, dip):
+        """Role->service-subnet reachability (used for ICMP / reachability)."""
         ssub = '.'.join(sip.split('.')[:3]) + '.0'
         role = ROLE.get(ssub)
         if role is None:
-            return False   # non-role source (incl. 10.0.40.x) -> deny (return traffic
-                           # is handled by the reverse L3 flows, not via _acl_allowed)
-        if (ssub, dip) in DENY_DST:
             return False
         dsub = '.'.join(dip.split('.')[:3]) + '.0'
-        return dsub == SERVICE_SUB
+        return dsub == SERVICE_SUB and (ssub, dip) not in DENY_DST
 
-    # ---------------- #9 L3 route install (loop-free, edge MAC rewrite) ----
+    def _flow_allowed(self, sip, dip, proto, dport):
+        # ICMP/ping: reachability check between an allowed IP pair
+        # (docs/security-policy.md - ICMP allowed for allowed pairs).
+        if proto == 'icmp':
+            return self._ip_pair_allowed(sip, dip)
+        ssub = '.'.join(sip.split('.')[:3]) + '.0'
+        role = ROLE.get(ssub)
+        if role is None:
+            return False
+        for (dst, prange, pproto) in ACL.get(role, []):
+            if dst != dip:
+                continue
+            if pproto != proto:
+                continue
+            if prange is None:
+                return True
+            if prange[0] <= (dport or 0) <= prange[1]:
+                return True
+        return False
+
     def _route_ip(self, dp, in_port, eth, p4, pkt):
         sip, dip = p4.src, p4.dst
-        # ACL drop (default-deny) (#7)
-        if not self._acl_allowed(sip, dip):
-            self._log('ACL DENY %s -> %s on %s' % (sip, dip, SWITCH.get(dp.id)))
-            # install a high-priority DROP rule so denied pairs stop hitting
-            # PacketIn (docs/security-policy.md 3): drop locally, don't flood
-            if dp.id in (1, 4):
-                dm = dp.ofproto_parser.OFPMatch(in_port=in_port, eth_type=0x0800,
-                                                ipv4_dst=dip)
-                self._add_flow(dp, 300, dm, [])   # empty actions = drop
-            return
-        if dip not in HOST:
-            self._log('unknown dst %s -> drop' % dip)
-            return
-        if (sip, dip) in self.installed:
-            return   # flows already installed
-        # classify for the log (#7)
         flow = pkt.get_protocol(tcp.tcp) or pkt.get_protocol(udp.udp)
         dport = flow.dst_port if flow else 0
         proto = ('tcp' if pkt.get_protocol(tcp.tcp)
                  else 'udp' if pkt.get_protocol(udp.udp) else 'icmp')
+        # ACL (#7): default-deny, port-limited
+        if not self._flow_allowed(sip, dip, proto, dport):
+            self._log('ACL DENY %s[%s:%s] -> %s on %s' % (
+                sip, proto, dport, dip, SWITCH.get(dp.id)))
+            if dp.id in (1, 4):
+                kw = {'in_port': in_port, 'eth_type': 0x0800, 'ipv4_src': sip,
+                      'ipv4_dst': dip}
+                if proto == 'tcp':
+                    kw['ip_proto'] = 6; kw['tcp_dst'] = dport
+                elif proto == 'udp':
+                    kw['ip_proto'] = 17; kw['udp_dst'] = dport
+                self._add_flow(dp, 300, dp.ofproto_parser.OFPMatch(**kw), [])
+            return
+        if dip not in HOST:
+            return
+        key = (sip, dip, proto, dport)
+        if key in self.installed:
+            return
         self._log('ROUTE %s->%s (%s:%s) class=%s path=%s' % (
             sip, dip, proto, dport, classify(proto, dport), self.current_path))
-        self._install_l3_flows(sip, dip, p4.src, p4.dst)
-        self.installed.add((sip, dip))
+        self._install_l3_flows(sip, dip, proto, dport, p4.src, p4.dst)
+        self.installed.add(key)
 
-    def _install_l3_flows(self, sip, dip, smac, dmac):
-        """Install bidirectional L3 flows along the active path with edge MAC
-        rewrite (Decision A). Path is chosen by self.current_path."""
+    # ---------------- #9 L3 route install ----------------
+    def _install_l3_flows(self, sip, dip, proto, dport, smac, dmac):
         src_e, src_p, src_mac = HOST[sip]
         dst_e, dst_p, dst_mac = HOST[dip]
-        parser = self.datapaths[src_e].ofproto_parser if src_e in self.datapaths else None
-        if not parser:
-            return
         if self.current_path == 'A':
-            trans = 2          # transit switch s2
-            s1_out, s4_in = 4, 4   # s1->s2 port, s4 from-s2 port
+            trans, s1_out, s4_in = 2, 4, 4
         else:
-            trans = 3
-            s1_out, s4_in = 5, 5
-        # --- forward: src host -> dst host (downstream) ---
-        # ingress edge (s1)
-        self._l3_fwd(self._sw(src_e), in_port=src_p, dst_ip=dip,
-                     dst_mac=dst_mac, next_port=s1_out)
-        # transit (s2/s3): match on dst mac -> to s4
-        self._l3_fwd(self._sw(trans), match_eth=dst_mac,
+            trans, s1_out, s4_in = 3, 5, 5
+        # per-flow L4 match fields to disambiguate flows (#7)
+        l4 = {}
+        if proto == 'tcp':
+            l4['ip_proto'] = 6; l4['tcp_dst'] = dport
+        elif proto == 'udp':
+            l4['ip_proto'] = 17; l4['udp_dst'] = dport
+        # forward
+        self._l3_fwd(self._sw(src_e), in_port=src_p, src_ip=sip, dst_ip=dip,
+                     dst_mac=dst_mac, next_port=s1_out, l4=l4)
+        self._l3_fwd(self._sw(trans), match_eth=dst_mac, l4=l4,
                      out_port=self._edge_port(trans, dst_e, 'fwd'))
-        # egress edge (s4): match dst ip -> rewire mac to dst host + output
-        self._l3_fwd(self._sw(dst_e), in_port=s4_in, dst_ip=dip,
-                     dst_mac=dst_mac, out_port=dst_p)
-        # --- reverse: dst host -> src host ---
-        self._l3_fwd(self._sw(dst_e), in_port=dst_p, dst_ip=sip,
-                     dst_mac=src_mac, next_port=s4_in)
-        self._l3_fwd(self._sw(trans), match_eth=src_mac,
+        self._l3_fwd(self._sw(dst_e), in_port=s4_in, src_ip=sip, dst_ip=dip,
+                     dst_mac=dst_mac, out_port=dst_p, l4=l4)
+        # reverse (5-tuple reversed)
+        rl4 = {}
+        if proto == 'tcp':
+            rl4['ip_proto'] = 6; rl4['tcp_src'] = dport
+        elif proto == 'udp':
+            rl4['ip_proto'] = 17; rl4['udp_src'] = dport
+        self._l3_fwd(self._sw(dst_e), in_port=dst_p, src_ip=dip, dst_ip=sip,
+                     dst_mac=src_mac, next_port=s4_in, l4=rl4)
+        self._l3_fwd(self._sw(trans), match_eth=src_mac, l4=rl4,
                      out_port=self._edge_port(trans, src_e, 'rev'))
-        self._l3_fwd(self._sw(src_e), in_port=s1_out, dst_ip=sip,
-                     dst_mac=src_mac, out_port=src_p)
+        self._l3_fwd(self._sw(src_e), in_port=s1_out, src_ip=dip, dst_ip=sip,
+                     dst_mac=src_mac, out_port=src_p, l4=rl4)
 
     def _sw(self, dpid):
         return self.datapaths.get(dpid)
 
     def _edge_port(self, transit, edge, direction):
-        # port on transit switch (s2/s3) toward an edge
-        if edge == 1:
-            return 1
-        if edge == 4:
-            return 2
+        return 1 if edge == 1 else 2
 
-    def _l3_fwd(self, dp, in_port=None, dst_ip=None, dst_mac=None,
-                match_eth=None, next_port=None, out_port=None):
+    def _l3_fwd(self, dp, in_port=None, src_ip=None, dst_ip=None, dst_mac=None,
+                match_eth=None, next_port=None, out_port=None, l4=None):
         if not dp:
             return
-        kw = {}
+        kw = {'eth_type': 0x0800}
         if in_port is not None: kw['in_port'] = in_port
-        if dst_ip is not None:
-            kw['eth_type'] = 0x0800   # IPv4 (required by OVS when matching ipv4)
-            kw['ipv4_dst'] = dst_ip
+        if src_ip is not None: kw['ipv4_src'] = src_ip
+        if dst_ip is not None: kw['ipv4_dst'] = dst_ip
         if match_eth is not None: kw['eth_dst'] = match_eth
+        if l4:
+            kw.update(l4)
         match = dp.ofproto_parser.OFPMatch(**kw)
         acts = []
         if dst_mac:
@@ -288,7 +338,7 @@ class RyuController(app_manager.RyuApp):
             acts.append(dp.ofproto_parser.OFPActionOutput(out))
         self._add_flow(dp, 200, match, acts)
 
-    # ---------------- #8 stats + #10 adaptive ----------------
+    # ---------------- #8 stats ----------------
     def _monitor_loop(self):
         while True:
             hub.sleep(self.sample_dt)
@@ -300,39 +350,60 @@ class RyuController(app_manager.RyuApp):
         for dp in self.datapaths.values():
             dp.send_msg(dp.ofproto_parser.OFPPortStatsRequest(
                 dp, 0, dp.ofproto.OFPP_ANY))
+            dp.send_msg(dp.ofproto_parser.OFPFlowStatsRequest(
+                dp, 0, dp.ofproto.OFPTT_ALL, dp.ofproto.OFPP_ANY,
+                dp.ofproto.OFPG_ANY, 0, 0, None))
 
     @set_ev_cls(ofp_event.EventOFPPortStatsReply, MAIN_DISPATCHER)
     def _port_stats(self, ev):
         dp = ev.msg.datapath
         now = time.time()
+        # reset per-path utilisation each sample (#10 fix)
+        self.path_util = {'A': 0.0, 'B': 0.0}
         for st in ev.msg.body:
             key = (dp.id, st.port_no)
-            rx_b, tx_b = st.rx_bytes, st.tx_bytes
+            rx_b, tx_b, rx_pkt = st.rx_bytes, st.tx_bytes, st.rx_packets
             old = self.raw.get(key)
+            util = 0.0
             if old and now > old[0]:
                 dt = now - old[0]
-                rx_rate = (rx_b - old[1]) * 8.0 / dt if rx_b >= old[1] else 0.0
+                rrate = (rx_b - old[1]) * 8.0 / dt if rx_b >= old[1] else 0.0
+                trate = (tx_b - old[2]) * 8.0 / dt if tx_b >= old[2] else 0.0
                 cap = CAPACITY.get(dp.id, {}).get(st.port_no)
-                util = min(100.0, rx_rate / cap * 100.0) if cap else 0.0
+                util = min(100.0, max(rrate, trate) / cap * 100.0) if cap else 0.0
                 self.link_util[key] = util
                 if key in PATH_A_PORTS:
-                    self.path_util['A'] = max(self.path_util.get('A', 0.0), util)
+                    self.path_util['A'] = max(self.path_util['A'], util)
                 if key in PATH_B_PORTS:
-                    self.path_util['B'] = max(self.path_util.get('B', 0.0), util)
-                self._log_raw(
-                    'PORT s%s p%s dt=%.1f rx=%d tx=%d rate=%.0f util=%.2f%%' %
-                    (dp.id, st.port_no, dt, rx_b, tx_b, rx_rate, util))
-            self.raw[key] = (now, rx_b, tx_b, st.rx_packets)
+                    self.path_util['B'] = max(self.path_util['B'], util)
+                self._csv(STATS_CSV, [int(now), dp.id, st.port_no, rx_b, tx_b,
+                                      rx_pkt, round(util, 2), self.current_path])
+            self.raw[key] = (now, rx_b, tx_b, rx_pkt)
 
+    @set_ev_cls(ofp_event.EventOFPFlowStatsReply, MAIN_DISPATCHER)
+    def _flow_stats(self, ev):
+        dp = ev.msg.datapath
+        now = int(time.time())
+        for st in ev.msg.body:
+            if st.priority in (200, 300):
+                self._csv(FLOW_CSV, [now, dp.id, st.table_id, st.priority,
+                                     st.packet_count, st.byte_count])
+
+    # ---------------- #10 adaptive ----------------
     def _decide_reroute(self):
         now = time.time()
         util = self.path_util.get(self.current_path, 0.0)
+        other = 'B' if self.current_path == 'A' else 'A'
+        util_other = self.path_util.get(other, 0.0)
         if now < self.cooldown_until:
+            # during cooldown, allow recovery but stay
+            if util < self.congest_lo:
+                self.congest_count = 0
             return
-        if util >= self.congest_hi:
+        if util >= self.congest_hi and self.congest_hi > self.congest_lo:
             self.congest_count += 1
             if self.congest_count >= self.busy_persist:
-                self._switch_path('B' if self.current_path == 'A' else 'A')
+                self._switch_path(other)
                 self.congest_count = 0
         elif util < self.congest_lo:
             self.congest_count = 0
@@ -340,7 +411,14 @@ class RyuController(app_manager.RyuApp):
     def _switch_path(self, new):
         if new == self.current_path:
             return
+        self._log('ADAPTIVE: switch %s -> %s (util A=%.0f%% B=%.0f%%)' % (
+            self.current_path, new, self.path_util['A'], self.path_util['B']))
+        # remove old L3 flows + clear installed so flows re-install on new path
+        for dp in self.datapaths.values():
+            self._del_flows(dp, priority=200)
         self.current_path = new
-        self.cooldown_until = time.time() + self.cool_down
         self.installed = set()
-        self._log('ADAPTIVE: switch -> path %s (cooldown %ss)' % (new, self.cool_down))
+        self.congest_count = 0
+        self.cooldown_until = time.time() + self.cool_down
+        self._log('ADAPTIVE: now on path %s (cooldown %ss)' % (
+            new, self.cool_down))

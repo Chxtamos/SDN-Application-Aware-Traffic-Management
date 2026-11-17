@@ -39,6 +39,10 @@ Expected: ALLOWED pairs reply, DENIED pairs dropped; flows + port stats recorded
 `/tmp/sdn_evid/*`. Evidence is stored under `experiments/evidence/`.
 
 ## Adaptive routing (#10)
-`adaptive_enabled` defaults to `False` so the baseline test is stable. Set it to
-`True` (and wire `path_util` sampling) to exercise congestion-driven reroute with
-hysteresis (enter ≥ 80% util, clear ≤ 45%) and a 10 s cooldown.
+`adaptive_enabled = True`. Path utilisation is sampled each 1 s, hysteresis enters
+congestion at ≥ 80% and clears at ≤ 45%, with a 10 s cooldown after each switch.
+On a switch, the controller deletes the installed L3 flows (OFPFC_DELETE, priority
+200) and reinstalls them on the new path.
+
+Verified with iperf3 (staff1 -> file1, port 5201): Path A reached 96% util and the
+controller switched to Path B (see experiments/evidence/adaptive/).
