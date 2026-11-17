@@ -1,0 +1,46 @@
+{
+  "class": "Topo",
+  "name": "sdn-diamond-100",
+  "hosts": {
+    "student1": { "ip": "10.0.10.1/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "student1" } },
+    "staff1":   { "ip": "10.0.20.1/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "staff1" } },
+    "mgmt1":    { "ip": "10.0.30.1/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "mgmt1" } },
+    "web1":     { "ip": "10.0.40.10/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "web1" } },
+    "file1":    { "ip": "10.0.40.20/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "file1" } },
+    "iot1":     { "ip": "10.0.40.30/24", "wireshark": false, "deferred_start": false, "node": { "class": "Host", "name": "iot1" } }
+  },
+  "switches": {
+    "s1": { "wireshark": false, "deferred_start": false, "node": { "class": "OVSSwitch", "name": "s1", "protocols": "OpenFlow13", "dpid": "0000000000000001" } },
+    "s2": { "wireshark": false, "deferred_start": false, "node": { "class": "OVSSwitch", "name": "s2", "protocols": "OpenFlow13", "dpid": "0000000000000002" } },
+    "s3": { "wireshark": false, "deferred_start": false, "node": { "class": "OVSSwitch", "name": "s3", "protocols": "OpenFlow13", "dpid": "0000000000000003" } },
+    "s4": { "wireshark": false, "deferred_start": false, "node": { "class": "OVSSwitch", "name": "s4", "protocols": "OpenFlow13", "dpid": "0000000000000004" } }
+  },
+  "controllers": {
+    "c0": { "wireshark": false, "node": { "class": "DefaultController", "name": "c0", "hostname": "127.0.0.1", "port": 6653 } }
+  },
+  "links": [
+    ["student1", "s1"],
+    ["staff1", "s1"],
+    ["mgmt1", "s1"],
+    ["web1", "s4"],
+    ["file1", "s4"],
+    ["iot1", "s4"],
+    ["s1", "s2"],
+    ["s2", "s4"],
+    ["s1", "s3"],
+    ["s3", "s4"]
+  ],
+  "location": {
+    "student1": { "x": 80, "y": 200 },
+    "staff1":   { "x": 80, "y": 300 },
+    "mgmt1":    { "x": 80, "y": 400 },
+    "s1":       { "x": 320, "y": 300 },
+    "s2":       { "x": 560, "y": 150 },
+    "s3":       { "x": 560, "y": 450 },
+    "s4":       { "x": 800, "y": 300 },
+    "web1":     { "x": 1040, "y": 200 },
+    "file1":    { "x": 1040, "y": 300 },
+    "iot1":     { "x": 1040, "y": 400 },
+    "c0":       { "x": 560, "y": 40 }
+  }
+}
