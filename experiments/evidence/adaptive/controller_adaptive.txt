@@ -1,15 +1,27 @@
 loading app /home/mininet/sdn-controller/ryu_controller.py
 loading app ryu.controller.ofp_handler
 instantiating app /home/mininet/sdn-controller/ryu_controller.py of RyuController
-[18:00:46] controller started: adaptive=True path=A
+[21:42:32] controller started: adaptive=True path=A
 instantiating app ryu.controller.ofp_handler of OFPHandler
-[18:00:57] switch connected: s1 (dpid=1)
-[18:00:57] switch connected: s3 (dpid=3)
-[18:00:57] switch connected: s4 (dpid=4)
-[18:00:57] switch connected: s2 (dpid=2)
-[18:01:04] ROUTE 10.0.20.1->10.0.40.20 (tcp:5201) class=bulk path=A
-[18:01:09] ADAPTIVE: switch A -> B (util A=95% B=0%)
-[18:01:09] ADAPTIVE: now on path B (cooldown 10.0s)
-[18:01:09] ROUTE 10.0.20.1->10.0.40.20 (tcp:5201) class=bulk path=B
-[18:01:09] ACL DENY 10.0.40.20[tcp:51788] -> 10.0.20.1 on s4
-[18:01:09] ACL DENY 10.0.40.20[tcp:51788] -> 10.0.20.1 on s4
+[21:42:42] switch connected: s1 (dpid=1)
+[21:42:42] switch connected: s4 (dpid=4)
+[21:42:42] switch connected: s3 (dpid=3)
+[21:42:42] switch connected: s2 (dpid=2)
+[21:42:49] ARP proxy: 10.0.20.1 -> gw 10.0.20.254 on s1
+[21:42:49] ROUTE 10.0.20.1->10.0.40.20 (tcp:5201) class=bulk path=A
+[21:42:49] ARP proxy: 10.0.40.20 -> gw 10.0.40.254 on s4
+[21:42:53] ADAPTIVE: switch A -> B (util A=96% B=0%)
+[21:42:53] ADAPTIVE: now on path B, re-installed 1 active flow(s) (cooldown 10.0s)
+[21:42:53] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s1
+[21:42:53] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s2
+[21:43:05] ADAPTIVE: switch B -> A (util A=0% B=96%)
+[21:43:05] ADAPTIVE: now on path A, re-installed 1 active flow(s) (cooldown 10.0s)
+[21:43:05] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s3
+[21:43:05] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s3
+[21:43:05] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s3
+[21:43:05] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s3
+[21:43:05] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s3
+[21:43:05] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s3
+[21:43:05] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s3
+[21:43:05] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s3
+[21:43:05] ACL DENY 10.0.40.20[tcp:41858] -> 10.0.20.1 on s1
