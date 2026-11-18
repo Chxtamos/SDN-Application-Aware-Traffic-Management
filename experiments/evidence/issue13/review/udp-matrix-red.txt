@@ -1,0 +1,105 @@
+test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) ... 
+  test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='missing ok exit') ... FAIL
+  test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='null partial exit') ... FAIL
+  test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='two false errors and contradictory sender exit') ... FAIL
+  test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='two false errors and missing sender exit') ... FAIL
+  test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='two false errors and contradictory report exit') ... FAIL
+  test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='complete corrupt sender and contradictory exits') ... FAIL
+  test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='complete corrupt receiver with error report') ... FAIL
+  test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='corrupt report and wrong sender exit') ... FAIL
+  test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='corrupt report, false partial sender and missing report exit') ... FAIL
+
+======================================================================
+FAIL: test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='missing ok exit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-repo>\tests\test_harness_remediation.py", line 307, in test_udp_status_validation_matrix
+    self.assertIn(reason, " ".join(actual["issues"]))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'udp-send.json: missing or invalid process returncode' not found in "udp-send.json: 'returncode'"
+
+======================================================================
+FAIL: test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='null partial exit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-repo>\tests\test_harness_remediation.py", line 307, in test_udp_status_validation_matrix
+    self.assertIn(reason, " ".join(actual["issues"]))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'udp-report.json: missing or invalid process returncode' not found in 'udp-send.json: UDP offered load outside the +/-5% rate tolerance udp-report.json: process exit code disagrees with JSON status'
+
+======================================================================
+FAIL: test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='two false errors and contradictory sender exit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-repo>\tests\test_harness_remediation.py", line 304, in test_udp_status_validation_matrix
+    self.assertEqual(summary["status"], expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'failed' != 'incomplete'
+- failed
++ incomplete
+
+
+======================================================================
+FAIL: test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='two false errors and missing sender exit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-repo>\tests\test_harness_remediation.py", line 304, in test_udp_status_validation_matrix
+    self.assertEqual(summary["status"], expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'failed' != 'incomplete'
+- failed
++ incomplete
+
+
+======================================================================
+FAIL: test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='two false errors and contradictory report exit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-repo>\tests\test_harness_remediation.py", line 307, in test_udp_status_validation_matrix
+    self.assertIn(reason, " ".join(actual["issues"]))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'udp-report.json status disagrees' not found in 'udp-send.json: sender failed udp-report.json: process exit code disagrees with JSON status metrics unavailable: udp-send.json status disagrees with endpoint records'
+
+======================================================================
+FAIL: test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='complete corrupt sender and contradictory exits')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-repo>\tests\test_harness_remediation.py", line 307, in test_udp_status_validation_matrix
+    self.assertIn(reason, " ".join(actual["issues"]))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'udp-send.json / udp-receiver.json: sent_packets does not match' not found in 'udp-send.json: process exit code disagrees with JSON status udp-report.json: process exit code disagrees with JSON status'
+
+======================================================================
+FAIL: test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='complete corrupt receiver with error report')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-repo>\tests\test_harness_remediation.py", line 304, in test_udp_status_validation_matrix
+    self.assertEqual(summary["status"], expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'failed' != 'incomplete'
+- failed
++ incomplete
+
+
+======================================================================
+FAIL: test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='corrupt report and wrong sender exit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-repo>\tests\test_harness_remediation.py", line 307, in test_udp_status_validation_matrix
+    self.assertIn(reason, " ".join(actual["issues"]))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'udp-report.json does not agree with the raw endpoint captures' not found in 'udp-send.json: process exit code disagrees with JSON status'
+
+======================================================================
+FAIL: test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) (case='corrupt report, false partial sender and missing report exit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-repo>\tests\test_harness_remediation.py", line 307, in test_udp_status_validation_matrix
+    self.assertIn(reason, " ".join(actual["issues"]))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'udp-report.json: missing or invalid process returncode' not found in "udp-send.json: degraded udp-report.json: 'returncode'"
+
+----------------------------------------------------------------------
+Ran 1 test in 1.518s
+
+FAILED (failures=9)

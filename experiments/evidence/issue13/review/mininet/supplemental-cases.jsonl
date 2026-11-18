@@ -1,0 +1,5 @@
+{"case": "child-deadline", "directory": "<experiment-workspace>/evidence/runs/issue13-deadlines-r7522_g3", "status": "passed"}
+{"case": "missing-controller", "directory": "<experiment-workspace>/evidence/runs/issue13-launch-failure-v7sepxou", "status": "passed"}
+{"case": "withheld-ready", "directory": "<experiment-workspace>/evidence/runs/issue13-readiness-nrara_9v", "status": "passed"}
+{"case": "paused-udp-degraded", "directory": "<experiment-workspace>/evidence/runs/issue13-degraded-uq9ydunj", "sent_pps": 717.3161831402633, "status": "passed"}
+{"case": "acl", "directory": "<experiment-workspace>/evidence/runs/issue13-acl-m92bjo24", "status": "passed"}

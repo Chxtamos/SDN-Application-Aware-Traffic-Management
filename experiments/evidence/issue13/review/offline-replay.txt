@@ -1,0 +1,71 @@
+replay issue12 bulk-only incomplete
+replay issue12 concurrent-1 incomplete
+replay issue12 concurrent-2 incomplete
+replay issue12 http-only incomplete
+replay issue12 schema2/bulk-only incomplete
+replay issue12 schema2/concurrent-1 incomplete
+replay issue12 schema2/concurrent-2 incomplete
+replay issue12 schema2/http-only incomplete
+replay issue12 schema2/udp-duplicate-and-loss incomplete
+replay issue12 schema2/udp-only incomplete
+replay issue12 schema2/udp-paused incomplete
+replay issue12 schema3/bulk-only ok
+replay issue12 schema3/concurrent-1 ok
+replay issue12 schema3/concurrent-2 ok
+replay issue12 schema3/http-only ok
+replay issue12 schema3/udp-duplicate-and-loss ok
+replay issue12 schema3/udp-only ok
+replay issue12 schema3/udp-paused degraded
+replay issue12 udp-only incomplete
+TOTAL issue12 19 {'incomplete': 12, 'ok': 6, 'degraded': 1} legacy or schema-3 UDP pair replayed= 13 historical HTTP records= 9 raw TCP captures= 9 archived normal/degraded metrics and Ryu matched= 0
+stored remediation/linux/runs/issue13-20261118T192303Z-sero8lk2 ok
+replay issue13 remediation/linux/runs/issue13-20261118T192303Z-sero8lk2 ok
+stored remediation/linux/runs/issue13-20261118T192325Z-_am2pl51 ok
+replay issue13 remediation/linux/runs/issue13-20261118T192325Z-_am2pl51 ok
+stored remediation/linux/runs/issue13-20261118T192346Z-28iy_gwd ok
+replay issue13 remediation/linux/runs/issue13-20261118T192346Z-28iy_gwd ok
+stored remediation/linux/runs/issue13-20261118T192359Z-gw8w7ie4 ok
+replay issue13 remediation/linux/runs/issue13-20261118T192359Z-gw8w7ie4 ok
+stored remediation/linux/runs/issue13-20261118T192422Z-hyp14pjj ok
+replay issue13 remediation/linux/runs/issue13-20261118T192422Z-hyp14pjj ok
+replay issue13 remediation/linux/runs/issue13-acl-m92bjo24 incomplete
+stored remediation/linux/runs/issue13-degraded-uq9ydunj degraded
+replay issue13 remediation/linux/runs/issue13-degraded-uq9ydunj degraded
+stored remediation/linux/runs/issue13-launch-failure-v7sepxou failed
+replay issue13 remediation/linux/runs/issue13-launch-failure-v7sepxou incomplete
+stored remediation/linux/runs/issue13-readiness-nrara_9v incomplete
+replay issue13 remediation/linux/runs/issue13-readiness-nrara_9v incomplete
+stored runs/issue13-20261118T184317Z-i49sxdzj ok
+replay issue13 runs/issue13-20261118T184317Z-i49sxdzj ok
+stored runs/issue13-20261118T184340Z-cpalfun6 ok
+replay issue13 runs/issue13-20261118T184340Z-cpalfun6 ok
+stored runs/issue13-20261118T184359Z-t1kaib9e ok
+replay issue13 runs/issue13-20261118T184359Z-t1kaib9e ok
+stored runs/issue13-20261118T184412Z-4l_c8mfq ok
+replay issue13 runs/issue13-20261118T184412Z-4l_c8mfq ok
+stored runs/issue13-20261118T184436Z-2o59xdp8 ok
+replay issue13 runs/issue13-20261118T184436Z-2o59xdp8 ok
+replay issue13 runs/issue13-acl-pxr7c75i incomplete
+replay issue13 runs/issue13-acl-ummrs8ww incomplete
+replay issue13 runs/issue13-acl-xy6ltwa5 incomplete
+stored runs/issue13-launch-failure-ncdimlzq failed
+replay issue13 runs/issue13-launch-failure-ncdimlzq incomplete
+stored runs/issue13-readiness-gpmge88f incomplete
+replay issue13 runs/issue13-readiness-gpmge88f incomplete
+TOTAL issue13 19 {'ok': 10, 'incomplete': 8, 'degraded': 1} legacy or schema-3 UDP pair replayed= 0 historical HTTP records= 0 raw TCP captures= 0 archived normal/degraded metrics and Ryu matched= 11
+Linux regression before/after and after both ACL retries: 60/60. Five workload cases: 5/5.
+Deadline, launch failure and readiness cases passed. ACL fixture passed after catching socket.timeout and sending two UDP probes.
+Raw metrics, readiness ordering, workload plans, QoS counters, ACL drops and controller statistics agree.
+http-only {"http_count": 24, "http_icmp_rtt_ms": 9.59, "http_mean_ms": 20.581412125, "http_queue_packet_delta": 120, "run": "issue13-20261118T184317Z-i49sxdzj", "ryu_flow_rows": 96, "ryu_port_rows": 360}
+udp-only {"run": "issue13-20261118T184340Z-cpalfun6", "ryu_flow_rows": 96, "ryu_port_rows": 306, "udp_goodput_mbps": 7.57737895901549, "udp_icmp_rtt_ms": 11.814, "udp_loss": 5, "udp_p95_ms": 4.64656, "udp_pps": 790.1436172555171, "udp_queue_packet_delta": 4736, "udp_sent": 4741, "udp_skipped": 59}
+tcp-only {"bulk_icmp_rtt_ms": 12.698, "bulk_queue_packet_delta": 49803, "run": "issue13-20261118T184359Z-t1kaib9e", "ryu_flow_rows": 48, "ryu_port_rows": 180, "tcp_mbps": 94.22421902569802, "tcp_retransmissions": 12}
+concurrent-1 {"bulk_icmp_rtt_ms": 12.234, "bulk_queue_packet_delta": 46317, "client_launch_spread_ms": 10.355139, "http_count": 24, "http_icmp_rtt_ms": 9.787, "http_mean_ms": 26.574404583333333, "http_queue_packet_delta": 120, "interior_overlap_s": 4.546252858, "run": "issue13-20261118T184412Z-4l_c8mfq", "ryu_flow_rows": 312, "ryu_port_rows": 378, "tcp_mbps": 86.91188852097348, "tcp_retransmissions": 3, "udp_goodput_mbps": 7.596523015577806, "udp_icmp_rtt_ms": 12.378, "udp_loss": 10, "udp_p95_ms": 9.294777, "udp_pps": 792.9710866882372, "udp_queue_packet_delta": 4748, "udp_sent": 4758, "udp_skipped": 42}
+concurrent-2 {"bulk_icmp_rtt_ms": 12.433, "bulk_queue_packet_delta": 47696, "client_launch_spread_ms": 9.332351, "http_count": 24, "http_icmp_rtt_ms": 9.895, "http_mean_ms": 25.551611458333333, "http_queue_packet_delta": 120, "interior_overlap_s": 4.771950086, "run": "issue13-20261118T184436Z-2o59xdp8", "ryu_flow_rows": 318, "ryu_port_rows": 318, "tcp_mbps": 87.02963723368565, "tcp_retransmissions": 7, "udp_goodput_mbps": 7.606123988972688, "udp_icmp_rtt_ms": 14.232, "udp_loss": 9, "udp_p95_ms": 8.602223, "udp_pps": 793.8045277546302, "udp_queue_packet_delta": 4754, "udp_sent": 4763, "udp_skipped": 37}
+Linux regression before and after: 70 passed, zero failed, zero skipped. Five workload cases: 5/5.
+Deadline, launch failure, readiness, degraded offered load and ACL checks passed.
+Raw metrics, readiness ordering, workload plans, QoS counters, ACL drops and controller statistics agree.
+http-only {"http_count": 21, "http_icmp_rtt_ms": 12.714, "http_mean_ms": 68.8216591904762, "http_queue_packet_delta": 106, "run": "issue13-20261118T192303Z-sero8lk2", "ryu_flow_rows": 96, "ryu_port_rows": 355}
+udp-only {"run": "issue13-20261118T192325Z-_am2pl51", "ryu_flow_rows": 102, "ryu_port_rows": 319, "udp_goodput_mbps": 7.638202954732309, "udp_icmp_rtt_ms": 14.417, "udp_loss": 10, "udp_p95_ms": 4.647462, "udp_pps": 797.3127647901691, "udp_queue_packet_delta": 4774, "udp_sent": 4784, "udp_skipped": 16}
+tcp-only {"bulk_icmp_rtt_ms": 12.587, "bulk_queue_packet_delta": 52840, "run": "issue13-20261118T192346Z-28iy_gwd", "ryu_flow_rows": 54, "ryu_port_rows": 180, "tcp_mbps": 94.14781888043396, "tcp_retransmissions": 1}
+concurrent-1 {"bulk_icmp_rtt_ms": 12.507, "bulk_queue_packet_delta": 46129, "client_launch_spread_ms": 10.425576, "http_count": 24, "http_icmp_rtt_ms": 12.738, "http_mean_ms": 32.73770825, "http_queue_packet_delta": 120, "interior_overlap_s": 4.939577843, "run": "issue13-20261118T192359Z-gw8w7ie4", "ryu_flow_rows": 318, "ryu_port_rows": 378, "tcp_mbps": 86.87463002839877, "tcp_retransmissions": 5, "udp_goodput_mbps": 7.633383398929363, "udp_icmp_rtt_ms": 12.58, "udp_loss": 9, "udp_p95_ms": 13.074164, "udp_pps": 796.6440614930997, "udp_queue_packet_delta": 4771, "udp_sent": 4780, "udp_skipped": 20}
+concurrent-2 {"bulk_icmp_rtt_ms": 12.4, "bulk_queue_packet_delta": 48369, "client_launch_spread_ms": 9.445117, "http_count": 24, "http_icmp_rtt_ms": 12.836, "http_mean_ms": 29.106815875, "http_queue_packet_delta": 120, "interior_overlap_s": 3.318908783, "run": "issue13-20261118T192422Z-hyp14pjj", "ryu_flow_rows": 336, "ryu_port_rows": 315, "tcp_mbps": 88.18236846189664, "tcp_retransmissions": 7, "udp_goodput_mbps": 7.601281632987605, "udp_icmp_rtt_ms": 14.174, "udp_loss": 6, "udp_p95_ms": 13.88036, "udp_pps": 792.8001282212963, "udp_queue_packet_delta": 4752, "udp_sent": 4757, "udp_skipped": 43}

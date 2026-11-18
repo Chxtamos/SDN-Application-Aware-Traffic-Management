@@ -1,0 +1,62 @@
+{
+  "udp-receiver": {
+    "host": "iot1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "udp-receive",
+      "--stream-id",
+      "01e94de5-4b83-5363-9172-ffe4ac1ba68c",
+      "--source",
+      "10.0.20.1",
+      "--port",
+      "5000",
+      "--duration",
+      "14"
+    ],
+    "timeout_s": 17,
+    "json": true
+  },
+  "udp-send": {
+    "host": "staff1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "udp-send",
+      "--stream-id",
+      "01e94de5-4b83-5363-9172-ffe4ac1ba68c",
+      "--source",
+      "10.0.20.1",
+      "--port",
+      "5000",
+      "--duration",
+      "6",
+      "--rate-pps",
+      "800",
+      "--payload-size",
+      "1200"
+    ],
+    "timeout_s": 9,
+    "json": true
+  },
+  "udp-report": {
+    "host": null,
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "udp-report",
+      "--sender",
+      "<experiment-workspace>/evidence/runs/issue13-20261118T192325Z-_am2pl51/udp-send.json",
+      "--receiver",
+      "<experiment-workspace>/evidence/runs/issue13-20261118T192325Z-_am2pl51/udp-receiver.json"
+    ],
+    "timeout_s": 15,
+    "json": true
+  }
+}

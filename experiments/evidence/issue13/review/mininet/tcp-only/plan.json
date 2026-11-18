@@ -1,0 +1,34 @@
+{
+  "bulk-server": {
+    "host": "file1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "bulk-server",
+      "--timeout",
+      "19"
+    ],
+    "timeout_s": 22,
+    "json": true
+  },
+  "bulk": {
+    "host": "mgmt1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "bulk",
+      "--source",
+      "10.0.30.1",
+      "--duration",
+      "6",
+      "--target-bps",
+      "0"
+    ],
+    "timeout_s": 19,
+    "json": true
+  }
+}

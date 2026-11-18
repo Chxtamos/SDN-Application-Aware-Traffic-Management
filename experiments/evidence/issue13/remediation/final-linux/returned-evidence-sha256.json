@@ -1,0 +1,8 @@
+{
+  "environment.json": "ff338036f01da3a81d4bbb819e0cbd22720dad392211b41d9dd73c063bc8f15d",
+  "input-sha256.txt": "863c21479f5b4856a548c3a255e01373e1a920a618bb173078648df6b76e1821",
+  "regression-counts.json": "307fa5a14eb069088d6d2ce1e1e28e2d912794efa6bc50f8da20324d93d1c9e4",
+  "regression-linux.txt": "3eee6ef16dfeaea89bbc58f2f4f709fa940a5c031bafa198e2d37602849476df",
+  "source-verification.json": "8ab32f84e4d4b8bb8647ec711cfa3d426e752bbe1f5149ef8fe8c0b87c953f07",
+  "vm-team-integrity.json": "ac3b098291caac2b10b44ff432fab37e5adb1eb124034f86ecd0581a54dcb806"
+}
