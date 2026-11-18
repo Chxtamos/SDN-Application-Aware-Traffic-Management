@@ -1,0 +1,12 @@
+[
+  {
+    "started_at_unix_ns": 1795022529632641047,
+    "ended_at_unix_ns": 1795022529647689921,
+    "ss_stdout": "ESTAB     0          0               10.0.30.1:38817         10.0.40.20:5201    \n\t cubic wscale:9,9 rto:216 rtt:13.59/11.396 ato:40 mss:1448 pmtu:1500 rcvmss:536 advmss:1448 cwnd:10 bytes_sent:140 bytes_acked:141 bytes_received:4 segs_out:8 segs_in:7 data_segs_out:3 data_segs_in:3 send 8523915bps lastsnd:928 lastrcv:868 lastack:920 pacing_rate 17047512bps delivery_rate 1392976bps delivered:4 app_limited busy:68ms rcv_space:14480 rcv_ssthresh:42242 minrtt:8.316\nESTAB     0          4872472         10.0.30.1:43825         10.0.40.20:5201    \n\t cubic wscale:9,9 rto:280 rtt:79.432/0.227 mss:1448 pmtu:1500 rcvmss:536 advmss:1448 cwnd:642 ssthresh:342 bytes_sent:10121557 bytes_acked:9196286 segs_out:6994 segs_in:684 data_segs_out:6992 send 93626347bps lastrcv:912 pacing_rate 112350552bps delivery_rate 87903352bps delivered:6354 busy:876ms rwnd_limited:24ms(2.7%) unacked:639 rcv_space:14480 rcv_ssthresh:42242 notsent:3947200 minrtt:8.174\n"
+  },
+  {
+    "started_at_unix_ns": 1795022532050022231,
+    "ended_at_unix_ns": 1795022532065086549,
+    "ss_stdout": "ESTAB     0          0               10.0.30.1:38817         10.0.40.20:5201    \n\t cubic wscale:9,9 rto:216 rtt:13.59/11.396 ato:40 mss:1448 pmtu:1500 rcvmss:536 advmss:1448 cwnd:10 bytes_sent:140 bytes_acked:141 bytes_received:4 segs_out:8 segs_in:7 data_segs_out:3 data_segs_in:3 send 8523915bps lastsnd:3344 lastrcv:3284 lastack:3336 pacing_rate 17047512bps delivery_rate 1392976bps delivered:4 app_limited busy:68ms rcv_space:14480 rcv_ssthresh:42242 minrtt:8.316\nESTAB     0          9848728         10.0.30.1:43825         10.0.40.20:5201    \n\t cubic wscale:9,9 rto:396 rtt:195.425/0.751 mss:1448 pmtu:1500 rcvmss:536 advmss:1448 cwnd:1556 ssthresh:342 bytes_sent:37918813 bytes_acked:35677310 segs_out:26192 segs_in:2741 data_segs_out:26189 send 92233358bps lastrcv:3328 pacing_rate 110679952bps delivery_rate 87231048bps delivered:24642 busy:3292ms rwnd_limited:24ms(0.7%) unacked:1548 rcv_space:14480 rcv_ssthresh:42242 notsent:7607224 minrtt:8.174\n"
+  }
+]

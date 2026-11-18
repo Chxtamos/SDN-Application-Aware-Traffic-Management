@@ -1,0 +1,12 @@
+[
+  {
+    "started_at_unix_ns": 1795022541325538292,
+    "ended_at_unix_ns": 1795022541342152317,
+    "ss_stdout": "ESTAB     0          0               10.0.30.1:46527         10.0.40.20:5201    \n\t cubic wscale:9,9 rto:216 rtt:12.908/10.754 ato:40 mss:1448 pmtu:1500 rcvmss:536 advmss:1448 cwnd:10 bytes_sent:140 bytes_acked:141 bytes_received:4 segs_out:8 segs_in:7 data_segs_out:3 data_segs_in:3 send 8974280bps lastsnd:924 lastrcv:864 lastack:916 pacing_rate 17947856bps delivery_rate 1425016bps delivered:4 app_limited busy:68ms rcv_space:14480 rcv_ssthresh:42242 minrtt:8.129\nESTAB     0          4382768         10.0.30.1:46789         10.0.40.20:5201    \n\t cubic wscale:9,9 rto:276 rtt:72.768/0.401 mss:1448 pmtu:1500 rcvmss:536 advmss:1448 cwnd:583 ssthresh:283 bytes_sent:9950693 bytes_acked:9116646 segs_out:6877 segs_in:690 data_segs_out:6875 send 92808267bps lastsnd:4 lastrcv:908 lastack:4 pacing_rate 111368768bps delivery_rate 86946512bps delivered:6300 busy:872ms rwnd_limited:24ms(2.8%) unacked:576 rcv_space:14480 rcv_ssthresh:42242 notsent:3548720 minrtt:8.243\n"
+  },
+  {
+    "started_at_unix_ns": 1795022543744946901,
+    "ended_at_unix_ns": 1795022543762471663,
+    "ss_stdout": "ESTAB     0          0               10.0.30.1:46527         10.0.40.20:5201    \n\t cubic wscale:9,9 rto:216 rtt:12.908/10.754 ato:40 mss:1448 pmtu:1500 rcvmss:536 advmss:1448 cwnd:10 bytes_sent:140 bytes_acked:141 bytes_received:4 segs_out:8 segs_in:7 data_segs_out:3 data_segs_in:3 send 8974280bps lastsnd:3340 lastrcv:3280 lastack:3332 pacing_rate 17947856bps delivery_rate 1425016bps delivered:4 app_limited busy:68ms rcv_space:14480 rcv_ssthresh:42242 minrtt:8.129\nESTAB     0          5419624         10.0.30.1:46789         10.0.40.20:5201    \n\t cubic wscale:9,9 rto:332 rtt:129.064/0.739 mss:1448 pmtu:1500 rcvmss:536 advmss:1448 cwnd:965 ssthresh:720 bytes_sent:37010917 bytes_retrans:18824 bytes_acked:35604910 segs_out:25566 segs_in:2933 data_segs_out:25563 send 86612533bps lastrcv:3324 pacing_rate 103934736bps delivery_rate 86133384bps delivered:24606 busy:3288ms rwnd_limited:24ms(0.7%) unacked:958 retrans:0/13 dsack_dups:13 reordering:36 reord_seen:4 rcv_space:14480 rcv_ssthresh:42242 notsent:4032440 minrtt:8.243\n"
+  }
+]

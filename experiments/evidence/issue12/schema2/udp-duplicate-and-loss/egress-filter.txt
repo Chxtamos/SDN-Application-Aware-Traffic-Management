@@ -1,0 +1,13 @@
+filter protocol ip pref 1 u32 chain 0 
+filter protocol ip pref 1 u32 chain 0 fh 800: ht divisor 1 
+filter protocol ip pref 1 u32 chain 0 fh 800::800 order 2048 key ht 800 bkt 0 terminal flowid ??? not_in_hw 
+  match 00110000/00ff0000 at 8
+  match 0000138a/0000ffff at 20
+  match 00000001/ffffffff at 48
+	action order 1: gact action drop
+	 random type none pass val 0
+	 index 1 ref 1 bind 1 installed 4 sec used 3 sec
+	Action statistics:
+	Sent 1242 bytes 1 pkt (dropped 1, overlimits 0 requeues 0) 
+	backlog 0b 0p requeues 0
+

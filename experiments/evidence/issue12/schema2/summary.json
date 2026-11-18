@@ -1,0 +1,254 @@
+{
+  "http-only": {
+    "http": {
+      "status_200": 24,
+      "min_response_ms": 18.653549,
+      "mean_response_ms": 20.667065125,
+      "max_response_ms": 30.109704
+    },
+    "s1_path_a_queue_deltas": {
+      "http": {
+        "bytes": 10080,
+        "packets": 120,
+        "errors": 0
+      }
+    }
+  },
+  "udp-only": {
+    "udp": {
+      "received_unique_packets": 3995,
+      "duplicate_packets": 0,
+      "unmatched_packets": 0,
+      "lost_packets": 4,
+      "loss_percent": 0.1000250062515629,
+      "received_payload_bps": 6391801.912732223,
+      "sent_packets": 3999,
+      "sent_payload_bps": 6398201.714397036,
+      "sent_packets_per_s": 666.4793452496913
+    },
+    "schedule": {
+      "scheduled_packets": 4800,
+      "attempted_packets": 3999,
+      "skipped_intervals": 801,
+      "sent_packets": 3999,
+      "send_failure_count": 0
+    },
+    "s1_path_a_queue_deltas": {
+      "udp": {
+        "bytes": 4961790,
+        "packets": 3995,
+        "errors": 0
+      }
+    }
+  },
+  "bulk-only": {
+    "bulk": {
+      "sender_bps": 110488149.7962551,
+      "receiver_bps": 94323422.24625993,
+      "sent_bytes": 82868184,
+      "received_bytes": 73901576,
+      "tcp_retransmissions": 4
+    },
+    "s1_path_a_queue_deltas": {
+      "bulk": {
+        "bytes": 80221370,
+        "packets": 53009,
+        "errors": 0
+      }
+    }
+  },
+  "concurrent-1": {
+    "http": {
+      "status_200": 24,
+      "min_response_ms": 20.175398,
+      "mean_response_ms": 31.12433429166666,
+      "max_response_ms": 43.59427
+    },
+    "udp": {
+      "received_unique_packets": 3868,
+      "duplicate_packets": 0,
+      "unmatched_packets": 0,
+      "lost_packets": 0,
+      "loss_percent": 0.0,
+      "received_payload_bps": 6188546.130366366,
+      "sent_packets": 3868,
+      "sent_payload_bps": 6188546.130366366,
+      "sent_packets_per_s": 644.6402219131633
+    },
+    "bulk": {
+      "sender_bps": 103357884.19517784,
+      "receiver_bps": 88553630.55533043,
+      "sent_bytes": 77521656,
+      "received_bytes": 70197592,
+      "tcp_retransmissions": 18
+    },
+    "schedule": {
+      "scheduled_packets": 4800,
+      "attempted_packets": 3868,
+      "skipped_intervals": 932,
+      "sent_packets": 3868,
+      "send_failure_count": 0
+    },
+    "s1_path_a_queue_deltas": {
+      "http": {
+        "bytes": 10080,
+        "packets": 120,
+        "errors": 0
+      },
+      "udp": {
+        "bytes": 4804056,
+        "packets": 3868,
+        "errors": 0
+      },
+      "bulk": {
+        "bytes": 77255380,
+        "packets": 51049,
+        "errors": 0
+      }
+    },
+    "overlap": {
+      "interval_start_unix_ns": 1795020173236379717,
+      "interval_end_unix_ns": 1795020175637212087,
+      "tcp_bytes_acked_delta_by_source_port": {
+        "55387": 0,
+        "51247": 26871984
+      },
+      "http_completed": 9,
+      "udp_sends": 1536,
+      "udp_receives": 1533
+    }
+  },
+  "concurrent-2": {
+    "http": {
+      "status_200": 24,
+      "min_response_ms": 19.53552,
+      "mean_response_ms": 29.692461083333328,
+      "max_response_ms": 43.594913
+    },
+    "udp": {
+      "received_unique_packets": 3864,
+      "duplicate_packets": 0,
+      "unmatched_packets": 0,
+      "lost_packets": 0,
+      "loss_percent": 0.0,
+      "received_payload_bps": 6181997.4355393285,
+      "sent_packets": 3864,
+      "sent_payload_bps": 6181997.4355393285,
+      "sent_packets_per_s": 643.9580662020134
+    },
+    "bulk": {
+      "sender_bps": 93833871.50669932,
+      "receiver_bps": 88247807.76228514,
+      "sent_bytes": 70378160,
+      "received_bytes": 67237880,
+      "tcp_retransmissions": 16
+    },
+    "schedule": {
+      "scheduled_packets": 4800,
+      "attempted_packets": 3864,
+      "skipped_intervals": 936,
+      "sent_packets": 3864,
+      "send_failure_count": 0
+    },
+    "s1_path_a_queue_deltas": {
+      "http": {
+        "bytes": 10080,
+        "packets": 120,
+        "errors": 0
+      },
+      "udp": {
+        "bytes": 4799088,
+        "packets": 3864,
+        "errors": 0
+      },
+      "bulk": {
+        "bytes": 71119126,
+        "packets": 46996,
+        "errors": 0
+      }
+    },
+    "overlap": {
+      "interval_start_unix_ns": 1795020184862784628,
+      "interval_end_unix_ns": 1795020187265418482,
+      "tcp_bytes_acked_delta_by_source_port": {
+        "40137": 26911080,
+        "44915": 0
+      },
+      "http_completed": 9,
+      "udp_sends": 1553,
+      "udp_receives": 1551
+    }
+  },
+  "http-deadlines": {
+    "per-request": {
+      "response_time_ms": 450.934623,
+      "status_code": 200,
+      "error": "TimeoutError: HTTP deadline exceeded",
+      "elapsed_s": 1.1009408800018718
+    },
+    "workload": {
+      "response_time_ms": 451.004212,
+      "status_code": 200,
+      "error": "TimeoutError: HTTP deadline exceeded",
+      "elapsed_s": 0.4511241779982811
+    }
+  },
+  "udp-paused": {
+    "schedule": {
+      "scheduled_packets": 80,
+      "attempted_packets": 66,
+      "skipped_intervals": 14,
+      "sent_packets": 66,
+      "send_failure_count": 0
+    },
+    "udp": {
+      "received_unique_packets": 66,
+      "duplicate_packets": 0,
+      "unmatched_packets": 0,
+      "lost_packets": 0,
+      "loss_percent": 0.0,
+      "received_payload_bps": 316761.8241817115,
+      "sent_packets": 66,
+      "sent_payload_bps": 316761.8241817115,
+      "sent_packets_per_s": 32.99602335226161
+    }
+  },
+  "udp-duplicate-and-loss": {
+    "schedule": {
+      "scheduled_packets": 10,
+      "attempted_packets": 10,
+      "skipped_intervals": 0,
+      "sent_packets": 10,
+      "send_failure_count": 0
+    },
+    "udp": {
+      "received_unique_packets": 9,
+      "duplicate_packets": 1,
+      "unmatched_packets": 0,
+      "lost_packets": 1,
+      "loss_percent": 10.0,
+      "received_payload_bps": 43192.09187351469,
+      "sent_packets": 10,
+      "sent_payload_bps": 47991.2131927941,
+      "sent_packets_per_s": 4.9990847075827185
+    }
+  },
+  "acl": {
+    "student_to_web_tcp_80": "allowed, verified in HTTP workload",
+    "staff_to_iot_udp_5000": "allowed, datagrams arrived",
+    "student_to_iot_udp_5000": "denied, no datagrams arrived and s1 drop counter increased",
+    "staff_to_file_tcp_5201": "allowed, iperf3 completed",
+    "mgmt_to_file_tcp_5201": "allowed, verified in bulk workload",
+    "student_to_file_tcp_5201": "denied, connect timed out and s1 drop counter increased",
+    "capture": [
+      {
+        "source": "10.0.20.1",
+        "payload": "staff"
+      },
+      {
+        "source": "10.0.20.1",
+        "payload": "staff"
+      }
+    ]
+  }
+}

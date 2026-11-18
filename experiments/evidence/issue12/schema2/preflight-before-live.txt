@@ -1,0 +1,36 @@
+--- sessions ---
+mininet  pts/1        2026-11-18 15:44 ([tailnet-IPv4-redacted])
+--- experiment-related processes ---
+
+--- listening ports ---
+udp UNCONN 0      0                               127.0.0.53%lo:53    0.0.0.0:* 
+udp UNCONN 0      0                                     0.0.0.0:41641 0.0.0.0:* 
+udp UNCONN 0      0                                     0.0.0.0:37721 0.0.0.0:* 
+udp UNCONN 0      0                                     0.0.0.0:5353  0.0.0.0:* 
+udp UNCONN 0      0                                        [::]:51623    [::]:* 
+udp UNCONN 0      0                                        [::]:41641    [::]:* 
+udp UNCONN 0      0                                        [::]:5353     [::]:* 
+tcp LISTEN 0      4096                            127.0.0.53%lo:53    0.0.0.0:* 
+tcp LISTEN 0      4096                 [tailnet-IPv4-redacted]%tailscale0:54508 0.0.0.0:* 
+tcp LISTEN 0      5                                   127.0.0.1:631   0.0.0.0:* 
+tcp LISTEN 0      128                                   0.0.0.0:22    0.0.0.0:* 
+tcp LISTEN 0      2                                       [::1]:3350     [::]:* 
+tcp LISTEN 0      4096   [[tailnet-IPv6-redacted]]%tailscale0:39599    [::]:* 
+tcp LISTEN 0      2                                           *:3389        *:* 
+tcp LISTEN 0      5                                       [::1]:631      [::]:* 
+tcp LISTEN 0      128                                      [::]:22       [::]:* 
+--- bridges ---
+
+--- QoS records ---
+
+--- queues ---
+
+--- Mininet-named interfaces ---
+
+--- network namespaces ---
+        NS   PID USER
+4026531840     1 root
+4026532206  1089 rtkit
+4026532386  2464 root
+4026532525  2462 root
+PASS: no conflicting resources found; controller port 17654 clear.

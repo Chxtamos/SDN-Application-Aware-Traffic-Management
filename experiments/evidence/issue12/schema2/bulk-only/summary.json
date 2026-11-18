@@ -1,0 +1,16 @@
+{
+  "bulk": {
+    "sender_bps": 110488149.7962551,
+    "receiver_bps": 94323422.24625993,
+    "sent_bytes": 82868184,
+    "received_bytes": 73901576,
+    "tcp_retransmissions": 4
+  },
+  "s1_path_a_queue_deltas": {
+    "bulk": {
+      "bytes": 80221370,
+      "packets": 53009,
+      "errors": 0
+    }
+  }
+}

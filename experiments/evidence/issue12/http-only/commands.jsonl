@@ -1,0 +1,11 @@
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1", "4"], "launch_at_unix_ns": 1795008004628125717}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1", "5"], "launch_at_unix_ns": 1795008004643606472}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4", "4"], "launch_at_unix_ns": 1795008004657424409}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4", "5"], "launch_at_unix_ns": 1795008004670603899}
+{"host": "web1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "http-server", "--duration", "11"], "launch_at_unix_ns": 1795008004685099842}
+{"host": "student1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "http", "--source", "10.0.10.1", "--interval", "0.25", "--duration", "6", "--timeout", "2"], "launch_at_unix_ns": 1795008004851775275}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1", "4"], "launch_at_unix_ns": 1795008015896710792}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1", "5"], "launch_at_unix_ns": 1795008015910127499}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4", "4"], "launch_at_unix_ns": 1795008015923675745}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4", "5"], "launch_at_unix_ns": 1795008015937237223}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s1"], "launch_at_unix_ns": 1795008015952925229}

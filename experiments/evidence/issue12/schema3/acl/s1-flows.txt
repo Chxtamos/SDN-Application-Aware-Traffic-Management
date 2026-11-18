@@ -1,0 +1,14 @@
+OFPST_FLOW reply (OF1.3) (xid=0x2):
+ cookie=0x200, duration=71.336s, table=0, n_packets=361, n_bytes=30192, send_flow_rem priority=200,tcp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.10,tp_dst=80 actions=set_field:00:00:00:00:28:0a->eth_dst,set_queue:1,output:4
+ cookie=0x200, duration=59.989s, table=0, n_packets=14330, n_bytes=17795470, send_flow_rem priority=200,udp,in_port=2,nw_src=10.0.20.1,nw_dst=10.0.40.30,tp_dst=5000 actions=set_field:00:00:00:00:28:1e->eth_dst,set_queue:2,output:4
+ cookie=0x200, duration=48.518s, table=0, n_packets=17803, n_bytes=220998795, send_flow_rem priority=200,tcp,in_port=3,nw_src=10.0.30.1,nw_dst=10.0.40.20,tp_dst=5201 actions=set_field:00:00:00:00:28:14->eth_dst,set_queue:3,output:4
+ cookie=0x200, duration=15.566s, table=0, n_packets=75, n_bytes=93150, send_flow_rem priority=200,udp,in_port=2,nw_src=10.0.20.1,nw_dst=10.0.40.30,tp_dst=5002 actions=set_field:00:00:00:00:28:1e->eth_dst,set_queue:2,output:4
+ cookie=0x0, duration=6.897s, table=0, n_packets=1, n_bytes=49, send_flow_rem priority=300,udp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.30,tp_dst=5000 actions=drop
+ cookie=0x0, duration=3.888s, table=0, n_packets=1, n_bytes=74, send_flow_rem priority=300,tcp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.20,tp_dst=5201 actions=drop
+ cookie=0x200, duration=1.450s, table=0, n_packets=790, n_bytes=10191221, send_flow_rem priority=200,tcp,in_port=2,nw_src=10.0.20.1,nw_dst=10.0.40.20,tp_dst=5201 actions=set_field:00:00:00:00:28:14->eth_dst,set_queue:3,output:4
+ cookie=0x200, duration=71.336s, table=0, n_packets=357, n_bytes=35607, send_flow_rem priority=200,tcp,in_port=4,nw_src=10.0.40.10,nw_dst=10.0.10.1,tp_src=80 actions=set_field:00:00:00:00:0a:01->eth_dst,output:1
+ cookie=0x200, duration=59.989s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=200,udp,in_port=4,nw_src=10.0.40.30,nw_dst=10.0.20.1,tp_src=5000 actions=set_field:00:00:00:00:14:01->eth_dst,output:2
+ cookie=0x200, duration=48.518s, table=0, n_packets=17648, n_bytes=1157355, send_flow_rem priority=200,tcp,in_port=4,nw_src=10.0.40.20,nw_dst=10.0.30.1,tp_src=5201 actions=set_field:00:00:00:00:1e:01->eth_dst,output:3
+ cookie=0x200, duration=15.566s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=200,udp,in_port=4,nw_src=10.0.40.30,nw_dst=10.0.20.1,tp_src=5002 actions=set_field:00:00:00:00:14:01->eth_dst,output:2
+ cookie=0x200, duration=1.450s, table=0, n_packets=781, n_bytes=51566, send_flow_rem priority=200,tcp,in_port=4,nw_src=10.0.40.20,nw_dst=10.0.20.1,tp_src=5201 actions=set_field:00:00:00:00:14:01->eth_dst,output:2
+ cookie=0x0, duration=76.903s, table=0, n_packets=86, n_bytes=13281, send_flow_rem priority=0 actions=CONTROLLER:65535

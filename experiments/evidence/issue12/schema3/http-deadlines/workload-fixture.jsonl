@@ -1,0 +1,5 @@
+{"event": "headers", "at_unix_ns": 1795022553105117391}
+{"event": "body_byte", "offset": 0, "at_unix_ns": 1795022553255734145}
+{"event": "body_byte", "offset": 1, "at_unix_ns": 1795022553406326534}
+{"event": "body_byte", "offset": 2, "at_unix_ns": 1795022553556931974}
+{"event": "closed", "bytes_before_error": 3, "at_unix_ns": 1795022553707439307}

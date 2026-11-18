@@ -1,0 +1,20 @@
+{
+  "schedule": {
+    "scheduled_packets": 80,
+    "attempted_packets": 66,
+    "skipped_intervals": 14,
+    "sent_packets": 66,
+    "send_failure_count": 0
+  },
+  "udp": {
+    "received_unique_packets": 66,
+    "duplicate_packets": 0,
+    "unmatched_packets": 0,
+    "lost_packets": 0,
+    "loss_percent": 0.0,
+    "received_payload_bps": 316761.8241817115,
+    "sent_packets": 66,
+    "sent_payload_bps": 316761.8241817115,
+    "sent_packets_per_s": 32.99602335226161
+  }
+}

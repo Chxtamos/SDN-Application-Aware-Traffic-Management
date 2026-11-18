@@ -1,0 +1,82 @@
+{
+  "s1:4:0": {
+    "bytes": 177,
+    "packets": 2,
+    "errors": 0
+  },
+  "s1:4:1": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  },
+  "s1:4:2": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  },
+  "s1:4:3": {
+    "bytes": 82442343,
+    "packets": 54475,
+    "errors": 0
+  },
+  "s1:5:0": {
+    "bytes": 177,
+    "packets": 2,
+    "errors": 0
+  },
+  "s1:5:1": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  },
+  "s1:5:2": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  },
+  "s1:5:3": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  },
+  "s4:4:0": {
+    "bytes": 177,
+    "packets": 2,
+    "errors": 0
+  },
+  "s4:4:1": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  },
+  "s4:4:2": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  },
+  "s4:4:3": {
+    "bytes": 398366,
+    "packets": 6090,
+    "errors": 0
+  },
+  "s4:5:0": {
+    "bytes": 177,
+    "packets": 2,
+    "errors": 0
+  },
+  "s4:5:1": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  },
+  "s4:5:2": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  },
+  "s4:5:3": {
+    "bytes": 0,
+    "packets": 0,
+    "errors": 0
+  }
+}
