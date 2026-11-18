@@ -1,0 +1,5 @@
+{"host": "iot1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "udp-receive", "--stream-id", "24a4127d-3a10-42ba-85c0-792d1f4b2a44", "--port", "5002", "--duration", "4"], "launch_at_unix_ns": 1795020197216103248}
+{"host": "staff1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "udp-send", "--stream-id", "24a4127d-3a10-42ba-85c0-792d1f4b2a44", "--port", "5002", "--payload-size", "1200", "--rate-pps", "40", "--duration", "2"], "launch_at_unix_ns": 1795020197424261948}
+{"host": "staff1", "argv": ["signal", "SIGSTOP", "13577"], "launch_at_unix_ns": 1795020197777743094}
+{"host": "staff1", "argv": ["signal", "SIGCONT", "13577"], "launch_at_unix_ns": 1795020198129009549}
+{"host": "root", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "udp-report", "--sender", "/home/mininet/final-project-issue12.UwGpKh/evidence/udp-paused/udp-send.json", "--receiver", "/home/mininet/final-project-issue12.UwGpKh/evidence/udp-paused/udp-receiver.json"], "launch_at_unix_ns": 1795020201479622995}

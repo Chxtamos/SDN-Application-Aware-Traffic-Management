@@ -1,0 +1,15 @@
+{
+  "http": {
+    "status_200": 24,
+    "min_response_ms": 18.653549,
+    "mean_response_ms": 20.667065125,
+    "max_response_ms": 30.109704
+  },
+  "s1_path_a_queue_deltas": {
+    "http": {
+      "bytes": 10080,
+      "packets": 120,
+      "errors": 0
+    }
+  }
+}

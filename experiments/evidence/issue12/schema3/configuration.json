@@ -1,0 +1,22 @@
+{
+  "run_id": "issue12-70a683b0722a",
+  "controller_host": "127.0.0.1",
+  "controller_port": 17655,
+  "qos_enabled": true,
+  "adaptive_enabled": false,
+  "topology": "network.qos_lab_topology.QoSLabTopo",
+  "fabric_bps": 100000000,
+  "client_duration_s": 6,
+  "bulk_target_bps": 0,
+  "http_interval_s": 0.25,
+  "udp_payload_bytes": 1200,
+  "udp_target_pps": 800,
+  "http_timeout_s": 2,
+  "udp_destination_port": 5000,
+  "udp_offered_load_tolerance_percent": 5,
+  "udp_acceptable_pps": [
+    760,
+    840
+  ],
+  "repeat_difference": "Fresh receiver process and stream UUID; same workload parameters."
+}

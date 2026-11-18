@@ -1,0 +1,52 @@
+test_bandwidth_budget (test_qos.TestQoS) ... ok
+test_bidirectional_queues (test_qos.TestQoS) ... ok
+test_classification (test_qos.TestQoS) ... ok
+test_qos_disabled (test_qos.TestQoS) ... ok
+test_qos_enabled (test_qos.TestQoS) ... ok
+test_unmanaged_port (test_qos.TestQoS) ... ok
+test_all_classes_on_both_paths (test_qos_review.TestQoSReview) ... ok
+test_apply_empty_ports (test_qos_review.TestQoSReview) ... ok
+test_cleanup_preserves_foreign_qos (test_qos_review.TestQoSReview) ... ok
+test_icmp_protocol_isolation (test_qos_review.TestQoSReview) ... ok
+test_cleanup_no_owned_records (test_qos_runtime.TestQoSRuntime) ... ok
+test_four_ports (test_qos_runtime.TestQoSRuntime) ... ok
+test_refuse_existing_qos (test_qos_runtime.TestQoSRuntime) ... ok
+test_sixteen_queues (test_qos_runtime.TestQoSRuntime) ... ok
+test_absolute_udp_pacing_absorbs_recurring_wake_and_send_cost (test_traffic.TestTraffic) ... ok
+test_absolute_udp_pacing_skips_expired_slots_after_pause (test_traffic.TestTraffic) ... ok
+test_bulk_errors_are_structured (test_traffic.TestTraffic) ... ok
+test_bulk_exports_iperf_summary_and_replayable_command (test_traffic.TestTraffic) ... ok
+test_bulk_rejects_bad_metrics_and_nonfinite_json_with_structured_errors (test_traffic.TestTraffic) ... ok
+test_bulk_rejects_numeric_but_contradictory_summaries (test_traffic.TestTraffic) ... ok
+test_bulk_server_rejects_nested_numeric_overflow_and_missing_summary (test_traffic.TestTraffic) ... ok
+test_bulk_server_uses_one_off_and_bounded_lifetime (test_traffic.TestTraffic) ... ok
+test_bulk_summary_allows_rounding_and_valid_zero (test_traffic.TestTraffic) ... ok
+test_bulk_timeout_reaps_a_local_child (test_traffic.TestTraffic) ... ok
+test_cli_enforces_project_endpoints_and_validates_inputs (test_traffic.TestTraffic) ... ok
+test_http_cli_exports_mixed_results_and_nonzero_status (test_traffic.TestTraffic) ... ok
+test_http_deadline_limits_the_full_request_and_disarms_timer (test_traffic.TestTraffic) ... ok
+test_http_does_not_dispatch_a_request_past_the_workload_deadline (test_traffic.TestTraffic) ... ok
+test_http_fallback_does_not_read_body_after_headers_exhaust_budget (test_traffic.TestTraffic) ... ok
+test_http_fallback_rejects_body_that_returns_after_budget (test_traffic.TestTraffic) ... ok
+test_http_get_binds_source_and_records_response_outcomes (test_traffic.TestTraffic) ... ok
+test_http_timeout_after_partial_delivery_marks_body_incomplete (test_traffic.TestTraffic) ... ok
+test_pacing_never_catches_up_after_an_oversleep (test_traffic.TestTraffic) ... ok
+test_pacing_waits_after_slow_udp_send_and_skips_final_slot (test_traffic.TestTraffic) ... ok
+test_udp_degraded_offered_load_has_partial_status_without_socket_failure (test_traffic.TestTraffic) ... ok
+test_udp_receiver_filters_unrelated_datagrams_and_keeps_duplicates (test_traffic.TestTraffic) ... ok
+test_udp_rejects_impossible_legacy_receive_time_including_duplicates (test_traffic.TestTraffic) ... ok
+test_udp_report_accepts_legacy_artifacts_and_reports_unknown_schedule (test_traffic.TestTraffic) ... ok
+test_udp_report_cli_emits_json_error_for_inconsistent_capture (test_traffic.TestTraffic) ... ok
+test_udp_report_joins_unique_sequences_and_excludes_local_send_errors (test_traffic.TestTraffic) ... ok
+test_udp_report_propagates_degraded_offered_load (test_traffic.TestTraffic) ... ok
+test_udp_report_rejects_counter_and_record_corruption (test_traffic.TestTraffic) ... ok
+test_udp_report_rejects_duplicate_json_fields (test_traffic.TestTraffic) ... ok
+test_udp_report_rejects_failed_receiver_file (test_traffic.TestTraffic) ... ok
+test_udp_report_rejects_invalid_stream_type_and_sender_status (test_traffic.TestTraffic) ... ok
+test_udp_sender_distinguishes_send_errors_and_packs_sequences (test_traffic.TestTraffic) ... ok
+test_udp_v3_compares_shared_monotonic_timestamps (test_traffic.TestTraffic) ... ok
+
+----------------------------------------------------------------------
+Ran 47 tests in 1.127s
+
+OK

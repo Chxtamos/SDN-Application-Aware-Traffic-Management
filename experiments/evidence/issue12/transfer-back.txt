@@ -1,0 +1,3 @@
+Remote tar.gz SHA-256 (verified before extracting on Windows): 671ded569daf3b08073f5927d7469b0e6131aa4528034d6e01afec8ee07946a9
+Files transferred: 156
+JSON documents parsed successfully: 54

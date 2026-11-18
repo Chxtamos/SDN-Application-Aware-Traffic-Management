@@ -1,0 +1,18 @@
+{
+  "student_to_web_tcp_80": "allowed, verified in HTTP workload",
+  "staff_to_iot_udp_5000": "allowed, datagrams arrived",
+  "student_to_iot_udp_5000": "denied, no datagrams arrived and s1 drop counter increased",
+  "staff_to_file_tcp_5201": "allowed, iperf3 completed",
+  "mgmt_to_file_tcp_5201": "allowed, verified in bulk workload",
+  "student_to_file_tcp_5201": "denied, connect timed out and s1 drop counter increased",
+  "capture": [
+    {
+      "source": "10.0.20.1",
+      "payload": "staff"
+    },
+    {
+      "source": "10.0.20.1",
+      "payload": "staff"
+    }
+  ]
+}

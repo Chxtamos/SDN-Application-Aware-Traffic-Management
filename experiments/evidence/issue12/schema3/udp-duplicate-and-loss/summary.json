@@ -1,0 +1,26 @@
+{
+  "schedule": {
+    "scheduled_packets": 10,
+    "attempted_packets": 10,
+    "skipped_intervals": 0,
+    "sent_packets": 10,
+    "send_failure_count": 0,
+    "min_inter_attempt_ns": 200026843,
+    "sent_packets_per_s": 4.999020544404245,
+    "offered_load_status": "within_tolerance"
+  },
+  "udp": {
+    "received_unique_packets": 9,
+    "duplicate_packets": 1,
+    "unmatched_packets": 0,
+    "lost_packets": 1,
+    "loss_percent": 10.0,
+    "received_payload_bps": 43191.537503652675,
+    "target_packets_per_s": 5.0,
+    "sent_packets_per_s": 4.999020544404245,
+    "offered_load_tolerance_percent": 5.0,
+    "offered_load_status": "within_tolerance",
+    "sent_packets": 10,
+    "sent_payload_bps": 47990.597226280755
+  }
+}

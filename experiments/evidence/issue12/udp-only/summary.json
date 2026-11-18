@@ -1,0 +1,20 @@
+{
+  "udp": {
+    "received_unique_packets": 4765,
+    "duplicate_packets": 0,
+    "unmatched_packets": 0,
+    "lost_packets": 7,
+    "loss_percent": 0.14668901927912825,
+    "received_payload_bps": 7623820.366266212,
+    "sent_packets": 4772,
+    "sent_payload_bps": 7635020.102376153,
+    "sent_packets_per_s": 795.3145939975159
+  },
+  "s1_path_a_queue_deltas": {
+    "udp": {
+      "bytes": 5918130,
+      "packets": 4765,
+      "errors": 0
+    }
+  }
+}

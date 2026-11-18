@@ -1,0 +1,67 @@
+{
+  "http": {
+    "status_200": 24,
+    "min_response_ms": 20.689354,
+    "mean_response_ms": 28.778730874999997,
+    "max_response_ms": 34.427359
+  },
+  "udp": {
+    "received_unique_packets": 4778,
+    "duplicate_packets": 0,
+    "unmatched_packets": 0,
+    "lost_packets": 0,
+    "loss_percent": 0.0,
+    "received_payload_bps": 7644622.502058332,
+    "target_packets_per_s": 800.0,
+    "sent_packets_per_s": 796.3148439644096,
+    "offered_load_tolerance_percent": 5.0,
+    "offered_load_status": "within_tolerance",
+    "sent_packets": 4778,
+    "sent_payload_bps": 7644622.502058332
+  },
+  "bulk": {
+    "sender_bps": 102638026.88200445,
+    "receiver_bps": 87194372.77941693,
+    "sent_bytes": 76983280,
+    "received_bytes": 69182544,
+    "tcp_retransmissions": 0
+  },
+  "schedule": {
+    "scheduled_packets": 4800,
+    "attempted_packets": 4778,
+    "skipped_intervals": 22,
+    "sent_packets": 4778,
+    "send_failure_count": 0,
+    "min_inter_attempt_ns": 966182,
+    "sent_packets_per_s": 796.3148439644096,
+    "offered_load_status": "within_tolerance"
+  },
+  "s1_path_a_queue_deltas": {
+    "http": {
+      "bytes": 10080,
+      "packets": 120,
+      "errors": 0
+    },
+    "udp": {
+      "bytes": 5934276,
+      "packets": 4778,
+      "errors": 0
+    },
+    "bulk": {
+      "bytes": 76443874,
+      "packets": 50513,
+      "errors": 0
+    }
+  },
+  "overlap": {
+    "interval_start_unix_ns": 1795022529647689921,
+    "interval_end_unix_ns": 1795022532050022231,
+    "tcp_bytes_acked_delta_by_source_port": {
+      "38817": 0,
+      "43825": 26481024
+    },
+    "http_completed": 10,
+    "udp_sends": 1916,
+    "udp_receives": 1914
+  }
+}

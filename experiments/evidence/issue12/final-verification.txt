@@ -1,0 +1,5 @@
+entries: 4168
+manifest_sha256: 8f1d268c0a84dcaa951628883d26854124e201e187b1a2276625e9e9ce59abf4
+source_sha256=PASS
+regression=PASS
+teammate_manifest_comparison=PASS

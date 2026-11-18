@@ -1,0 +1,12 @@
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1", "4"], "launch_at_unix_ns": 1795020153081474606}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1", "5"], "launch_at_unix_ns": 1795020153094931703}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4", "4"], "launch_at_unix_ns": 1795020153108235943}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4", "5"], "launch_at_unix_ns": 1795020153121630047}
+{"host": "iot1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "udp-receive", "--stream-id", "68505713-5932-4904-a2aa-eb58ed15411f", "--source", "10.0.20.1", "--port", "5000", "--duration", "11"], "launch_at_unix_ns": 1795020153136369682}
+{"host": "staff1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "udp-send", "--stream-id", "68505713-5932-4904-a2aa-eb58ed15411f", "--source", "10.0.20.1", "--port", "5000", "--payload-size", "1200", "--rate-pps", "800", "--duration", "6"], "launch_at_unix_ns": 1795020153303523518}
+{"host": "root", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "udp-report", "--sender", "/home/mininet/final-project-issue12.UwGpKh/evidence/udp-only/udp-send.json", "--receiver", "/home/mininet/final-project-issue12.UwGpKh/evidence/udp-only/udp-receiver.json"], "launch_at_unix_ns": 1795020164386171263}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1", "4"], "launch_at_unix_ns": 1795020164609441474}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1", "5"], "launch_at_unix_ns": 1795020164613748213}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4", "4"], "launch_at_unix_ns": 1795020164617999987}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4", "5"], "launch_at_unix_ns": 1795020164622440156}
+{"host": "root", "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s1"], "launch_at_unix_ns": 1795020164626977406}

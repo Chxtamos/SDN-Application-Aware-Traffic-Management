@@ -1,0 +1,27 @@
+{
+  "udp": {
+    "received_unique_packets": 3995,
+    "duplicate_packets": 0,
+    "unmatched_packets": 0,
+    "lost_packets": 4,
+    "loss_percent": 0.1000250062515629,
+    "received_payload_bps": 6391801.912732223,
+    "sent_packets": 3999,
+    "sent_payload_bps": 6398201.714397036,
+    "sent_packets_per_s": 666.4793452496913
+  },
+  "schedule": {
+    "scheduled_packets": 4800,
+    "attempted_packets": 3999,
+    "skipped_intervals": 801,
+    "sent_packets": 3999,
+    "send_failure_count": 0
+  },
+  "s1_path_a_queue_deltas": {
+    "udp": {
+      "bytes": 4961790,
+      "packets": 3995,
+      "errors": 0
+    }
+  }
+}
