@@ -25,8 +25,8 @@ from ryu.lib.packet import packet, ethernet, arp, ipv4, tcp, udp
 from ryu.lib import hub
 
 LOG = logging.getLogger('sdn')
-STATS_CSV = '/tmp/sdn_stats.csv'      # raw port stats lines
-FLOW_CSV = '/tmp/sdn_flows.csv'
+STATS_CSV = os.path.join(os.getenv('SDN_RUN_DIR', '/tmp'), 'sdn_stats.csv')      # raw port stats lines
+FLOW_CSV = os.path.join(os.getenv('SDN_RUN_DIR', '/tmp'), 'sdn_flows.csv')
 FLOW_HEADER = 'ts,dpid,table,priority,cookie,packets,bytes,match'       # raw flow stats lines
 CSV_HEADER = 'ts,dpid,port,rx_bytes,tx_bytes,rx_packets,util_pct,path'
 
@@ -93,6 +93,14 @@ def classify(proto, dport):
     return 'other'   # unknown; NOT tagged as high-priority interactive
 
 
+QUEUE_IDS = {
+    'other': 0,
+    'interactive': 1,
+    'periodic': 2,
+    'bulk': 3,
+}
+
+
 class RyuController(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
 
@@ -113,7 +121,8 @@ class RyuController(app_manager.RyuApp):
         self.busy_persist = 3
         self.congest_count = 0
         self.cooldown_until = 0.0
-        self.adaptive_enabled = True
+        self.adaptive_enabled = os.getenv('SDN_ADAPTIVE', '1') == '1'
+        self.qos_enabled = os.getenv('SDN_QOS', '0') == '1'
         self._init_logs()
         self._log('controller started: adaptive=%s path=%s' % (
             self.adaptive_enabled, self.current_path))
@@ -261,6 +270,8 @@ class RyuController(app_manager.RyuApp):
         sport = flow.src_port if flow else 0
         proto = ('tcp' if pkt.get_protocol(tcp.tcp)
                  else 'udp' if pkt.get_protocol(udp.udp) else 'icmp')
+        if flow is None and p4.proto != 1:
+            return
         # --- ACL (#7). Default-deny for client-initiated (ingress s1). For
         # traffic that appears on s4 from the SERVICE side, it is return traffic
         # of an already-approved flow (e.g. ACKs from file1 during a reroute);
@@ -287,6 +298,8 @@ class RyuController(app_manager.RyuApp):
                     kw['ip_proto'] = 6; kw['tcp_dst'] = dport
                 elif proto == 'udp':
                     kw['ip_proto'] = 17; kw['udp_dst'] = dport
+                elif proto == 'icmp':
+                    kw['ip_proto'] = 1
                 self._add_flow(dp, 300, dp.ofproto_parser.OFPMatch(**kw), [])
             return
         if dip not in HOST:
@@ -305,7 +318,8 @@ class RyuController(app_manager.RyuApp):
             s1_out = 4 if self.current_path == 'A' else 5
             self._packet_out(dp, in_port, pkt_data, [
                 dp.ofproto_parser.OFPActionSetField(eth_dst=HOST[dip][2]),
-                dp.ofproto_parser.OFPActionOutput(s1_out)])
+            ] + self._output_actions(
+                dp, s1_out, QUEUE_IDS[classify(proto, dport)]))
 
     # ---------------- #9 L3 route install ----------------
     def _install_l3_flows(self, sip, dip, proto, dport, smac, dmac):
@@ -316,11 +330,14 @@ class RyuController(app_manager.RyuApp):
         else:
             trans, s1_out, s4_in = 3, 5, 5
         # per-flow L4 match fields to disambiguate flows (#7)
+        queue_id = QUEUE_IDS[classify(proto, dport)]
         l4 = {}
         if proto == 'tcp':
             l4['ip_proto'] = 6; l4['tcp_dst'] = dport
         elif proto == 'udp':
             l4['ip_proto'] = 17; l4['udp_dst'] = dport
+        elif proto == 'icmp':
+            l4['ip_proto'] = 1
         # forward: install the downstream hops (transit + egress) BEFORE the
         # ingress rule, so the first packet re-injected via OFPP_TABLE on s1
         # finds its path fully built on s2/s3 and s4.
@@ -329,19 +346,29 @@ class RyuController(app_manager.RyuApp):
         self._l3_fwd(self._sw(dst_e), in_port=s4_in, src_ip=sip, dst_ip=dip,
                      dst_mac=dst_mac, out_port=dst_p, l4=l4)
         self._l3_fwd(self._sw(src_e), in_port=src_p, src_ip=sip, dst_ip=dip,
-                     dst_mac=dst_mac, next_port=s1_out, l4=l4)
+                     dst_mac=dst_mac, next_port=s1_out, l4=l4, queue_id=queue_id)
         # reverse (5-tuple reversed)
         rl4 = {}
         if proto == 'tcp':
             rl4['ip_proto'] = 6; rl4['tcp_src'] = dport
         elif proto == 'udp':
             rl4['ip_proto'] = 17; rl4['udp_src'] = dport
+        elif proto == 'icmp':
+            rl4['ip_proto'] = 1
         self._l3_fwd(self._sw(dst_e), in_port=dst_p, src_ip=dip, dst_ip=sip,
-                     dst_mac=src_mac, next_port=s4_in, l4=rl4)
+                     dst_mac=src_mac, next_port=s4_in, l4=rl4, queue_id=queue_id)
         self._l3_fwd(self._sw(trans), match_eth=src_mac, l4=rl4,
                      out_port=self._edge_port(trans, src_e, 'rev'))
         self._l3_fwd(self._sw(src_e), in_port=s1_out, src_ip=dip, dst_ip=sip,
                      dst_mac=src_mac, out_port=src_p, l4=rl4)
+
+    def _output_actions(self, dp, port, queue_id=0):
+        parser = dp.ofproto_parser
+        actions = []
+        if self.qos_enabled and dp.id in (1, 4) and port in (4, 5):
+            actions.append(parser.OFPActionSetQueue(queue_id))
+        actions.append(parser.OFPActionOutput(port))
+        return actions
 
     def _sw(self, dpid):
         return self.datapaths.get(dpid)
@@ -350,7 +377,7 @@ class RyuController(app_manager.RyuApp):
         return 1 if edge == 1 else 2
 
     def _l3_fwd(self, dp, in_port=None, src_ip=None, dst_ip=None, dst_mac=None,
-                match_eth=None, next_port=None, out_port=None, l4=None):
+                match_eth=None, next_port=None, out_port=None, l4=None, queue_id=0):
         if not dp:
             return
         kw = {'eth_type': 0x0800}
@@ -366,7 +393,7 @@ class RyuController(app_manager.RyuApp):
             acts.append(dp.ofproto_parser.OFPActionSetField(eth_dst=dst_mac))
         out = next_port if next_port is not None else out_port
         if out is not None:
-            acts.append(dp.ofproto_parser.OFPActionOutput(out))
+            acts.extend(self._output_actions(dp, out, queue_id))
         self._add_flow(dp, 200, match, acts, cookie=0x200)
 
     # ---------------- #8 stats ----------------

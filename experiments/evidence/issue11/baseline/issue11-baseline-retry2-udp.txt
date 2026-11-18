@@ -1,0 +1,3 @@
+Received: 23951 / 24000
+Loss: 0.204%
+Payload rate over 30s: 7.664 Mbps
