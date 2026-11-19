@@ -1,0 +1,8 @@
+OFPST_FLOW reply (OF1.3) (xid=0x2):
+ cookie=0x200, duration=3.309s, table=0, n_packets=40, n_bytes=2720, send_flow_rem priority=200,tcp,in_port=2,nw_src=10.0.20.1,nw_dst=10.0.40.20,tp_dst=22 actions=set_field:00:00:00:00:28:14->eth_dst,set_queue:3,output:4
+ cookie=0x0, duration=3.305s, table=0, n_packets=3, n_bytes=222, send_flow_rem priority=300,tcp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.20,tp_dst=22 actions=drop
+ cookie=0x200, duration=2.953s, table=0, n_packets=10, n_bytes=490, send_flow_rem priority=200,udp,in_port=2,nw_src=10.0.20.1,nw_dst=10.0.40.30,tp_dst=5001 actions=set_field:00:00:00:00:28:1e->eth_dst,set_queue:2,output:4
+ cookie=0x0, duration=2.951s, table=0, n_packets=2, n_bytes=98, send_flow_rem priority=300,udp,in_port=1,nw_src=10.0.10.1,nw_dst=10.0.40.30,tp_dst=5001 actions=drop
+ cookie=0x200, duration=3.309s, table=0, n_packets=40, n_bytes=2790, send_flow_rem priority=200,tcp,in_port=4,nw_src=10.0.40.20,nw_dst=10.0.20.1,tp_src=22 actions=set_field:00:00:00:00:14:01->eth_dst,output:2
+ cookie=0x200, duration=2.953s, table=0, n_packets=11, n_bytes=539, send_flow_rem priority=200,udp,in_port=4,nw_src=10.0.40.30,nw_dst=10.0.20.1,tp_src=5001 actions=set_field:00:00:00:00:14:01->eth_dst,output:2
+ cookie=0x0, duration=7.081s, table=0, n_packets=54, n_bytes=6024, send_flow_rem priority=0 actions=CONTROLLER:65535

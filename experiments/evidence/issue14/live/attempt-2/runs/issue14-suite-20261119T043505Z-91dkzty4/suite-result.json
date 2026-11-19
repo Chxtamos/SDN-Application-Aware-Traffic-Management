@@ -1,0 +1,45 @@
+{
+  "status": "pass",
+  "source_unchanged": true,
+  "scenarios": [
+    {
+      "scenario": "fixed-a",
+      "directory": "issue14-fixed-a-20261119T043505Z-gbp_p6ap",
+      "issues": [],
+      "harness_status": "ok",
+      "workload_overlap": {
+        "started_ns": 1795062917150736077,
+        "ended_ns": 1795062927969648586,
+        "duration_ns": 10818912509
+      },
+      "cleanup": "verified",
+      "status": "pass"
+    },
+    {
+      "scenario": "adaptive",
+      "directory": "issue14-adaptive-20261119T043541Z-pyscic9o",
+      "issues": [],
+      "harness_status": "ok",
+      "workload_overlap": {
+        "started_ns": 1795062953000000000,
+        "ended_ns": 1795062975007685988,
+        "duration_ns": 22007685988
+      },
+      "cleanup": "verified",
+      "status": "pass"
+    },
+    {
+      "scenario": "fixed-a-repeat",
+      "directory": "issue14-fixed-a-repeat-20261119T043629Z-x0hkinzx",
+      "issues": [],
+      "harness_status": "ok",
+      "workload_overlap": {
+        "started_ns": 1795062997000000000,
+        "ended_ns": 1795063008000389120,
+        "duration_ns": 11000389120
+      },
+      "cleanup": "verified",
+      "status": "pass"
+    }
+  ]
+}

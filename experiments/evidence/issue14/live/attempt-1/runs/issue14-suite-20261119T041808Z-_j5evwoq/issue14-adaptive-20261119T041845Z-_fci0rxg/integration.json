@@ -1,0 +1,10 @@
+{
+  "scenario": "adaptive",
+  "directory": "issue14-adaptive-20261119T041845Z-_fci0rxg",
+  "issues": [
+    "workload/telemetry status: failed"
+  ],
+  "harness_status": "failed",
+  "cleanup": "verified",
+  "status": "fail"
+}

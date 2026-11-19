@@ -1,0 +1,23 @@
+{
+  "attempt": 2,
+  "base_revision": "39576bc541034502d551e6d086183cfc36d9a892",
+  "ended_at_utc": "2026-11-19T04:37:03.982917+00:00",
+  "input_zip_sha256": "e0eb6a8b8dfd158a43d01ac8f9068bdfb44e302c5631f7fdbdfcac2710e8475f",
+  "integration_exit_code": 0,
+  "issues": [],
+  "postflight_clear": true,
+  "regression": {
+    "errors": 0,
+    "exit_code": 0,
+    "failures": 0,
+    "ok": true,
+    "skipped": 0,
+    "tests": 89
+  },
+  "source_after": true,
+  "source_before": true,
+  "started_at_utc": "2026-11-19T04:34:58.672923+00:00",
+  "status": "pass",
+  "teammate_files_unchanged": true,
+  "verified_input_files": 81
+}

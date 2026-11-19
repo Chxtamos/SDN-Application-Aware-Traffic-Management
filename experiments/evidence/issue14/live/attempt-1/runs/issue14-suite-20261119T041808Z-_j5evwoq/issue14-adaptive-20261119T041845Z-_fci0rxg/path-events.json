@@ -1,0 +1,16 @@
+[
+  {
+    "from": "A",
+    "to": "B",
+    "util_a_pct_rounded": 97,
+    "util_b_pct_rounded": 0,
+    "observed_at_unix_ns": 1795061940112828953
+  },
+  {
+    "from": "B",
+    "to": "A",
+    "util_a_pct_rounded": 0,
+    "util_b_pct_rounded": 0,
+    "observed_at_unix_ns": 1795061964180469309
+  }
+]

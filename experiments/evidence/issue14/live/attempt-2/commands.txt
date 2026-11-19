@@ -1,0 +1,2 @@
+~/ryu-env/bin/python -B -m unittest discover -s tests -v
+sudo -n /usr/bin/python3 -B -m experiments.integration --revision 39576bc541034502d551e6d086183cfc36d9a892 --controller-port 17656 --ryu-manager ~/ryu-env/bin/ryu-manager --output-root <evidence>/runs
