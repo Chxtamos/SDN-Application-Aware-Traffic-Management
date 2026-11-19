@@ -1,0 +1,29 @@
+{
+  "status": "fail",
+  "source_unchanged": true,
+  "scenarios": [
+    {
+      "scenario": "fixed-a",
+      "directory": "issue14-fixed-a-20261119T041808Z-fdjty6pn",
+      "issues": [],
+      "harness_status": "ok",
+      "workload_overlap": {
+        "started_ns": 1795061900000000000,
+        "ended_ns": 1795061911000189952,
+        "duration_ns": 11000189952
+      },
+      "cleanup": "verified",
+      "status": "pass"
+    },
+    {
+      "scenario": "adaptive",
+      "directory": "issue14-adaptive-20261119T041845Z-_fci0rxg",
+      "issues": [
+        "workload/telemetry status: failed"
+      ],
+      "harness_status": "failed",
+      "cleanup": "verified",
+      "status": "fail"
+    }
+  ]
+}

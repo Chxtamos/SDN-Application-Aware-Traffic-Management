@@ -1,0 +1,205 @@
+{"event": "start", "label": "preflight-bridges", "host": null, "argv": ["ovs-vsctl", "--timeout=5", "list-br"], "timeout_s": 8, "started_at_unix_ns": 1795062941980689018}
+{"event": "finish", "label": "preflight-bridges", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942006356949}
+{"event": "start", "label": "preflight-qos", "host": null, "argv": ["ovs-vsctl", "--timeout=5", "--bare", "--no-headings", "--columns=_uuid", "list", "QoS"], "timeout_s": 8, "started_at_unix_ns": 1795062942007871040}
+{"event": "finish", "label": "preflight-qos", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942033585204}
+{"event": "start", "label": "preflight-queues", "host": null, "argv": ["ovs-vsctl", "--timeout=5", "--bare", "--no-headings", "--columns=_uuid", "list", "Queue"], "timeout_s": 8, "started_at_unix_ns": 1795062942035033337}
+{"event": "finish", "label": "preflight-queues", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942061106947}
+{"event": "start", "label": "preflight-interfaces", "host": null, "argv": ["ip", "-o", "link", "show"], "timeout_s": 8, "started_at_unix_ns": 1795062942062510085}
+{"event": "finish", "label": "preflight-interfaces", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942088141473}
+{"event": "start", "label": "preflight-processes", "host": null, "argv": ["ps", "-eo", "comm="], "timeout_s": 8, "started_at_unix_ns": 1795062942089621155}
+{"event": "finish", "label": "preflight-processes", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942135533779}
+{"event": "start", "label": "preflight-controller-port", "host": null, "argv": ["ss", "-H", "-lnt", "sport", "=", ":17656"], "timeout_s": 5, "started_at_unix_ns": 1795062942137169818}
+{"event": "finish", "label": "preflight-controller-port", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942163130150}
+{"event": "environment", "label": "controller", "variables": {"SDN_RUN_DIR": "<vm-lab>/attempt-2/evidence/runs/issue14-suite-20261119T043505Z-91dkzty4/issue14-adaptive-20261119T043541Z-pyscic9o", "SDN_QOS": "1", "SDN_ADAPTIVE": "1", "PYTHONDONTWRITEBYTECODE": "1"}}
+{"event": "start", "label": "controller", "host": null, "argv": ["<ryu-env>/bin/ryu-manager", "--ofp-listen-host", "127.0.0.1", "--ofp-tcp-listen-port", "17656", "<vm-lab>/attempt-2/repo/controller/ryu_controller.py"], "timeout_s": 174, "started_at_unix_ns": 1795062942165425799}
+{"event": "start", "label": "controller-readiness-1", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942170290808}
+{"event": "finish", "label": "controller-readiness-1", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942224675707}
+{"event": "start", "label": "controller-readiness-2", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942246475922}
+{"event": "finish", "label": "controller-readiness-2", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942304612250}
+{"event": "start", "label": "controller-readiness-3", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942325927303}
+{"event": "finish", "label": "controller-readiness-3", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942359863205}
+{"event": "start", "label": "controller-readiness-4", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942380740255}
+{"event": "finish", "label": "controller-readiness-4", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942415803149}
+{"event": "start", "label": "controller-readiness-5", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942436390866}
+{"event": "finish", "label": "controller-readiness-5", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942463743385}
+{"event": "start", "label": "controller-readiness-6", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942484328487}
+{"event": "finish", "label": "controller-readiness-6", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942511706102}
+{"event": "start", "label": "controller-readiness-7", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942532314361}
+{"event": "finish", "label": "controller-readiness-7", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942559784558}
+{"event": "start", "label": "controller-readiness-8", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942580376962}
+{"event": "finish", "label": "controller-readiness-8", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942607810251}
+{"event": "start", "label": "controller-readiness-9", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942628414682}
+{"event": "finish", "label": "controller-readiness-9", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942655814452}
+{"event": "start", "label": "controller-readiness-10", "host": null, "argv": ["ss", "-H", "-lntp", "sport", "=", ":17656"], "timeout_s": 1, "started_at_unix_ns": 1795062942676440282}
+{"event": "finish", "label": "controller-readiness-10", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062942698552765}
+{"event": "ready", "label": "controller", "at_unix_ns": 1795062942699273454}
+{"event": "start", "label": "before-s1-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062946390854620}
+{"event": "finish", "label": "before-s1-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946417639492}
+{"event": "start", "label": "before-s1-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062946419010038}
+{"event": "finish", "label": "before-s1-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946445126311}
+{"event": "start", "label": "before-s1-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062946446512993}
+{"event": "finish", "label": "before-s1-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946472374861}
+{"event": "start", "label": "before-s2-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062946473848635}
+{"event": "finish", "label": "before-s2-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946504351653}
+{"event": "start", "label": "before-s2-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062946505762751}
+{"event": "finish", "label": "before-s2-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946536475871}
+{"event": "start", "label": "before-s2-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062946537881896}
+{"event": "finish", "label": "before-s2-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946564238538}
+{"event": "start", "label": "before-s3-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062946566862492}
+{"event": "finish", "label": "before-s3-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946593579435}
+{"event": "start", "label": "before-s3-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062946595009116}
+{"event": "finish", "label": "before-s3-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946621331823}
+{"event": "start", "label": "before-s3-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062946622700546}
+{"event": "finish", "label": "before-s3-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946648771457}
+{"event": "start", "label": "before-s4-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062946650125747}
+{"event": "finish", "label": "before-s4-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946676064600}
+{"event": "start", "label": "before-s4-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062946677499719}
+{"event": "finish", "label": "before-s4-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946708552227}
+{"event": "start", "label": "before-s4-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062946709989447}
+{"event": "finish", "label": "before-s4-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062946736342774}
+{"event": "start", "label": "acl-tcp-server", "host": "file1", "argv": ["/usr/bin/python3", "-B", "-m", "experiments.integration_probe", "tcp"], "timeout_s": 104, "started_at_unix_ns": 1795062946740108204}
+{"event": "ready", "label": "acl-tcp-server", "at_unix_ns": 1795062946932463959}
+{"event": "start", "label": "acl-udp-server", "host": "iot1", "argv": ["/usr/bin/python3", "-B", "-m", "experiments.integration_probe", "udp"], "timeout_s": 104, "started_at_unix_ns": 1795062946932693395}
+{"event": "ready", "label": "acl-udp-server", "at_unix_ns": 1795062947036071518}
+{"event": "start", "label": "acl-staff", "host": "staff1", "argv": ["/usr/bin/python3", "-B", "-m", "experiments.integration_probe", "probe"], "timeout_s": 104, "started_at_unix_ns": 1795062947036312225}
+{"event": "start", "label": "acl-student", "host": "student1", "argv": ["/usr/bin/python3", "-B", "-m", "experiments.integration_probe", "probe"], "timeout_s": 104, "started_at_unix_ns": 1795062947038208608}
+{"event": "start", "label": "initial-a-s1-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062950395171292}
+{"event": "finish", "label": "initial-a-s1-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950422028553}
+{"event": "start", "label": "initial-a-s1-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062950423640024}
+{"event": "finish", "label": "initial-a-s1-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950450038175}
+{"event": "start", "label": "initial-a-s1-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062950451719669}
+{"event": "finish", "label": "initial-a-s1-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950478216461}
+{"event": "start", "label": "initial-a-s2-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062950479772199}
+{"event": "finish", "label": "initial-a-s2-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950506632792}
+{"event": "start", "label": "initial-a-s2-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062950508169848}
+{"event": "finish", "label": "initial-a-s2-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950534192734}
+{"event": "start", "label": "initial-a-s2-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062950535746327}
+{"event": "finish", "label": "initial-a-s2-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950561790155}
+{"event": "start", "label": "initial-a-s3-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062950563180789}
+{"event": "finish", "label": "initial-a-s3-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950589466067}
+{"event": "start", "label": "initial-a-s3-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062950590838466}
+{"event": "finish", "label": "initial-a-s3-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950617013613}
+{"event": "start", "label": "initial-a-s3-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062950618381938}
+{"event": "finish", "label": "initial-a-s3-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950644508674}
+{"event": "start", "label": "initial-a-s4-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062950645870050}
+{"event": "finish", "label": "initial-a-s4-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950671868586}
+{"event": "start", "label": "initial-a-s4-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062950673255858}
+{"event": "finish", "label": "initial-a-s4-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950699904391}
+{"event": "start", "label": "initial-a-s4-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062950701344365}
+{"event": "finish", "label": "initial-a-s4-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950728784185}
+{"event": "start", "label": "http-server", "host": "web1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "http-server", "--duration", "32"], "timeout_s": 35, "started_at_unix_ns": 1795062950735549975}
+{"event": "start", "label": "udp-receiver", "host": "iot1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "udp-receive", "--stream-id", "ff36d8a6-ba07-5d00-a5b1-dac1822f14f5", "--source", "10.0.20.1", "--port", "5000", "--duration", "32"], "timeout_s": 35, "started_at_unix_ns": 1795062950741629228}
+{"event": "start", "label": "bulk-server", "host": "file1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "bulk-server", "--timeout", "37"], "timeout_s": 40, "started_at_unix_ns": 1795062950764051236}
+{"event": "ready", "label": "http-server", "at_unix_ns": 1795062950919382153}
+{"event": "ready", "label": "udp-receiver", "at_unix_ns": 1795062950939965930}
+{"event": "start", "label": "bulk-readiness-1", "host": "file1", "argv": ["ss", "-H", "-lnt", "sport", "=", ":5201"], "timeout_s": 1, "started_at_unix_ns": 1795062950940135397}
+{"event": "finish", "label": "bulk-readiness-1", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062950962537704}
+{"event": "start", "label": "bulk-readiness-2", "host": "file1", "argv": ["ss", "-H", "-lnt", "sport", "=", ":5201"], "timeout_s": 1, "started_at_unix_ns": 1795062950983235744}
+{"event": "finish", "label": "bulk-readiness-2", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062951005944430}
+{"event": "ready", "label": "bulk-server", "at_unix_ns": 1795062951006444192}
+{"event": "start", "label": "http", "host": "student1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "http", "--source", "10.0.10.1", "--interval", "0.25", "--timeout", "2", "--duration", "24"], "timeout_s": 27, "started_at_unix_ns": 1795062951006557014}
+{"event": "start", "label": "udp-send", "host": "staff1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "udp-send", "--stream-id", "ff36d8a6-ba07-5d00-a5b1-dac1822f14f5", "--source", "10.0.20.1", "--port", "5000", "--duration", "24", "--rate-pps", "800", "--payload-size", "1200"], "timeout_s": 27, "started_at_unix_ns": 1795062951008504835}
+{"event": "start", "label": "bulk", "host": "mgmt1", "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "bulk", "--source", "10.0.30.1", "--duration", "24", "--target-bps", "0"], "timeout_s": 37, "started_at_unix_ns": 1795062951019627824}
+{"event": "start", "label": "path-b-s1-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062959264267808}
+{"event": "finish", "label": "path-b-s1-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959292371441}
+{"event": "start", "label": "path-b-s1-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062959294176818}
+{"event": "finish", "label": "path-b-s1-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959323102801}
+{"event": "start", "label": "path-b-s1-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062959324857076}
+{"event": "finish", "label": "path-b-s1-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959352953539}
+{"event": "start", "label": "path-b-s2-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062959354726715}
+{"event": "finish", "label": "path-b-s2-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959383148527}
+{"event": "start", "label": "path-b-s2-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062959384629749}
+{"event": "finish", "label": "path-b-s2-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959417071696}
+{"event": "start", "label": "path-b-s2-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062959419253719}
+{"event": "finish", "label": "path-b-s2-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959448301851}
+{"event": "start", "label": "path-b-s3-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062959450007550}
+{"event": "finish", "label": "path-b-s3-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959477912893}
+{"event": "start", "label": "path-b-s3-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062959479793398}
+{"event": "finish", "label": "path-b-s3-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959508154052}
+{"event": "start", "label": "path-b-s3-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062959509834053}
+{"event": "finish", "label": "path-b-s3-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959539065931}
+{"event": "start", "label": "path-b-s4-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062959541836122}
+{"event": "finish", "label": "path-b-s4-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959573118604}
+{"event": "start", "label": "path-b-s4-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062959575727301}
+{"event": "finish", "label": "path-b-s4-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959604781686}
+{"event": "start", "label": "path-b-s4-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062959606225554}
+{"event": "finish", "label": "path-b-s4-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062959636041669}
+{"event": "finish", "label": "http", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062975179297910}
+{"event": "finish", "label": "udp-send", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062975332349790}
+{"event": "finish", "label": "bulk-server", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062977057228626}
+{"event": "finish", "label": "bulk", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062977057878994}
+{"event": "finish", "label": "http-server", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062982947796944}
+{"event": "finish", "label": "udp-receiver", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062983100527449}
+{"event": "start", "label": "udp-report", "host": null, "argv": ["/usr/bin/python3", "-B", "-m", "traffic", "udp-report", "--sender", "<vm-lab>/attempt-2/evidence/runs/issue14-suite-20261119T043505Z-91dkzty4/issue14-adaptive-20261119T043541Z-pyscic9o/udp-send.json", "--receiver", "<vm-lab>/attempt-2/evidence/runs/issue14-suite-20261119T043505Z-91dkzty4/issue14-adaptive-20261119T043541Z-pyscic9o/udp-receiver.json"], "timeout_s": 15, "started_at_unix_ns": 1795062983100857250}
+{"event": "finish", "label": "udp-report", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062983324668474}
+{"event": "start", "label": "after-load-s1-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062985859408379}
+{"event": "finish", "label": "after-load-s1-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062985886409243}
+{"event": "start", "label": "after-load-s1-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062985888108597}
+{"event": "finish", "label": "after-load-s1-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062985915102979}
+{"event": "start", "label": "after-load-s1-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062985916799419}
+{"event": "finish", "label": "after-load-s1-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062985943534301}
+{"event": "start", "label": "after-load-s2-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062985945054375}
+{"event": "finish", "label": "after-load-s2-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062985971654996}
+{"event": "start", "label": "after-load-s2-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062985973132192}
+{"event": "finish", "label": "after-load-s2-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062985999751283}
+{"event": "start", "label": "after-load-s2-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062986001203144}
+{"event": "finish", "label": "after-load-s2-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986027166288}
+{"event": "start", "label": "after-load-s3-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062986028093509}
+{"event": "finish", "label": "after-load-s3-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986051802324}
+{"event": "start", "label": "after-load-s3-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062986052450462}
+{"event": "finish", "label": "after-load-s3-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986075482465}
+{"event": "start", "label": "after-load-s3-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062986076222535}
+{"event": "finish", "label": "after-load-s3-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986100030590}
+{"event": "start", "label": "after-load-s4-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062986101425375}
+{"event": "finish", "label": "after-load-s4-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986127518405}
+{"event": "start", "label": "after-load-s4-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062986128931817}
+{"event": "finish", "label": "after-load-s4-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986155876916}
+{"event": "start", "label": "after-load-s4-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062986157287165}
+{"event": "finish", "label": "after-load-s4-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986183861414}
+{"event": "finish", "label": "acl-student", "status": "stopped", "returncode": -15, "ended_at_unix_ns": 1795062986231661640}
+{"event": "finish", "label": "acl-staff", "status": "stopped", "returncode": -15, "ended_at_unix_ns": 1795062986252805360}
+{"event": "start", "label": "after-s1-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062986260471757}
+{"event": "finish", "label": "after-s1-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986287058802}
+{"event": "start", "label": "after-s1-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062986288678398}
+{"event": "finish", "label": "after-s1-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986315192844}
+{"event": "start", "label": "after-s1-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s1"], "timeout_s": 5, "started_at_unix_ns": 1795062986316853541}
+{"event": "finish", "label": "after-s1-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986343862840}
+{"event": "start", "label": "after-s2-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062986345290843}
+{"event": "finish", "label": "after-s2-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986371560114}
+{"event": "start", "label": "after-s2-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062986372969681}
+{"event": "finish", "label": "after-s2-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986399089739}
+{"event": "start", "label": "after-s2-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s2"], "timeout_s": 5, "started_at_unix_ns": 1795062986400550570}
+{"event": "finish", "label": "after-s2-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986426856543}
+{"event": "start", "label": "after-s3-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062986428365245}
+{"event": "finish", "label": "after-s3-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986454559617}
+{"event": "start", "label": "after-s3-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062986456132870}
+{"event": "finish", "label": "after-s3-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986482551925}
+{"event": "start", "label": "after-s3-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s3"], "timeout_s": 5, "started_at_unix_ns": 1795062986484265279}
+{"event": "finish", "label": "after-s3-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986510927381}
+{"event": "start", "label": "after-s4-dump-ports", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-ports", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062986512552733}
+{"event": "finish", "label": "after-s4-dump-ports", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986539112144}
+{"event": "start", "label": "after-s4-dump-flows", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "dump-flows", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062986540648224}
+{"event": "finish", "label": "after-s4-dump-flows", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986567198448}
+{"event": "start", "label": "after-s4-queue-stats", "host": null, "argv": ["ovs-ofctl", "-O", "OpenFlow13", "queue-stats", "s4"], "timeout_s": 5, "started_at_unix_ns": 1795062986568793311}
+{"event": "finish", "label": "after-s4-queue-stats", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062986595091458}
+{"event": "start", "label": "http-ping", "host": "student1", "argv": ["env", "LC_ALL=C", "ping", "-n", "-c", "3", "-i", ".2", "-W", "1", "-I", "10.0.10.1", "10.0.40.10"], "timeout_s": 5, "started_at_unix_ns": 1795062986596682862}
+{"event": "finish", "label": "http-ping", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062987029758357}
+{"event": "start", "label": "udp-ping", "host": "staff1", "argv": ["env", "LC_ALL=C", "ping", "-n", "-c", "3", "-i", ".2", "-W", "1", "-I", "10.0.20.1", "10.0.40.30"], "timeout_s": 5, "started_at_unix_ns": 1795062987031204003}
+{"event": "finish", "label": "udp-ping", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062987464886584}
+{"event": "start", "label": "bulk-ping", "host": "mgmt1", "argv": ["env", "LC_ALL=C", "ping", "-n", "-c", "3", "-i", ".2", "-W", "1", "-I", "10.0.30.1", "10.0.40.20"], "timeout_s": 5, "started_at_unix_ns": 1795062987466325240}
+{"event": "finish", "label": "bulk-ping", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062987899075763}
+{"event": "finish", "label": "acl-tcp-server", "status": "stopped", "returncode": -15, "ended_at_unix_ns": 1795062987903294696}
+{"event": "finish", "label": "acl-udp-server", "status": "stopped", "returncode": -15, "ended_at_unix_ns": 1795062987904021503}
+{"event": "finish", "label": "controller", "status": "stopped", "returncode": -15, "ended_at_unix_ns": 1795062988560159434}
+{"event": "start", "label": "postflight-bridges", "host": null, "argv": ["ovs-vsctl", "--timeout=5", "list-br"], "timeout_s": 8, "started_at_unix_ns": 1795062988865012748}
+{"event": "finish", "label": "postflight-bridges", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062988887025578}
+{"event": "start", "label": "postflight-qos", "host": null, "argv": ["ovs-vsctl", "--timeout=5", "--bare", "--no-headings", "--columns=_uuid", "list", "QoS"], "timeout_s": 8, "started_at_unix_ns": 1795062988887461548}
+{"event": "finish", "label": "postflight-qos", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062988909273508}
+{"event": "start", "label": "postflight-queues", "host": null, "argv": ["ovs-vsctl", "--timeout=5", "--bare", "--no-headings", "--columns=_uuid", "list", "Queue"], "timeout_s": 8, "started_at_unix_ns": 1795062988909670774}
+{"event": "finish", "label": "postflight-queues", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062988931540453}
+{"event": "start", "label": "postflight-interfaces", "host": null, "argv": ["ip", "-o", "link", "show"], "timeout_s": 8, "started_at_unix_ns": 1795062988932038989}
+{"event": "finish", "label": "postflight-interfaces", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062988954283979}
+{"event": "start", "label": "postflight-processes", "host": null, "argv": ["ps", "-eo", "comm="], "timeout_s": 8, "started_at_unix_ns": 1795062988955091402}
+{"event": "finish", "label": "postflight-processes", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062988978359404}
+{"event": "start", "label": "postflight-controller-port", "host": null, "argv": ["ss", "-H", "-lnt", "sport", "=", ":17656"], "timeout_s": 5, "started_at_unix_ns": 1795062988980069967}
+{"event": "finish", "label": "postflight-controller-port", "status": "ok", "returncode": 0, "ended_at_unix_ns": 1795062989005995540}

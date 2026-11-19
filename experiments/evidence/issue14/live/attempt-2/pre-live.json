@@ -1,0 +1,21 @@
+{
+  "checks": {
+    "bridges": [],
+    "controller_port": [],
+    "interfaces": [],
+    "netns": [
+      "        NS   PID USER",
+      "4026531840     1 root",
+      "4026532206  1089 rtkit",
+      "4026532386  2464 root",
+      "4026532525  2462 root"
+    ],
+    "processes": [],
+    "qos": [],
+    "queues": []
+  },
+  "clear": true,
+  "console_sessions": 0,
+  "established_ssh": 1,
+  "exclusive": true
+}

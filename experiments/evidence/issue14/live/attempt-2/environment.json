@@ -1,0 +1,9 @@
+{
+  "iperf3": "iperf 3.7 (cJSON 1.5.2)",
+  "kernel": "5.15.0-139-generic",
+  "mn": "2.3.1b4",
+  "os": "Ubuntu 20.04.6 LTS",
+  "ovs": "ovs-vsctl (Open vSwitch) 2.13.8\nDB Schema 8.2.0",
+  "python": "3.8.10",
+  "ryu": "4.34"
+}

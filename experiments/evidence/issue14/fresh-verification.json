@@ -1,0 +1,140 @@
+{
+  "origin": "verified fresh Issue 14 VM evidence",
+  "input_zip_sha256": "e0eb6a8b8dfd158a43d01ac8f9068bdfb44e302c5631f7fdbdfcac2710e8475f",
+  "linux": {
+    "errors": 0,
+    "exit_code": 0,
+    "failures": 0,
+    "ok": true,
+    "skipped": 0,
+    "tests": 89
+  },
+  "scenarios": [
+    {
+      "scenario": "fixed-a",
+      "events": [],
+      "http_requests": 45,
+      "http_mean_ms": 63.948299866666666,
+      "udp_pps": 787.0653942109246,
+      "udp_lost": 0,
+      "udp_sent": 9445,
+      "tcp_mbps": 87.16877160018385,
+      "overlap_s": 10.818912509,
+      "active_queue_deltas": {
+        "s1": {
+          "1": 36,
+          "2": 1997,
+          "3": 17527
+        },
+        "s4": {
+          "1": 40,
+          "2": 10,
+          "3": 2378
+        }
+      },
+      "acl_windows": 3,
+      "acl_probe_counts": {
+        "student": {
+          "timeout": 60
+        },
+        "staff": {
+          "reply": 185,
+          "timeout": 1
+        }
+      },
+      "final_drop_counts": {
+        "tcp": 29,
+        "udp": 29
+      }
+    },
+    {
+      "scenario": "adaptive",
+      "events": [
+        {
+          "from": "A",
+          "to": "B",
+          "util_a_pct_rounded": 96,
+          "util_b_pct_rounded": 0,
+          "observed_at_unix_ns": 1795062956723884173
+        },
+        {
+          "from": "B",
+          "to": "A",
+          "util_a_pct_rounded": 0,
+          "util_b_pct_rounded": 0,
+          "observed_at_unix_ns": 1795062980817225686
+        }
+      ],
+      "http_requests": 93,
+      "http_mean_ms": 58.88173621505376,
+      "udp_pps": 790.8706109317329,
+      "udp_lost": 11,
+      "udp_sent": 18981,
+      "tcp_mbps": 86.86260436421534,
+      "overlap_s": 22.007685988,
+      "active_queue_deltas": {
+        "s1": {
+          "1": 50,
+          "2": 2074,
+          "3": 18041
+        },
+        "s4": {
+          "1": 55,
+          "2": 7,
+          "3": 2757
+        }
+      },
+      "acl_windows": 7,
+      "acl_probe_counts": {
+        "student": {
+          "timeout": 86
+        },
+        "staff": {
+          "timeout": 1,
+          "reply": 224,
+          "connected_without_reply": 1
+        }
+      },
+      "final_drop_counts": {
+        "tcp": 42,
+        "udp": 42
+      }
+    },
+    {
+      "scenario": "fixed-a-repeat",
+      "events": [],
+      "http_requests": 48,
+      "http_mean_ms": 40.72250710416667,
+      "udp_pps": 790.9039658694221,
+      "udp_lost": 1,
+      "udp_sent": 9491,
+      "tcp_mbps": 87.07786002616469,
+      "overlap_s": 11.00038912,
+      "active_queue_deltas": {
+        "s1": {
+          "1": 50,
+          "2": 2016,
+          "3": 17732
+        },
+        "s4": {
+          "1": 59,
+          "2": 12,
+          "3": 2526
+        }
+      },
+      "acl_windows": 3,
+      "acl_probe_counts": {
+        "student": {
+          "timeout": 60
+        },
+        "staff": {
+          "reply": 210
+        }
+      },
+      "final_drop_counts": {
+        "tcp": 29,
+        "udp": 29
+      }
+    }
+  ]
+}

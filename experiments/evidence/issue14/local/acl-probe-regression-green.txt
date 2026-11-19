@@ -1,0 +1,18 @@
+test_denied_packet_must_hit_actual_matching_drop_flow (test_integration.TestIntegrationACL) ... ok
+test_probe_windows_include_both_roles_and_transports (test_integration.TestIntegrationACL) ... ok
+test_staff_handshake_timeout_is_retained_without_counting_as_reply (test_integration.TestIntegrationACL) ... ok
+test_tcp_handshake_is_a_denial_failure_even_when_echo_is_missing (test_integration.TestIntegrationACL) ... ok
+test_controller_and_probes_are_guarded (test_integration.TestIntegrationLifecycle) ... ok
+test_missing_telemetry_stops_acceptance (test_integration.TestIntegrationLifecycle) ... ok
+test_plan_round_trip_fixed_repeat_and_sustained_adaptive (test_integration.TestIntegrationLifecycle) ... ok
+test_postflight_runs_even_after_harness_failure_and_blocks_success (test_integration.TestIntegrationLifecycle) ... ok
+test_controller_policy_persistence_and_cooldown (test_integration.TestRouteEvidence) ... ok
+test_historical_path_a_and_actual_overlap (test_integration.TestRouteEvidence) ... ok
+test_path_b_requires_both_edge_rules_and_transit_activity (test_integration.TestRouteEvidence) ... ok
+test_route_events_need_order_and_policy_compliance (test_integration.TestRouteEvidence) ... ok
+test_stale_inactive_transit_is_a_failure (test_integration.TestRouteEvidence) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.042s
+
+OK

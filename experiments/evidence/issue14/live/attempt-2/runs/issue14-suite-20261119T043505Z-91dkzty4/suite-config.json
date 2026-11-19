@@ -1,0 +1,99 @@
+{
+  "revision": "39576bc541034502d551e6d086183cfc36d9a892",
+  "source_sha256": {
+    "controller/ryu_controller.py": "7296f419d12c5ed6a0ea79bceb549b1b1302cedd687c817675193d49108c998b",
+    "experiments/harness.py": "7141d9c512eaf21d56663eb20493cf4fb019fa0072b9851f957ed9a6423e9ac5",
+    "experiments/integration.py": "49ffd21035e12085c97324017e58a0dfb3c6447a8ca8897f89d6234e04a9c19f",
+    "experiments/integration_checks.py": "b51e084c95dd0d9bb2845a4a890613b8a375a6c521b5d292990a4b108a94ffe4",
+    "experiments/integration_probe.py": "43c08d2dd132634cc14da11311c7537370776ed355ed3c65190aeaf37d7812e6",
+    "experiments/metrics.py": "82438896a277f28a8b408c88028f5ac5edf56385decce6a498ef7b7a49a5aebe",
+    "experiments/networkx_topology_analysis.py": "94b818f43bae49c548a976a20aeba2cb279b17f51683d9f07e8ae627f71c798b",
+    "network/qos_lab_topology.py": "44e933df1eda46570722ea19404bd536d3abfbc529fe73a67e284cdcec5131ae",
+    "network/qos_live.py": "c78f0465c66df6bf40cba21ad13ca2241cdef78d072d9afa5c4152794db8a2df",
+    "network/qos_plan.py": "a727ec6034fd3dd53d599f310cae4624b7553e0514b1d33486c614b9ecb98f37",
+    "network/qos_runtime.py": "0093bc4d950e00baaa087b7c22a2dfcfde466718023371640bc39f5c49ee0725",
+    "network/test_acl.py": "f60450ff2da6ce15662178859ead1e07be4ff4b90856dea0d2e90c704b9513fd",
+    "network/test_adaptive.py": "285ab8d64424ed7074deae570a3592870eb5840ca13f8eeb2addb1dac0adc33e",
+    "network/topology.py": "a9fa1aba0eec2f75856579228c545791176f4fb6e72c5e74a8091e1e3794c75f",
+    "network/verify_connectivity.py": "e9c280d0b27a53de83c01c22c6f5b8e44471846ea8a682c9b51b41702eab6740",
+    "tests/test_harness.py": "3ea8ac260760d7d5d2bbaf49c1b28085ebf8ba0fae467baf5db3087867beed2e",
+    "tests/test_harness_remediation.py": "9fa155adc314fa93ca199fb525cf6273f2f88aafce8c4fc7ba5591c598b55610",
+    "tests/test_integration.py": "d19df08f06651d0425e49ee08994cc9e63272f20cf7a11f1c8430eb040cdb961",
+    "tests/test_qos.py": "652c95c25fd5b0b12d5a43a94025e7b3b8e39544b5267f4f405b9cbc825b34d1",
+    "tests/test_qos_review.py": "e1e369532ead0eb7113050235c2f1788674db5f219c11e3d956d26ad0f1f0eb4",
+    "tests/test_qos_runtime.py": "7ac3a63d472a4423e163503267655e7aef6d577e326da99c912f6fff9f26d803",
+    "tests/test_traffic.py": "9505e858769f31aa9dcd0feb55e2f2fd9367eb3bee01fc59af0a9d6de5b74b62",
+    "traffic/__main__.py": "a77e0aa0b38adda806b5643687806f5669dd8963b6cd83fe55ccfa9c6d74abe8",
+    "traffic/workloads.py": "a9e85948a172673fe2c6e4f47c085eb74f52591d8b39fcb5185409d465fd4d31"
+  },
+  "environment": {
+    "python": "3.8.10",
+    "os_release": "NAME=\"Ubuntu\"\nVERSION=\"20.04.6 LTS (Focal Fossa)\"\nID=ubuntu\nID_LIKE=debian\nPRETTY_NAME=\"Ubuntu 20.04.6 LTS\"\nVERSION_ID=\"20.04\"\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nVERSION_CODENAME=focal\nUBUNTU_CODENAME=focal\n",
+    "kernel": "5.15.0-139-generic",
+    "openflow": "1.3",
+    "mininet": "2.3.1b4",
+    "ovs": "ovs-vsctl (Open vSwitch) 2.13.8\nDB Schema 8.2.0",
+    "iperf3": "iperf 3.7 (cJSON 1.5.2)\nLinux mininet 5.15.0-139-generic #149~20.04.1-Ubuntu SMP Wed Apr 16 08:29:56 UTC 2025 x86_64\nOptional features available: CPU affinity setting, IPv6 flow label, SCTP, TCP congestion algorithm setting, sendfile / zerocopy, socket pacing, authentication",
+    "ryu": "ryu-manager 4.34"
+  },
+  "controller_policy": {
+    "sample_dt": 1.0,
+    "congest_hi": 80.0,
+    "congest_lo": 45.0,
+    "cool_down": 10.0,
+    "busy_persist": 3
+  },
+  "scenarios": {
+    "fixed-a": {
+      "workloads": [
+        "http",
+        "udp",
+        "bulk"
+      ],
+      "duration_s": 12,
+      "http_interval_s": 0.25,
+      "http_timeout_s": 2,
+      "udp_rate_pps": 800,
+      "udp_payload_bytes": 1200,
+      "udp_port": 5000,
+      "bulk_target_bps": 0,
+      "controller_port": 17656,
+      "qos": true,
+      "adaptive": false
+    },
+    "adaptive": {
+      "workloads": [
+        "http",
+        "udp",
+        "bulk"
+      ],
+      "duration_s": 24,
+      "http_interval_s": 0.25,
+      "http_timeout_s": 2,
+      "udp_rate_pps": 800,
+      "udp_payload_bytes": 1200,
+      "udp_port": 5000,
+      "bulk_target_bps": 0,
+      "controller_port": 17656,
+      "qos": true,
+      "adaptive": true
+    },
+    "fixed-a-repeat": {
+      "workloads": [
+        "http",
+        "udp",
+        "bulk"
+      ],
+      "duration_s": 12,
+      "http_interval_s": 0.25,
+      "http_timeout_s": 2,
+      "udp_rate_pps": 800,
+      "udp_payload_bytes": 1200,
+      "udp_port": 5000,
+      "bulk_target_bps": 0,
+      "controller_port": 17656,
+      "qos": true,
+      "adaptive": false
+    }
+  }
+}

@@ -120,3 +120,6 @@ Provide `--controller-dir` when Ryu telemetry is available separately. It
 recomputes packet matching and metrics from the workload artifacts. Review
 `summary.json` and `commands.jsonl` from the live harness for execution and
 cleanup outcomes.
+
+For the fixed and adaptive system integration smoke suite, see the
+[Issue #14 startup, verification and shutdown procedure](INTEGRATION.md).

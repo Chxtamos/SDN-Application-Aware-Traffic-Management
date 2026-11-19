@@ -1,0 +1,25 @@
+loading app <vm-lab>/attempt-2/repo/controller/ryu_controller.py
+loading app ryu.controller.ofp_handler
+instantiating app <vm-lab>/attempt-2/repo/controller/ryu_controller.py of RyuController
+[11:36:29] controller started: adaptive=False path=A
+instantiating app ryu.controller.ofp_handler of OFPHandler
+[11:36:30] switch connected: s1 (dpid=1)
+[11:36:30] switch connected: s4 (dpid=4)
+[11:36:30] switch connected: s3 (dpid=3)
+[11:36:30] switch connected: s2 (dpid=2)
+[11:36:32] ARP proxy: 10.0.20.1 -> gw 10.0.20.254 on s1
+[11:36:32] ROUTE 10.0.20.1->10.0.40.20 (tcp:22) class=bulk path=A
+[11:36:32] ARP proxy: 10.0.10.1 -> gw 10.0.10.254 on s1
+[11:36:32] ACL DENY 10.0.10.1[tcp:22] -> 10.0.40.20 on s1
+[11:36:32] ARP proxy: 10.0.40.20 -> gw 10.0.40.254 on s4
+[11:36:32] ROUTE 10.0.20.1->10.0.40.30 (udp:5001) class=periodic path=A
+[11:36:32] ARP proxy: 10.0.40.30 -> gw 10.0.40.254 on s4
+[11:36:32] ACL DENY 10.0.10.1[udp:5001] -> 10.0.40.30 on s1
+[11:36:36] ROUTE 10.0.20.1->10.0.40.30 (udp:5000) class=periodic path=A
+[11:36:36] ARP proxy: 10.0.30.1 -> gw 10.0.30.254 on s1
+[11:36:36] ROUTE 10.0.30.1->10.0.40.20 (tcp:5201) class=bulk path=A
+[11:36:36] ROUTE 10.0.10.1->10.0.40.10 (tcp:80) class=interactive path=A
+[11:36:36] ARP proxy: 10.0.40.10 -> gw 10.0.40.254 on s4
+[11:37:00] ROUTE 10.0.10.1->10.0.40.10 (icmp:0) class=other path=A
+[11:37:00] ROUTE 10.0.20.1->10.0.40.30 (icmp:0) class=other path=A
+[11:37:00] ROUTE 10.0.30.1->10.0.40.20 (icmp:0) class=other path=A

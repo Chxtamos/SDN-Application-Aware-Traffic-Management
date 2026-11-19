@@ -1,0 +1,18 @@
+test_staff_handshake_timeout_is_retained_without_counting_as_reply (test_integration.TestIntegrationACL) ... ERROR
+
+======================================================================
+ERROR: test_staff_handshake_timeout_is_retained_without_counting_as_reply (test_integration.TestIntegrationACL)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<windows-user>\SDN-Final-Project-issue14\tests\test_integration.py", line 161, in test_staff_handshake_timeout_is_retained_without_counting_as_reply
+    checks.verify_acl_run(records)
+  File "<windows-user>\SDN-Final-Project-issue14\experiments\integration_checks.py", line 162, in verify_acl_run
+    require(row["status"] in {"reply", "timeout"},
+  File "<windows-user>\SDN-Final-Project-issue14\experiments\integration_checks.py", line 29, in require
+    raise RuntimeError(message)
+RuntimeError: staff tcp probe error: connected_without_reply
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (errors=1)

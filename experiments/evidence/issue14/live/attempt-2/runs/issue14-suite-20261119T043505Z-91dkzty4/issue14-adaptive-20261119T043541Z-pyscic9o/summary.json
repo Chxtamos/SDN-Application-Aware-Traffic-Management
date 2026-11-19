@@ -1,0 +1,729 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "workloads": {
+    "http": {
+      "status": "ok",
+      "issues": [],
+      "observed": {
+        "http_requests": 93,
+        "http_failures": 0
+      },
+      "reported": {},
+      "calculated": {
+        "packet_loss_pct": null,
+        "one_way_latency_ms": null,
+        "http_response_time_ms": {
+          "count": 93,
+          "min": 17.5755,
+          "mean": 58.88173621505376,
+          "p95": 82.286468,
+          "max": 1042.121997
+        }
+      },
+      "icmp_probe": {
+        "observed": {
+          "icmp_probes_sent": 3,
+          "icmp_echo_replies": 3
+        },
+        "reported": {
+          "icmp_rtt_ms": {
+            "min": 8.863,
+            "mean": 12.349,
+            "max": 19.109,
+            "mdev": 4.78
+          }
+        },
+        "calculated": {
+          "icmp_packet_loss_pct": 0.0
+        }
+      }
+    },
+    "udp": {
+      "status": "ok",
+      "issues": [],
+      "observed": {
+        "scheduled_packets": 19200,
+        "attempted_packets": 18981,
+        "skipped_intervals": 219,
+        "sent_packets": 18981,
+        "clock_comparison": "host_monotonic",
+        "send_failure_count": 0,
+        "received_packets": 18970,
+        "ignored_packets": 0,
+        "sender_window_elapsed_s": 24.000133192
+      },
+      "reported": {},
+      "calculated": {
+        "packet_loss_pct": 0.0579526895316369,
+        "one_way_latency_ms": null,
+        "http_response_time_ms": null,
+        "udp_send_pps": 790.8706109317329,
+        "udp_goodput_bps": 7587957.889363034,
+        "udp_target_pps": 800.0,
+        "udp_offered_load_status": "within_tolerance",
+        "udp_packets_lost": 11,
+        "udp_duplicate_packets": 0,
+        "udp_app_delay_ms": {
+          "count": 18970,
+          "min": 4.065392,
+          "mean": 18.032017132999474,
+          "p95": 35.310537,
+          "max": 40.839192
+        },
+        "udp_app_delay_variation_ms": {
+          "count": 18969,
+          "min": 4.000000000559112e-06,
+          "mean": 0.4519620514523697,
+          "p95": 1.1944569999999999,
+          "max": 9.586535000000001
+        }
+      },
+      "icmp_probe": {
+        "observed": {
+          "icmp_probes_sent": 3,
+          "icmp_echo_replies": 3
+        },
+        "reported": {
+          "icmp_rtt_ms": {
+            "min": 8.841,
+            "mean": 12.429,
+            "max": 19.076,
+            "mdev": 4.704
+          }
+        },
+        "calculated": {
+          "icmp_packet_loss_pct": 0.0
+        }
+      }
+    },
+    "bulk": {
+      "status": "ok",
+      "issues": [],
+      "observed": {},
+      "reported": {
+        "tcp_sender_bps": 90713547.1282313,
+        "tcp_receiver_bps": 86862604.36421534,
+        "tcp_sent_bytes": 272141832,
+        "tcp_received_bytes": 264451136,
+        "tcp_retransmissions": 891
+      },
+      "calculated": {
+        "packet_loss_pct": null,
+        "one_way_latency_ms": null,
+        "http_response_time_ms": null
+      },
+      "icmp_probe": {
+        "observed": {
+          "icmp_probes_sent": 3,
+          "icmp_echo_replies": 3
+        },
+        "reported": {
+          "icmp_rtt_ms": {
+            "min": 8.872,
+            "mean": 12.581,
+            "max": 19.659,
+            "mdev": 5.006
+          }
+        },
+        "calculated": {
+          "icmp_packet_loss_pct": 0.0
+        }
+      }
+    }
+  },
+  "issues": [],
+  "started_at_unix_ns": 1795062941980356581,
+  "ended_at_unix_ns": 1795062988832239802,
+  "controller_statistics": {
+    "port": {
+      "artifact": "sdn_stats.csv",
+      "observed": {
+        "rows": 792,
+        "datapath_ids": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "issues": [],
+      "calculated_in_controller": [
+        "util_pct"
+      ]
+    },
+    "flow": {
+      "artifact": "sdn_flows.csv",
+      "observed": {
+        "rows": 1264,
+        "datapath_ids": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "issues": []
+    }
+  },
+  "processes": {
+    "preflight-bridges": {
+      "label": "preflight-bridges",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942006356949
+    },
+    "preflight-qos": {
+      "label": "preflight-qos",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942033585204
+    },
+    "preflight-queues": {
+      "label": "preflight-queues",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942061106947
+    },
+    "preflight-interfaces": {
+      "label": "preflight-interfaces",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942088141473
+    },
+    "preflight-processes": {
+      "label": "preflight-processes",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942135533779
+    },
+    "preflight-controller-port": {
+      "label": "preflight-controller-port",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942163130150
+    },
+    "controller-readiness-1": {
+      "label": "controller-readiness-1",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942224675707
+    },
+    "controller-readiness-2": {
+      "label": "controller-readiness-2",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942304612250
+    },
+    "controller-readiness-3": {
+      "label": "controller-readiness-3",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942359863205
+    },
+    "controller-readiness-4": {
+      "label": "controller-readiness-4",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942415803149
+    },
+    "controller-readiness-5": {
+      "label": "controller-readiness-5",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942463743385
+    },
+    "controller-readiness-6": {
+      "label": "controller-readiness-6",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942511706102
+    },
+    "controller-readiness-7": {
+      "label": "controller-readiness-7",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942559784558
+    },
+    "controller-readiness-8": {
+      "label": "controller-readiness-8",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942607810251
+    },
+    "controller-readiness-9": {
+      "label": "controller-readiness-9",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942655814452
+    },
+    "controller-readiness-10": {
+      "label": "controller-readiness-10",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062942698552765
+    },
+    "controller": {
+      "label": "controller",
+      "status": "stopped",
+      "returncode": -15,
+      "ended_at_unix_ns": 1795062988560159434
+    },
+    "before-s1-dump-ports": {
+      "label": "before-s1-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946417639492
+    },
+    "before-s1-dump-flows": {
+      "label": "before-s1-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946445126311
+    },
+    "before-s1-queue-stats": {
+      "label": "before-s1-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946472374861
+    },
+    "before-s2-dump-ports": {
+      "label": "before-s2-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946504351653
+    },
+    "before-s2-dump-flows": {
+      "label": "before-s2-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946536475871
+    },
+    "before-s2-queue-stats": {
+      "label": "before-s2-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946564238538
+    },
+    "before-s3-dump-ports": {
+      "label": "before-s3-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946593579435
+    },
+    "before-s3-dump-flows": {
+      "label": "before-s3-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946621331823
+    },
+    "before-s3-queue-stats": {
+      "label": "before-s3-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946648771457
+    },
+    "before-s4-dump-ports": {
+      "label": "before-s4-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946676064600
+    },
+    "before-s4-dump-flows": {
+      "label": "before-s4-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946708552227
+    },
+    "before-s4-queue-stats": {
+      "label": "before-s4-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062946736342774
+    },
+    "initial-a-s1-dump-ports": {
+      "label": "initial-a-s1-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950422028553
+    },
+    "initial-a-s1-dump-flows": {
+      "label": "initial-a-s1-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950450038175
+    },
+    "initial-a-s1-queue-stats": {
+      "label": "initial-a-s1-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950478216461
+    },
+    "initial-a-s2-dump-ports": {
+      "label": "initial-a-s2-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950506632792
+    },
+    "initial-a-s2-dump-flows": {
+      "label": "initial-a-s2-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950534192734
+    },
+    "initial-a-s2-queue-stats": {
+      "label": "initial-a-s2-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950561790155
+    },
+    "initial-a-s3-dump-ports": {
+      "label": "initial-a-s3-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950589466067
+    },
+    "initial-a-s3-dump-flows": {
+      "label": "initial-a-s3-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950617013613
+    },
+    "initial-a-s3-queue-stats": {
+      "label": "initial-a-s3-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950644508674
+    },
+    "initial-a-s4-dump-ports": {
+      "label": "initial-a-s4-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950671868586
+    },
+    "initial-a-s4-dump-flows": {
+      "label": "initial-a-s4-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950699904391
+    },
+    "initial-a-s4-queue-stats": {
+      "label": "initial-a-s4-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950728784185
+    },
+    "bulk-readiness-1": {
+      "label": "bulk-readiness-1",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062950962537704
+    },
+    "bulk-readiness-2": {
+      "label": "bulk-readiness-2",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062951005944430
+    },
+    "path-b-s1-dump-ports": {
+      "label": "path-b-s1-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959292371441
+    },
+    "path-b-s1-dump-flows": {
+      "label": "path-b-s1-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959323102801
+    },
+    "path-b-s1-queue-stats": {
+      "label": "path-b-s1-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959352953539
+    },
+    "path-b-s2-dump-ports": {
+      "label": "path-b-s2-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959383148527
+    },
+    "path-b-s2-dump-flows": {
+      "label": "path-b-s2-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959417071696
+    },
+    "path-b-s2-queue-stats": {
+      "label": "path-b-s2-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959448301851
+    },
+    "path-b-s3-dump-ports": {
+      "label": "path-b-s3-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959477912893
+    },
+    "path-b-s3-dump-flows": {
+      "label": "path-b-s3-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959508154052
+    },
+    "path-b-s3-queue-stats": {
+      "label": "path-b-s3-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959539065931
+    },
+    "path-b-s4-dump-ports": {
+      "label": "path-b-s4-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959573118604
+    },
+    "path-b-s4-dump-flows": {
+      "label": "path-b-s4-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959604781686
+    },
+    "path-b-s4-queue-stats": {
+      "label": "path-b-s4-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062959636041669
+    },
+    "http": {
+      "label": "http",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062975179297910
+    },
+    "udp-send": {
+      "label": "udp-send",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062975332349790
+    },
+    "bulk-server": {
+      "label": "bulk-server",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062977057228626
+    },
+    "bulk": {
+      "label": "bulk",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062977057878994
+    },
+    "http-server": {
+      "label": "http-server",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062982947796944
+    },
+    "udp-receiver": {
+      "label": "udp-receiver",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062983100527449
+    },
+    "udp-report": {
+      "label": "udp-report",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062983324668474
+    },
+    "after-load-s1-dump-ports": {
+      "label": "after-load-s1-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062985886409243
+    },
+    "after-load-s1-dump-flows": {
+      "label": "after-load-s1-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062985915102979
+    },
+    "after-load-s1-queue-stats": {
+      "label": "after-load-s1-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062985943534301
+    },
+    "after-load-s2-dump-ports": {
+      "label": "after-load-s2-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062985971654996
+    },
+    "after-load-s2-dump-flows": {
+      "label": "after-load-s2-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062985999751283
+    },
+    "after-load-s2-queue-stats": {
+      "label": "after-load-s2-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986027166288
+    },
+    "after-load-s3-dump-ports": {
+      "label": "after-load-s3-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986051802324
+    },
+    "after-load-s3-dump-flows": {
+      "label": "after-load-s3-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986075482465
+    },
+    "after-load-s3-queue-stats": {
+      "label": "after-load-s3-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986100030590
+    },
+    "after-load-s4-dump-ports": {
+      "label": "after-load-s4-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986127518405
+    },
+    "after-load-s4-dump-flows": {
+      "label": "after-load-s4-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986155876916
+    },
+    "after-load-s4-queue-stats": {
+      "label": "after-load-s4-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986183861414
+    },
+    "acl-student": {
+      "label": "acl-student",
+      "status": "stopped",
+      "returncode": -15,
+      "ended_at_unix_ns": 1795062986231661640
+    },
+    "acl-staff": {
+      "label": "acl-staff",
+      "status": "stopped",
+      "returncode": -15,
+      "ended_at_unix_ns": 1795062986252805360
+    },
+    "after-s1-dump-ports": {
+      "label": "after-s1-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986287058802
+    },
+    "after-s1-dump-flows": {
+      "label": "after-s1-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986315192844
+    },
+    "after-s1-queue-stats": {
+      "label": "after-s1-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986343862840
+    },
+    "after-s2-dump-ports": {
+      "label": "after-s2-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986371560114
+    },
+    "after-s2-dump-flows": {
+      "label": "after-s2-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986399089739
+    },
+    "after-s2-queue-stats": {
+      "label": "after-s2-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986426856543
+    },
+    "after-s3-dump-ports": {
+      "label": "after-s3-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986454559617
+    },
+    "after-s3-dump-flows": {
+      "label": "after-s3-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986482551925
+    },
+    "after-s3-queue-stats": {
+      "label": "after-s3-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986510927381
+    },
+    "after-s4-dump-ports": {
+      "label": "after-s4-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986539112144
+    },
+    "after-s4-dump-flows": {
+      "label": "after-s4-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986567198448
+    },
+    "after-s4-queue-stats": {
+      "label": "after-s4-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062986595091458
+    },
+    "http-ping": {
+      "label": "http-ping",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062987029758357
+    },
+    "udp-ping": {
+      "label": "udp-ping",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062987464886584
+    },
+    "bulk-ping": {
+      "label": "bulk-ping",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795062987899075763
+    },
+    "acl-tcp-server": {
+      "label": "acl-tcp-server",
+      "status": "stopped",
+      "returncode": -15,
+      "ended_at_unix_ns": 1795062987903294696
+    },
+    "acl-udp-server": {
+      "label": "acl-udp-server",
+      "status": "stopped",
+      "returncode": -15,
+      "ended_at_unix_ns": 1795062987904021503
+    }
+  }
+}

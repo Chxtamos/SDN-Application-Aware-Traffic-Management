@@ -1,0 +1,128 @@
+{
+  "http-server": {
+    "host": "web1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "http-server",
+      "--duration",
+      "20"
+    ],
+    "timeout_s": 23,
+    "json": true
+  },
+  "http": {
+    "host": "student1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "http",
+      "--source",
+      "10.0.10.1",
+      "--interval",
+      "0.25",
+      "--timeout",
+      "2",
+      "--duration",
+      "12"
+    ],
+    "timeout_s": 15,
+    "json": true
+  },
+  "udp-receiver": {
+    "host": "iot1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "udp-receive",
+      "--stream-id",
+      "24b93fa3-9abb-5809-8ab5-912d5de446bb",
+      "--source",
+      "10.0.20.1",
+      "--port",
+      "5000",
+      "--duration",
+      "20"
+    ],
+    "timeout_s": 23,
+    "json": true
+  },
+  "udp-send": {
+    "host": "staff1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "udp-send",
+      "--stream-id",
+      "24b93fa3-9abb-5809-8ab5-912d5de446bb",
+      "--source",
+      "10.0.20.1",
+      "--port",
+      "5000",
+      "--duration",
+      "12",
+      "--rate-pps",
+      "800",
+      "--payload-size",
+      "1200"
+    ],
+    "timeout_s": 15,
+    "json": true
+  },
+  "udp-report": {
+    "host": null,
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "udp-report",
+      "--sender",
+      "<vm-lab>/attempt-2/evidence/runs/issue14-suite-20261119T043505Z-91dkzty4/issue14-fixed-a-20261119T043505Z-gbp_p6ap/udp-send.json",
+      "--receiver",
+      "<vm-lab>/attempt-2/evidence/runs/issue14-suite-20261119T043505Z-91dkzty4/issue14-fixed-a-20261119T043505Z-gbp_p6ap/udp-receiver.json"
+    ],
+    "timeout_s": 15,
+    "json": true
+  },
+  "bulk-server": {
+    "host": "file1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "bulk-server",
+      "--timeout",
+      "25"
+    ],
+    "timeout_s": 28,
+    "json": true
+  },
+  "bulk": {
+    "host": "mgmt1",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "traffic",
+      "bulk",
+      "--source",
+      "10.0.30.1",
+      "--duration",
+      "12",
+      "--target-bps",
+      "0"
+    ],
+    "timeout_s": 25,
+    "json": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "scenario": "adaptive",
+  "directory": "issue14-adaptive-20261119T043541Z-pyscic9o",
+  "issues": [],
+  "harness_status": "ok",
+  "workload_overlap": {
+    "started_ns": 1795062953000000000,
+    "ended_ns": 1795062975007685988,
+    "duration_ns": 22007685988
+  },
+  "cleanup": "verified",
+  "status": "pass"
+}

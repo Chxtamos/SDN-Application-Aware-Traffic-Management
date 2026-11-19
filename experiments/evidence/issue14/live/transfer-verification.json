@@ -1,0 +1,14 @@
+[
+  {
+    "attempt": 1,
+    "vm_manifest_entries": 423,
+    "verified_bundle_sha256": "948290fa8900c27e6cb6b78b551c0a07915f6c3e2a826ab3646a9156050a2776",
+    "result": "fail"
+  },
+  {
+    "attempt": 2,
+    "vm_manifest_entries": 637,
+    "verified_bundle_sha256": "27221811210cebe3c44a3933f31fbafd93815000c8ddb4daaacccc01c5996a2b",
+    "result": "pass"
+  }
+]

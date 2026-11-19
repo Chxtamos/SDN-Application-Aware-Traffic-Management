@@ -1,0 +1,13 @@
+{
+  "scenario": "fixed-a",
+  "directory": "issue14-fixed-a-20261119T043505Z-gbp_p6ap",
+  "issues": [],
+  "harness_status": "ok",
+  "workload_overlap": {
+    "started_ns": 1795062917150736077,
+    "ended_ns": 1795062927969648586,
+    "duration_ns": 10818912509
+  },
+  "cleanup": "verified",
+  "status": "pass"
+}

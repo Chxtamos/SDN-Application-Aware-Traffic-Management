@@ -95,11 +95,11 @@ def workload_plan(config, run_dir, python):
     return plan
 
 
-def run_directory(parent):
+def run_directory(parent, prefix="issue13"):
     parent = Path(parent).resolve()
     parent.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    return Path(tempfile.mkdtemp(prefix="issue13-" + stamp + "-", dir=str(parent)))
+    return Path(tempfile.mkdtemp(prefix=prefix + "-" + stamp + "-", dir=str(parent)))
 
 
 def write_json(path, payload):
@@ -316,7 +316,7 @@ def bulk_listener(processes):
     return listening
 
 
-def execute_workloads(processes, config, plan):
+def start_workloads(processes, config, plan):
     servers = [label for kind, label in (("http", "http-server"), ("udp", "udp-receiver"),
                                         ("bulk", "bulk-server")) if kind in config["workloads"]]
     for label in servers:
@@ -328,10 +328,47 @@ def execute_workloads(processes, config, plan):
     clients = ["udp-send" if kind == "udp" else kind for kind in config["workloads"]]
     for label in clients:
         processes.start(label, plan[label])
+    return clients, servers
+
+
+def finish_workloads(processes, plan, clients, servers):
     processes.finish_many(clients + servers)
     if "udp-send" in clients:
         processes.start("udp-report", plan["udp-report"])
         processes.finish("udp-report")
+
+
+def execute_workloads(processes, config, plan):
+    clients, servers = start_workloads(processes, config, plan)
+    finish_workloads(processes, plan, clients, servers)
+
+
+def check_idle(processes, port, phase="preflight"):
+    checks = {
+        "bridges": ["ovs-vsctl", "--timeout=5", "list-br"],
+        "qos": ["ovs-vsctl", "--timeout=5", "--bare", "--no-headings", "--columns=_uuid", "list", "QoS"],
+        "queues": ["ovs-vsctl", "--timeout=5", "--bare", "--no-headings", "--columns=_uuid", "list", "Queue"],
+        "interfaces": ["ip", "-o", "link", "show"],
+        "processes": ["ps", "-eo", "comm="],
+    }
+    for label, argv in checks.items():
+        outcome, text = run_command(processes, phase + "-" + label, argv, timeout=8)
+        if outcome["status"] != "ok":
+            raise RuntimeError("could not verify " + phase + " " + label)
+        conflict = bool(text.strip())
+        if label == "interfaces":
+            conflict = bool(re.search(r"(?m)^\d+:\s+(?:s[1-4]|student1|staff1|mgmt1|web1|iot1|file1)"
+                                      r"(?:-eth\d+)?[:@]", text))
+        if label == "processes":
+            conflict = bool(re.search(r"(?m)^\s*(?:mnexec|ryu-manager|ovs-testcontrol)\s*$", text))
+        if conflict:
+            raise RuntimeError("conflicting VM resources in " + phase + " " + label)
+
+    port_filter = ["sport", "=", ":" + str(port)]
+    outcome, listeners = run_command(processes, phase + "-controller-port",
+                                     ["ss", "-H", "-lnt", *port_filter])
+    if outcome["status"] != "ok" or listeners.strip():
+        raise RuntimeError("could not verify that the controller port was free")
 
 
 @contextmanager
@@ -344,32 +381,9 @@ def diamond(config, directory, processes, ryu_manager):
     from network.qos_lab_topology import QoSLabTopo
     from network.qos_runtime import apply, cleanup
 
-    checks = {
-        "bridges": ["ovs-vsctl", "--timeout=5", "list-br"],
-        "qos": ["ovs-vsctl", "--timeout=5", "--bare", "--no-headings", "--columns=_uuid", "list", "QoS"],
-        "queues": ["ovs-vsctl", "--timeout=5", "--bare", "--no-headings", "--columns=_uuid", "list", "Queue"],
-        "interfaces": ["ip", "-o", "link", "show"],
-        "processes": ["ps", "-eo", "comm="],
-    }
-    for label, argv in checks.items():
-        outcome, text = run_command(processes, "preflight-" + label, argv, timeout=8)
-        if outcome["status"] != "ok":
-            raise RuntimeError("could not verify preflight " + label)
-        conflict = bool(text.strip())
-        if label == "interfaces":
-            conflict = bool(re.search(r"(?m)^\d+:\s+(?:s[1-4]|student1|staff1|mgmt1|web1|iot1|file1)"
-                                      r"(?:-eth\d+)?[:@]", text))
-        if label == "processes":
-            conflict = bool(re.search(r"(?m)^\s*(?:mnexec|ryu-manager|ovs-testcontrol)\s*$", text))
-        if conflict:
-            raise RuntimeError("conflicting VM resources in preflight " + label)
-
     port = config["controller_port"]
+    check_idle(processes, port)
     port_filter = ["sport", "=", ":" + str(port)]
-    outcome, listeners = run_command(processes, "preflight-controller-port",
-                                     ["ss", "-H", "-lnt", *port_filter])
-    if outcome["status"] != "ok" or listeners.strip():
-        raise RuntimeError("could not verify that the controller port was free")
     controller_env = {"SDN_RUN_DIR": str(directory), "SDN_QOS": str(int(config["qos"])),
                       "SDN_ADAPTIVE": str(int(config["adaptive"])), "PYTHONDONTWRITEBYTECODE": "1"}
     controller = [ryu_manager, "--ofp-listen-host", "127.0.0.1", "--ofp-tcp-listen-port", str(port),
@@ -426,7 +440,7 @@ def probes(processes, kinds):
                     "-i", ".2", "-W", "1", "-I", source, destination], host, timeout=5)
 
 
-def execute(config, directory, ryu_manager):
+def execute(config, directory, ryu_manager, exercise=None):
     plan = workload_plan(config, directory, sys.executable)
     write_json(directory / "configuration.json", config)
     write_json(directory / "plan.json", plan)
@@ -440,7 +454,10 @@ def execute(config, directory, ryu_manager):
             with runs:
                 snapshots(runs, "before", config["qos"])
                 try:
-                    execute_workloads(runs, config, plan)
+                    if exercise is None:
+                        execute_workloads(runs, config, plan)
+                    else:
+                        exercise(runs, infrastructure, config, plan)
                 finally:
                     snapshots(runs, "after", config["qos"])
                 probes(runs, config["workloads"])

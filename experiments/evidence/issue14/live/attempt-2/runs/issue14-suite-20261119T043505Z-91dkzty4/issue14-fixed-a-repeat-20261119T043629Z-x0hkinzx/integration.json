@@ -1,0 +1,13 @@
+{
+  "scenario": "fixed-a-repeat",
+  "directory": "issue14-fixed-a-repeat-20261119T043629Z-x0hkinzx",
+  "issues": [],
+  "harness_status": "ok",
+  "workload_overlap": {
+    "started_ns": 1795062997000000000,
+    "ended_ns": 1795063008000389120,
+    "duration_ns": 11000389120
+  },
+  "cleanup": "verified",
+  "status": "pass"
+}
