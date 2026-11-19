@@ -1,0 +1,13 @@
+{
+  "approved_review_zip_sha256": "df6014d57d7c39f189239c3b718e5820964f85432acc28ddce582f15b378b5ef",
+  "base": "c8a0832",
+  "branch": "feat/issue-13-experiment-harness",
+  "checkout": "Isolated SSH workspace, unittest discovery under tests",
+  "command": "~/ryu-env/bin/python -B <workspace>/run-unittest.py <workspace>/evidence/regression-counts.json",
+  "ended_at_utc": "2026-11-18T20:16:38.195142+00:00",
+  "os": "Ubuntu 20.04.6 LTS",
+  "python": "3.8.10",
+  "regression_exit_code": 0,
+  "ryu": "4.34",
+  "started_at_utc": "2026-11-18T20:16:31.978757+00:00"
+}

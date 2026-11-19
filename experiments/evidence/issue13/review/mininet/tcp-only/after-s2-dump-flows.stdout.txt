@@ -1,0 +1,4 @@
+OFPST_FLOW reply (OF1.3) (xid=0x2):
+ cookie=0x200, duration=6.784s, table=0, n_packets=5886, n_bytes=76046670, send_flow_rem priority=200,tcp,dl_dst=00:00:00:00:28:14,tp_dst=5201 actions=output:2
+ cookie=0x200, duration=6.784s, table=0, n_packets=5812, n_bytes=382005, send_flow_rem priority=200,tcp,dl_dst=00:00:00:00:1e:01,tp_src=5201 actions=output:1
+ cookie=0x0, duration=9.948s, table=0, n_packets=35, n_bytes=4642, send_flow_rem priority=0 actions=CONTROLLER:65535

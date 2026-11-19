@@ -1,0 +1,15 @@
+{
+  "workloads": [
+    "http"
+  ],
+  "duration_s": 6,
+  "http_interval_s": 0.25,
+  "http_timeout_s": 2,
+  "udp_rate_pps": 800,
+  "udp_payload_bytes": 1200,
+  "udp_port": 5000,
+  "bulk_target_bps": 0,
+  "controller_port": 17656,
+  "qos": true,
+  "adaptive": false
+}

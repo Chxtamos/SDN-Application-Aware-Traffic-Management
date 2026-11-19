@@ -1,0 +1,18 @@
+test_error_udp_artifacts_with_complete_captures_are_incomplete (test_harness_remediation.TestStatusIntegrity.test_error_udp_artifacts_with_complete_captures_are_incomplete) ... ok
+test_executed_icmp_with_bad_or_missing_summary_is_incomplete (test_harness_remediation.TestStatusIntegrity.test_executed_icmp_with_bad_or_missing_summary_is_incomplete) ... ok
+test_exited_wrapper_still_gets_process_group_cleanup (test_harness_remediation.TestStatusIntegrity.test_exited_wrapper_still_gets_process_group_cleanup) ... ok
+test_genuine_total_icmp_loss_and_historical_absence (test_harness_remediation.TestStatusIntegrity.test_genuine_total_icmp_loss_and_historical_absence) ... ok
+test_http_status_matches_completed_request_records (test_harness_remediation.TestStatusIntegrity.test_http_status_matches_completed_request_records) ... ok
+test_icmp_command_log_preserves_total_loss_and_flags_missing_stdout (test_harness_remediation.TestStatusIntegrity.test_icmp_command_log_preserves_total_loss_and_flags_missing_stdout) ... ok
+test_icmp_finish_metadata_requires_an_integer_exit_code (test_harness_remediation.TestStatusIntegrity.test_icmp_finish_metadata_requires_an_integer_exit_code) ... ok
+test_malformed_stored_icmp_is_incomplete_without_process_metadata (test_harness_remediation.TestStatusIntegrity.test_malformed_stored_icmp_is_incomplete_without_process_metadata) ... ok
+test_process_exit_code_mismatch_is_incomplete (test_harness_remediation.TestStatusIntegrity.test_process_exit_code_mismatch_is_incomplete) ... ok
+test_started_icmp_without_finish_is_incomplete (test_harness_remediation.TestStatusIntegrity.test_started_icmp_without_finish_is_incomplete) ... ok
+test_udp_envelopes_match_recomputed_statuses (test_harness_remediation.TestStatusIntegrity.test_udp_envelopes_match_recomputed_statuses) ... ok
+test_udp_error_without_sufficient_endpoint_observations_stays_failed (test_harness_remediation.TestStatusIntegrity.test_udp_error_without_sufficient_endpoint_observations_stays_failed) ... ok
+test_udp_status_validation_matrix (test_harness_remediation.TestStatusIntegrity.test_udp_status_validation_matrix) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 2.214s
+
+OK

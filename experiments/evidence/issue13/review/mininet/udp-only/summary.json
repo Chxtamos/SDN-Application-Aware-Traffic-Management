@@ -1,0 +1,369 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "workloads": {
+    "udp": {
+      "status": "ok",
+      "issues": [],
+      "observed": {
+        "scheduled_packets": 4800,
+        "attempted_packets": 4784,
+        "skipped_intervals": 16,
+        "sent_packets": 4784,
+        "clock_comparison": "host_monotonic",
+        "send_failure_count": 0,
+        "received_packets": 4774,
+        "ignored_packets": 0,
+        "sender_window_elapsed_s": 6.000154784
+      },
+      "reported": {},
+      "calculated": {
+        "packet_loss_pct": 0.20903010033444816,
+        "one_way_latency_ms": null,
+        "http_response_time_ms": null,
+        "udp_send_pps": 797.3127647901691,
+        "udp_goodput_bps": 7638202.954732309,
+        "udp_target_pps": 800.0,
+        "udp_offered_load_status": "within_tolerance",
+        "udp_packets_lost": 10,
+        "udp_duplicate_packets": 0,
+        "udp_app_delay_ms": {
+          "count": 4774,
+          "min": 4.094038,
+          "mean": 4.513290318810222,
+          "p95": 4.647462,
+          "max": 11.925432
+        },
+        "udp_app_delay_variation_ms": {
+          "count": 4773,
+          "min": 7.000000000090267e-06,
+          "mean": 0.09128205237795936,
+          "p95": 0.2058460000000002,
+          "max": 7.5750980000000006
+        }
+      },
+      "icmp_probe": {
+        "observed": {
+          "icmp_probes_sent": 3,
+          "icmp_echo_replies": 3
+        },
+        "reported": {
+          "icmp_rtt_ms": {
+            "min": 8.887,
+            "mean": 14.417,
+            "max": 25.023,
+            "mdev": 7.501
+          }
+        },
+        "calculated": {
+          "icmp_packet_loss_pct": 0.0
+        }
+      }
+    }
+  },
+  "issues": [],
+  "started_at_unix_ns": 1795029805791568051,
+  "ended_at_unix_ns": 1795029826009330671,
+  "controller_statistics": {
+    "port": {
+      "artifact": "sdn_stats.csv",
+      "observed": {
+        "rows": 319,
+        "datapath_ids": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "issues": [],
+      "calculated_in_controller": [
+        "util_pct"
+      ]
+    },
+    "flow": {
+      "artifact": "sdn_flows.csv",
+      "observed": {
+        "rows": 102,
+        "datapath_ids": [
+          1,
+          2,
+          4
+        ]
+      },
+      "issues": []
+    }
+  },
+  "processes": {
+    "preflight-bridges": {
+      "label": "preflight-bridges",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029805829736086
+    },
+    "preflight-qos": {
+      "label": "preflight-qos",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029805851777318
+    },
+    "preflight-queues": {
+      "label": "preflight-queues",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029805874035754
+    },
+    "preflight-interfaces": {
+      "label": "preflight-interfaces",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029805896907786
+    },
+    "preflight-processes": {
+      "label": "preflight-processes",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029805922624432
+    },
+    "preflight-controller-port": {
+      "label": "preflight-controller-port",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029805950673910
+    },
+    "controller-readiness-1": {
+      "label": "controller-readiness-1",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806012613506
+    },
+    "controller-readiness-2": {
+      "label": "controller-readiness-2",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806092453753
+    },
+    "controller-readiness-3": {
+      "label": "controller-readiness-3",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806139735012
+    },
+    "controller-readiness-4": {
+      "label": "controller-readiness-4",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806187764971
+    },
+    "controller-readiness-5": {
+      "label": "controller-readiness-5",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806235709225
+    },
+    "controller-readiness-6": {
+      "label": "controller-readiness-6",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806280214521
+    },
+    "controller-readiness-7": {
+      "label": "controller-readiness-7",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806327706608
+    },
+    "controller-readiness-8": {
+      "label": "controller-readiness-8",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806375763307
+    },
+    "controller-readiness-9": {
+      "label": "controller-readiness-9",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806423749647
+    },
+    "controller-readiness-10": {
+      "label": "controller-readiness-10",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029806466455096
+    },
+    "controller": {
+      "label": "controller",
+      "status": "stopped",
+      "returncode": -15,
+      "ended_at_unix_ns": 1795029825878947792
+    },
+    "before-s1-dump-ports": {
+      "label": "before-s1-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809715886767
+    },
+    "before-s1-dump-flows": {
+      "label": "before-s1-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809742993506
+    },
+    "before-s1-queue-stats": {
+      "label": "before-s1-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809770177752
+    },
+    "before-s2-dump-ports": {
+      "label": "before-s2-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809797213675
+    },
+    "before-s2-dump-flows": {
+      "label": "before-s2-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809824248352
+    },
+    "before-s2-queue-stats": {
+      "label": "before-s2-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809851603265
+    },
+    "before-s3-dump-ports": {
+      "label": "before-s3-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809878580991
+    },
+    "before-s3-dump-flows": {
+      "label": "before-s3-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809905829875
+    },
+    "before-s3-queue-stats": {
+      "label": "before-s3-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809933029325
+    },
+    "before-s4-dump-ports": {
+      "label": "before-s4-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809959952046
+    },
+    "before-s4-dump-flows": {
+      "label": "before-s4-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029809987036036
+    },
+    "before-s4-queue-stats": {
+      "label": "before-s4-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029810016605189
+    },
+    "udp-send": {
+      "label": "udp-send",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029816372762328
+    },
+    "udp-receiver": {
+      "label": "udp-receiver",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824284896812
+    },
+    "udp-report": {
+      "label": "udp-report",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824494017560
+    },
+    "after-s1-dump-ports": {
+      "label": "after-s1-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824516330973
+    },
+    "after-s1-dump-flows": {
+      "label": "after-s1-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824538520395
+    },
+    "after-s1-queue-stats": {
+      "label": "after-s1-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824560937430
+    },
+    "after-s2-dump-ports": {
+      "label": "after-s2-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824583977047
+    },
+    "after-s2-dump-flows": {
+      "label": "after-s2-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824608824657
+    },
+    "after-s2-queue-stats": {
+      "label": "after-s2-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824635797841
+    },
+    "after-s3-dump-ports": {
+      "label": "after-s3-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824662798890
+    },
+    "after-s3-dump-flows": {
+      "label": "after-s3-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824689828084
+    },
+    "after-s3-queue-stats": {
+      "label": "after-s3-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824716641544
+    },
+    "after-s4-dump-ports": {
+      "label": "after-s4-dump-ports",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824743648144
+    },
+    "after-s4-dump-flows": {
+      "label": "after-s4-dump-flows",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824770514667
+    },
+    "after-s4-queue-stats": {
+      "label": "after-s4-queue-stats",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029824798896284
+    },
+    "udp-ping": {
+      "label": "udp-ping",
+      "status": "ok",
+      "returncode": 0,
+      "ended_at_unix_ns": 1795029825232033603
+    }
+  }
+}
